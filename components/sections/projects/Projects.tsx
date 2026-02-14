@@ -1,194 +1,131 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
-import { useRef } from 'react';
-import { ArrowRight, ArrowUpRight, CheckCircle2, Cpu, Globe, Rocket, Sparkles } from 'lucide-react';
+import { Section, Container, Heading, Text, Badge, Button } from '@/components/ui';
 
 const projects = [
-    {
-        title: 'Nexus E-Commerce',
-        category: 'Next-Gen Retail',
-        impact: '+142%',
-        metric: 'Conversion Boost',
-        description: 'A headless commerce engine built for global scale. We implemented an edge-cached catalog and instant-checkout system that redefined $100M+ revenue streams.',
-        image: '/ecommerce_project_mockup_1770396393410.png',
-        tech: ['Next.js', 'Stripe', 'Redis', 'Tailwind'],
-        icon: Globe
-    },
-    {
-        title: 'Quantum SaaS',
-        category: 'Enterprise Analytics',
-        impact: '0.4ms',
-        metric: 'Data Latency',
-        description: 'Real-time infrastructure monitoring for Fortune 500 companies. Featuring predictive AI alerts and deep-link diagnostics across distributed systems.',
-        image: '/saas_dashboard_mockup_1770396419360.png',
-        tech: ['TypeScript', 'FastAPI', 'AWS', 'TensorFlow'],
-        icon: Cpu
-    },
-    {
-        title: 'HealthSync Portal',
-        category: 'Digital Healthcare',
-        impact: '12k',
-        metric: 'Active Patients',
-        description: 'HIPAA-compliant patient gateway. We automated appointment scheduling and secure telemetry synchronization across 50+ clinics nationwide.',
-        image: '/healthcare_portal_mockup_1770396434998.png',
-        tech: ['React', 'Firebase', 'Socket.io', 'Auth0'],
-        icon: Rocket
-    }
+  {
+    title: 'Global Logistics Dashboard',
+    category: 'SaaS Platform',
+    image: '/saas_dashboard_mockup_1770396419360.png',
+    description: 'A comprehensive supply chain management system with real-time tracking and predictive analytics.',
+    tags: ['Next.js', 'PostgreSQL', 'Real-time Analytics'],
+    link: '/portfolio',
+  },
+  {
+    title: 'Health-Tech Patient Portal',
+    category: 'Healthcare',
+    image: '/healthcare_portal_mockup_1770396434998.png',
+    description: 'Secure, HIPAA-compliant platform for patient management and telehealth consultations.',
+    tags: ['Security', 'React', 'Telehealth'],
+    link: '/portfolio',
+  },
+  {
+    title: 'Enterprise ERP Solution',
+    category: 'Enterprise Software',
+    image: '/financial_dashboard_mockup_1770396481122.png',
+    description: 'Integrated business process management for finance, HR, and inventory control.',
+    tags: ['Custom ERP', 'FinTech', 'Reporting'],
+    link: '/portfolio',
+  },
 ];
 
 export default function Projects() {
-    return (
-        <section id="projects" className="py-40 bg-white relative">
-            <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                {/* Header - Editorial Style */}
-                <div className="mb-32 space-y-12">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        className="inline-flex items-center gap-3 px-6 py-3 bg-[#0F172A] text-white rounded-full text-xs font-black uppercase tracking-[0.3em]"
-                    >
-                        <Sparkles className="w-4 h-4 text-indigo-400" />
-                        Selected Productions
-                    </motion.div>
-
-                    <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12">
-                        <motion.h2
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="text-6xl md:text-8xl font-black text-[#0F172A] leading-[0.9] tracking-tighter"
-                        >
-                            We build <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Digital Value.</span>
-                        </motion.h2>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="text-xl text-gray-500 font-medium max-w-sm leading-relaxed"
-                        >
-                            Our work exists at the intersection of flawless engineering and strategic design. Every pixel serves a purpose.
-                        </motion.p>
-                    </div>
-                </div>
-
-                {/* Immersive Projects Stack */}
-                <div className="space-y-40">
-                    {projects.map((project, index) => (
-                        <ProjectRow key={index} project={project} index={index} />
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-}
-
-function ProjectRow({ project, index }: { project: any, index: number }) {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end start"]
-    });
-
-    const y = useTransform(scrollYProgress, [0, 1], [-100, 100]);
-
-    return (
-        <div
-            ref={containerRef}
-            className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-16 lg:gap-24`}
-        >
-            {/* Image Section - Immersive/Floating */}
-            <div className="flex-1 w-full group relative">
-                <motion.div
-                    initial={{ opacity: 0, y: 100 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, ease: [0.21, 0.45, 0.32, 0.9] }}
-                    className="relative aspect-[16/10] overflow-hidden rounded-[4rem] bg-gray-100 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] group-hover:shadow-[0_80px_150px_-30px_rgba(79,70,229,0.2)] transition-all duration-700"
-                >
-                    <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                    />
-
-                    {/* Floating Info Overlay */}
-                    <div className="absolute top-10 left-10 z-10">
-                        <div className="bg-white/80 backdrop-blur-xl border border-white/40 p-6 rounded-[2rem] shadow-2xl transition-all group-hover:bg-indigo-600 group-hover:text-white">
-                            <project.icon className="w-8 h-8" />
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* Parallax Background Text */}
-                <motion.div
-                    style={{ y }}
-                    className="absolute -z-10 -top-20 -left-10 lg:-left-20 text-[12rem] font-black text-gray-50 select-none hidden lg:block"
-                >
-                    0{index + 1}
-                </motion.div>
-            </div>
-
-            {/* Content Section - Editorial Details */}
-            <div className="flex-1 w-full space-y-10 py-10">
-                <div className="space-y-4">
-                    <motion.p
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        className="text-indigo-600 font-black uppercase tracking-[0.3em] text-sm"
-                    >
-                        {project.category}
-                    </motion.p>
-                    <motion.h3
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-6xl font-black text-[#0F172A] tracking-tighter"
-                    >
-                        {project.title}
-                    </motion.h3>
-                </div>
-
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    className="text-xl text-gray-500 font-medium leading-relaxed"
-                >
-                    {project.description}
-                </motion.p>
-
-                {/* Dynamic Metrics Bar */}
-                <div className="flex gap-12 py-8 border-y border-gray-100">
-                    <div>
-                        <p className="text-4xl font-black text-[#0F172A] mb-1">{project.impact}</p>
-                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">{project.metric}</p>
-                    </div>
-                    <div>
-                        <p className="text-4xl font-black text-[#0F172A] mb-1">Elite</p>
-                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Delivery Grade</p>
-                    </div>
-                </div>
-
-                {/* Tech & Action */}
-                <div className="flex flex-wrap items-center justify-between gap-8 pt-6">
-                    <div className="flex flex-wrap gap-2">
-                        {project.tech.map((t: string) => (
-                            <span key={t} className="px-4 py-2 bg-gray-50 text-gray-400 text-[10px] font-black uppercase tracking-widest rounded-xl border border-gray-100">
-                                {t}
-                            </span>
-                        ))}
-                    </div>
-                    <button className="group/btn flex items-center gap-3 bg-[#0F172A] text-white pl-8 pr-4 py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-indigo-600 transition-all hover:scale-105">
-                        Deep Dive
-                        <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center group-hover/btn:bg-white group-hover/btn:text-indigo-600 transition-all">
-                            <ArrowUpRight className="w-5 h-5" />
-                        </div>
-                    </button>
-                </div>
-            </div>
+  return (
+    <Section id="projects" bg="dark-hex">
+      <Container>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-20">
+          <div className="max-w-2xl">
+            <Badge variant="dark" className="mb-4">Our Portfolio</Badge>
+            <Heading level={2} className="!text-white mb-6">
+              Engineering solutions that{' '}
+              <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">fuel growth</span>
+            </Heading>
+            <Text className="text-gray-300 text-lg font-medium leading-relaxed">
+              Explore our recent projects where technical precision meets 
+              strategic design to deliver high-impact digital products.
+            </Text>
+          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="hidden md:block"
+          >
+            <Button variant="outline" href="/portfolio" className="border-white/20 text-white hover:bg-white/10 metallic-shine">
+              View All Projects
+            </Button>
+          </motion.div>
         </div>
-    );
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.title}
+              className="group relative"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+            >
+              <div className="relative h-full p-6 rounded-[2.5rem] bg-white/[0.05] border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden flex flex-col hover:bg-white/[0.08] hover:border-white/20 transition-all duration-500">
+                {/* Image Container */}
+                <div className="relative aspect-[16/10] rounded-[1.75rem] overflow-hidden mb-8 border border-white/5">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A1B]/60 to-transparent" />
+                  <div className="absolute top-4 left-4">
+                    <Badge variant="glass" size="sm" className="bg-[#0A0A1B]/60 backdrop-blur-xl border-white/10 text-white font-bold tracking-widest px-3 py-1">
+                      Case Study
+                    </Badge>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 flex flex-col">
+                  <div className="flex items-start justify-between mb-4">
+                    <span className="text-[10px] font-black tracking-[0.25em] uppercase text-indigo-400">
+                      {project.category}
+                    </span>
+                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-indigo-600 group-hover:border-indigo-600 transition-all duration-500">
+                      <ArrowUpRight className="w-5 h-5 text-white group-hover:rotate-45 transition-transform" />
+                    </div>
+                  </div>
+
+                  <h3 className="text-2xl font-bold text-white mb-4 leading-tight group-hover:text-indigo-300 transition-colors">
+                    {project.title}
+                  </h3>
+                  
+                  <p className="text-gray-400 text-sm lg:text-base font-medium leading-relaxed mb-8 flex-1">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mt-auto">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 bg-white/[0.03] text-gray-300 text-[10px] font-bold tracking-widest uppercase rounded-lg border border-white/10 group-hover:border-white/20 transition-colors"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-12 text-center md:hidden">
+          <Button variant="outline" href="/portfolio" fullWidth className="border-white/20 text-white">View All Projects</Button>
+        </div>
+      </Container>
+    </Section>
+  );
 }

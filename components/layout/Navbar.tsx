@@ -1,109 +1,122 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import { Container, Button } from '@/components/ui';
+
+const navLinks = [
+  { name: 'Services', href: '/#services' },
+  { name: 'Portfolio', href: '/portfolio' },
+  { name: 'Pricing', href: '/pricing' },
+  { name: 'About', href: '/about' },
+];
 
 export default function Navbar() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    const navLinks = [
-        { name: 'Home', href: '/' },
-        { name: 'Services', href: '/services' },
-        { name: 'Portfolio', href: '/portfolio' },
-        { name: 'Pricing', href: '/pricing' },
-        { name: 'Contact', href: '/contact' },
-    ];
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    {/* Logo */}
-                    <Link href="/" className="flex items-center space-x-2">
-                        <span className="text-2xl font-bold bg-gradient-to-r from-[#667eea] to-[#764ba2] bg-clip-text text-transparent">
-                            Tech Sparks
-                        </span>
-                    </Link>
+  return (
+    <nav 
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 py-4 ${
+        isScrolled 
+          ? 'bg-[var(--color-darker-bg)]/80 backdrop-blur-xl border-b border-white/10 shadow-lg' 
+          : 'bg-[var(--color-darker-bg)]/40 backdrop-blur-md border-b border-white/5'
+      }`}
+    >
+      <Container>
+        <div className="flex items-center justify-between">
+          {/* Logo - Placeholder with font-based logo for now */}
+          <Link href="/" className="group flex items-center gap-2">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform">
+              S
+            </div>
+            <span className="text-xl font-black tracking-tighter text-white uppercase">
+              TECH SPARKS
+            </span>
+          </Link>
 
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center space-x-8">
-                        {navLinks.map((link) => {
-                            const isActive = pathname === link.href;
-                            return (
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    className={`transition-colors duration-200 text-sm font-medium ${isActive
-                                            ? 'text-[#667eea] border-b-2 border-[#667eea]'
-                                            : 'text-gray-700 hover:text-[#667eea]'
-                                        }`}
-                                >
-                                    {link.name}
-                                </Link>
-                            );
-                        })}
-                    </div>
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-10">
+            {navLinks.map((link) => (
+              <Link 
+                key={link.name} 
+                href={link.href}
+                className={`text-sm font-bold tracking-wide transition-colors ${
+                  isScrolled ? 'text-white/80 hover:text-white' : 'text-white/60 hover:text-white'
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+            <Button size="sm" href="/contact" icon={<ArrowRight className="w-4 h-4" />} iconPosition="right" className="metallic-shine">
+              Start Project
+            </Button>
+          </div>
 
-                    {/* CTA Button */}
-                    <div className="hidden md:block">
-                        <button className="px-6 py-2 bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white rounded-lg text-sm font-medium hover:shadow-lg hover:scale-105 transition-all duration-200">
-                            Get Started
-                        </button>
-                    </div>
+          {/* Mobile Toggle */}
+          <button 
+            className="lg:hidden p-2 rounded-xl bg-white/10 text-white hover:bg-white/20 transition-colors"
+            onClick={() => setMobileMenuOpen(true)}
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
+      </Container>
 
-                    {/* Mobile Menu Button */}
-                    <button
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-                        aria-label="Toggle menu"
-                    >
-                        <svg
-                            className="w-6 h-6 text-gray-700"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            {isMenuOpen ? (
-                                <path d="M6 18L18 6M6 6l12 12" />
-                            ) : (
-                                <path d="M4 6h16M4 12h16M4 18h16" />
-                            )}
-                        </svg>
-                    </button>
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            className="fixed inset-0 z-[60] bg-[var(--color-darker-bg)] p-6 lg:hidden"
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+          >
+            <div className="flex items-center justify-between mb-12">
+              <Link href="/" className="group flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white font-black text-xl">
+                  S
                 </div>
+                <span className="text-xl font-black tracking-tighter text-white">TECH SPARKS</span>
+              </Link>
+              <button 
+                className="p-2 bg-white/10 text-white rounded-xl"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <X className="w-6 h-6" />
+              </button>
             </div>
 
-            {/* Mobile Menu */}
-            {isMenuOpen && (
-                <div className="md:hidden bg-white border-t border-gray-200">
-                    <div className="px-4 py-4 space-y-3">
-                        {navLinks.map((link) => {
-                            const isActive = pathname === link.href;
-                            return (
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    className={`block px-4 py-2 rounded-lg transition-colors ${isActive
-                                            ? 'bg-gray-50 text-[#667eea] font-semibold'
-                                            : 'text-gray-700 hover:bg-gray-50 hover:text-[#667eea]'
-                                        }`}
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
-                                    {link.name}
-                                </Link>
-                            );
-                        })}
-                        <button className="w-full px-6 py-2 bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-200">
-                            Get Started
-                        </button>
-                    </div>
-                </div>
-            )}
-        </nav>
-    );
+            <div className="flex flex-col gap-6 mb-12">
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.name} 
+                  href={link.href}
+                  className="text-3xl font-extrabold text-white hover:text-indigo-400 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+
+            <Button size="lg" fullWidth href="/contact" onClick={() => setMobileMenuOpen(false)}>
+              Start Your Project
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
 }

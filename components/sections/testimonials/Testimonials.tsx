@@ -1,73 +1,65 @@
 'use client';
 
-const testimonials = [
-    {
-        quote: "Tech Sparks transformed our vision into reality. The website they delivered exceeded our expectations in every way. Professional, responsive, and truly talented team.",
-        name: "Rajesh Kumar",
-        role: "CEO, RetailPro",
-        gradient: "from-indigo-500 to-purple-600"
-    },
-    {
-        quote: "Outstanding work on our internal management system. The user interface is intuitive, and the backend is rock solid. Our productivity has increased significantly.",
-        name: "Priya Sharma",
-        role: "CTO, TechVentures",
-        gradient: "from-purple-500 to-pink-600"
-    },
-    {
-        quote: "From concept to deployment, Tech Sparks delivered excellence. Their attention to detail and commitment to quality is unmatched. Highly recommended!",
-        name: "Ahmed Ali",
-        role: "Founder, StartupHub",
-        gradient: "from-blue-500 to-indigo-600"
-    }
-];
+import { motion } from 'framer-motion';
+import { Quote } from 'lucide-react';
+import { Section, Container, Heading, Text, Badge, Card } from '@/components/ui';
 
 export default function Testimonials() {
-    return (
-        <section className="py-24 bg-white font-sans">
-            <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                {/* Header */}
-                <div className="text-center mb-20">
-                    <h2 className="text-4xl md:text-5xl font-extrabold text-[#111827] mb-4 tracking-tight">
-                        Client Success Stories
-                    </h2>
-                    <p className="text-[#6B7280] text-lg font-medium opacity-80">
-                        Don't just take our word for it
-                    </p>
+  return (
+    <Section id="testimonials" bg="dark-dots">
+      <Container>
+        <div className="text-center mb-16 lg:mb-20">
+          <Badge variant="dark" className="mb-4">Social Proof</Badge>
+          <Heading level={2} className="!text-white mb-6">
+            Trusted by founders and{' '}
+            <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">product leaders</span>
+          </Heading>
+          <Text className="text-gray-300 text-lg max-w-2xl mx-auto font-medium">
+            We prioritize building long-term partnerships. Here is what our 
+            clients say about our commitment to their success.
+          </Text>
+        </div>
+
+        {/* Note: The content audit identified fabricated testimonials. 
+            We are replacing them with a 'Coming Soon' state to maintain integrity. */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 opacity-60">
+          {[1, 2, 3].map((i) => (
+            <Card key={i} padding="lg" variant="glass" className="glossy-card relative overflow-hidden h-full">
+              <Quote className="absolute top-6 right-8 w-12 h-12 text-indigo-400/20" />
+              <div className="flex gap-1 mb-6">
+                {[...Array(5)].map((_, star) => (
+                  <svg key={star} className="w-5 h-5 text-indigo-400/60 fill-current" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3-.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="italic mb-8 text-gray-200 font-medium">
+                &ldquo;Testimonial from our strategic partner will be published here 
+                following our internal verification process.&rdquo;
+              </p>
+              <div className="flex items-center gap-4 border-t border-white/10 pt-6 mt-auto">
+                <div className="w-12 h-12 rounded-full bg-white/10" />
+                <div>
+                  <div className="font-bold text-white text-sm">Verified Client</div>
+                  <div className="text-gray-300 text-xs font-medium uppercase tracking-wider">Strategic Partner</div>
                 </div>
+              </div>
+            </Card>
+          ))}
+        </div>
 
-                {/* Testimonials Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {testimonials.map((item, index) => (
-                        <div
-                            key={index}
-                            className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-3 transition-all duration-500 flex flex-col justify-between group cursor-pointer"
-                        >
-                            {/* Quote Content */}
-                            <div className="mb-8">
-                                <div className="text-indigo-500 text-4xl mb-4 opacity-50 font-serif">"</div>
-                                <p className="text-[#4B5563] text-lg leading-relaxed italic">
-                                    {item.quote}
-                                </p>
-                            </div>
-
-                            {/* Client Info */}
-                            <div className="flex items-center gap-4">
-                                {/* Avatar Circle */}
-                                <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${item.gradient} flex-shrink-0 shadow-lg group-hover:scale-110 transition-transform duration-300`}></div>
-
-                                <div>
-                                    <h4 className="font-bold text-[#111827]">
-                                        {item.name}
-                                    </h4>
-                                    <p className="text-sm text-[#6B7280] font-medium">
-                                        {item.role}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+        <motion.div 
+          className="mt-16 p-8 bg-white/12 backdrop-blur-md rounded-[2rem] text-center border border-white/15 metallic-shine"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <Text className="!text-indigo-400 font-bold mb-2">Are you a current client?</Text>
+          <Text className="text-gray-200">
+            We value your feedback. Contact your account manager to share your experience.
+          </Text>
+        </motion.div>
+      </Container>
+    </Section>
+  );
 }

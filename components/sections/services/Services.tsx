@@ -1,143 +1,145 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import {
-    Globe,
-    Briefcase,
-    Users,
-    ShoppingCart,
-    Smartphone,
-    Settings,
-    ArrowRight,
-    SearchCode,
-    Layers,
-    Terminal,
-    Palette
-} from 'lucide-react';
+import { Globe, Code2, Palette, ShoppingCart, Server, Smartphone } from 'lucide-react';
+import { Container, Section, Card, Heading, Text, Badge } from '@/components/ui';
 
 const services = [
-    {
-        icon: Globe,
-        title: 'Bespoke Ecosystems',
-        description: 'We don\'t just build sites; we architect digital homes that breathe your brand identity.',
-        tags: ['Architecture', 'Scaling'],
-        color: 'from-blue-500/20 to-indigo-500/20'
-    },
-    {
-        icon: Terminal,
-        title: 'Advanced SaaS',
-        description: 'Complex logic delivered through intuitive interfaces. Built for high-stakes enterprise operation.',
-        tags: ['Security', 'Cloud'],
-        color: 'from-purple-500/20 to-fuchsia-500/20'
-    },
-    {
-        icon: Palette,
-        title: 'Elite UI/UX',
-        description: 'Immersive designs that captivate. We focus on sensory experiences that drive emotional connection.',
-        tags: ['Motion', 'Brand'],
-        color: 'from-rose-500/20 to-orange-500/20'
-    },
-    {
-        icon: ShoppingCart,
-        title: 'Headless Global Commerce',
-        description: 'Sub-second page speeds with global currency and logistics integration at the core.',
-        tags: ['Conversion', 'Web3'],
-        color: 'from-emerald-500/20 to-teal-500/20'
-    },
-    {
-        icon: Layers,
-        title: 'Micro-Services',
-        description: 'Decoupled, high-availability backends that grow as your user base explodes.',
-        tags: ['Kubernetes', 'Go'],
-        color: 'from-cyan-500/20 to-sky-500/20'
-    },
-    {
-        icon: Smartphone,
-        title: 'Native-Grade PWA',
-        description: 'The power of a native app with the reach of the web. Fully offline and lightning fast.',
-        tags: ['Performance', 'Mobile'],
-        color: 'from-indigo-500/20 to-violet-500/20'
-    }
+  {
+    icon: Globe,
+    title: 'Custom Web Applications',
+    description: 'Purpose-built web applications tailored to your workflows, users, and growth goals.',
+    tags: ['React', 'Next.js', 'TypeScript'],
+    gradient: 'from-blue-500/10 to-indigo-500/10',
+    iconBg: 'bg-blue-500/10',
+    iconColor: 'text-blue-500',
+    border: 'hover:border-blue-200',
+  },
+  {
+    icon: Code2,
+    title: 'SaaS Platforms',
+    description: 'Multi-tenant platforms with user management, billing, and analytics — built for scale.',
+    tags: ['Multi-tenant', 'Stripe', 'Auth'],
+    gradient: 'from-indigo-500/10 to-purple-500/10',
+    iconBg: 'bg-indigo-500/10',
+    iconColor: 'text-indigo-500',
+    border: 'hover:border-indigo-200',
+  },
+  {
+    icon: Palette,
+    title: 'Strategic UI/UX Design',
+    description: 'Research-backed interfaces that increase conversions, reduce support tickets, and delight users.',
+    tags: ['Figma', 'Prototyping', 'Research'],
+    gradient: 'from-purple-500/10 to-pink-500/10',
+    iconBg: 'bg-purple-500/10',
+    iconColor: 'text-purple-500',
+    border: 'hover:border-purple-200',
+  },
+  {
+    icon: ShoppingCart,
+    title: 'E-Commerce Solutions',
+    description: 'Fast, conversion-optimized online stores with payment processing and inventory management.',
+    tags: ['Shopify', 'Payments', 'Analytics'],
+    gradient: 'from-emerald-500/10 to-teal-500/10',
+    iconBg: 'bg-emerald-500/10',
+    iconColor: 'text-emerald-500',
+    border: 'hover:border-emerald-200',
+  },
+  {
+    icon: Server,
+    title: 'Backend & API Development',
+    description: 'Scalable server architecture and APIs that keep your application fast and reliable as you grow.',
+    tags: ['Node.js', 'PostgreSQL', 'REST'],
+    gradient: 'from-amber-500/10 to-orange-500/10',
+    iconBg: 'bg-amber-500/10',
+    iconColor: 'text-amber-500',
+    border: 'hover:border-amber-200',
+  },
+  {
+    icon: Smartphone,
+    title: 'Progressive Web Apps',
+    description: 'The performance of a native app with the reach of the web. Offline-capable and lightning fast.',
+    tags: ['PWA', 'Offline', 'Push'],
+    gradient: 'from-rose-500/10 to-pink-500/10',
+    iconBg: 'bg-rose-500/10',
+    iconColor: 'text-rose-500',
+    border: 'hover:border-rose-200',
+  },
 ];
 
 export default function Services() {
-    return (
-        <section id="services" className="py-40 bg-white">
-            <div className="max-w-7xl mx-auto px-6 lg:px-12">
-                {/* Pro Header - Minimalist but Impactful */}
-                <div className="grid lg:grid-cols-2 gap-16 mb-24 items-end">
-                    <motion.div
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                    >
-                        <h2 className="text-6xl md:text-8xl font-black text-[#0F172A] leading-none tracking-tighter mb-8">
-                            Our <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Mastery.</span>
-                        </h2>
-                    </motion.div>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-xl text-gray-400 font-medium leading-relaxed pb-2"
-                    >
-                        We push the boundaries of what's possible on the web. Explore our range of ultra-high-end digital services.
-                    </motion.p>
+  return (
+    <Section id="services" bg="dark-ripple" spacing="lg">
+      <Container>
+        {/* Section header */}
+        <motion.div
+          className="text-center mb-16 lg:mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <Badge variant="dark" className="mb-4">
+            What We Build
+          </Badge>
+          <Heading level={2} className="!text-white mb-6">
+            Custom-built digital solutions{' '}
+            <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+              designed around your goals
+            </span>
+          </Heading>
+          <Text className="text-gray-300 text-lg max-w-2xl mx-auto font-medium leading-relaxed">
+            From web applications to SaaS platforms — every solution is engineered 
+            to solve real business problems and drive measurable growth.
+          </Text>
+        </motion.div>
+
+        {/* Services grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+            >
+              <Card 
+                variant="glass" 
+                className="glossy-card group h-full"
+                padding="lg"
+              >
+                {/* Icon */}
+                <div className={`w-12 h-12 rounded-xl ${service.iconBg} flex items-center justify-center mb-6 metallic-shine`}>
+                  <service.icon className={`w-6 h-6 ${service.iconColor}`} />
                 </div>
 
-                {/* Services Bento-Style Grid */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {services.map((service, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            whileHover={{ y: -10 }}
-                            className="group relative h-[450px] overflow-hidden rounded-[3rem] border border-gray-100 bg-white p-12 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/10"
-                        >
-                            {/* Decorative Background Glow */}
-                            <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
+                {/* Title */}
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">
+                  {service.title}
+                </h3>
 
-                            <div className="relative z-10 h-full flex flex-col">
-                                {/* Icon Header */}
-                                <div className="mb-10">
-                                    <div className="w-20 h-20 rounded-3xl bg-[#0F172A] text-white flex items-center justify-center group-hover:bg-indigo-600 transition-colors duration-500 shadow-2xl">
-                                        <service.icon className="w-10 h-10" />
-                                    </div>
-                                </div>
+                {/* Description */}
+                <p className="text-gray-300 text-[15px] leading-relaxed mb-6 font-medium">
+                  {service.description}
+                </p>
 
-                                {/* Title & Tags */}
-                                <h3 className="text-3xl font-black text-[#0F172A] mb-4 tracking-tighter">
-                                    {service.title}
-                                </h3>
-                                <div className="flex flex-wrap gap-2 mb-6">
-                                    {service.tags.map((tag, i) => (
-                                        <span key={i} className="text-[10px] font-black uppercase tracking-widest text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                {/* Description */}
-                                <p className="text-gray-500 font-medium leading-relaxed mb-auto">
-                                    {service.description}
-                                </p>
-
-                                {/* Bottom Action - Pro Style */}
-                                <div className="pt-8 border-t border-gray-50 flex items-center justify-between group-hover:border-indigo-100 transition-colors">
-                                    <span className="text-xs font-black uppercase tracking-[0.2em] text-gray-300 group-hover:text-indigo-600 transition-colors">Inquire Service</span>
-                                    <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-300 group-hover:bg-indigo-600 group-hover:text-white transition-all transform group-hover:rotate-45">
-                                        <ArrowRight className="w-6 h-6" />
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2">
+                  {service.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 bg-white/10 text-white/90 text-xs font-semibold rounded-lg border border-white/15 group-hover:bg-white/15 group-hover:border-white/25 transition-colors"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-            </div>
-        </section>
-    );
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </Container>
+    </Section>
+  );
 }

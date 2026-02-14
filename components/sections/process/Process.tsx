@@ -1,85 +1,141 @@
 'use client';
 
+import { motion } from 'framer-motion';
+import { Search, PenTool, Code2, Rocket, RefreshCw, ArrowRight } from 'lucide-react';
+import { Section, Container, Heading, Text, Badge } from '@/components/ui';
+
 const steps = [
-    {
-        number: '1',
-        title: 'Discovery & Planning',
-        description: 'We understand your vision, goals, and requirements through detailed consultation and research.',
-        gradient: 'from-indigo-500 to-indigo-700'
-    },
-    {
-        number: '2',
-        title: 'Design & Prototyping',
-        description: 'Creating wireframes and high-fidelity designs that bring your ideas to life.',
-        gradient: 'from-indigo-600 to-purple-700'
-    },
-    {
-        number: '3',
-        title: 'Development',
-        description: 'Building your solution with clean code, best practices, and modern technologies.',
-        gradient: 'from-purple-600 to-fuchsia-700'
-    },
-    {
-        number: '4',
-        title: 'Testing & QA',
-        description: 'Rigorous testing across devices and browsers to ensure flawless performance.',
-        gradient: 'from-fuchsia-600 to-pink-700'
-    },
-    {
-        number: '5',
-        title: 'Launch & Support',
-        description: 'Smooth deployment and ongoing support to ensure your continued success.',
-        gradient: 'from-rose-600 to-rose-800'
-    }
+  {
+    icon: Search,
+    title: 'Discovery & Strategy',
+    description: 'We dive deep into your business goals, user needs, and market landscape to build a roadmap for success.',
+    color: 'from-blue-500 to-indigo-600',
+    shadow: 'shadow-blue-500/20',
+  },
+  {
+    icon: PenTool,
+    title: 'Strategic Design',
+    description: 'Crafting intuitive user experiences and high-impact visual identities that resonate with your target audience.',
+    color: 'from-indigo-500 to-purple-600',
+    shadow: 'shadow-indigo-500/20',
+  },
+  {
+    icon: Code2,
+    title: 'Agile Development',
+    description: 'Building robust, scalable applications with clean code and regular milestone updates.',
+    color: 'from-purple-500 to-pink-600',
+    shadow: 'shadow-purple-500/20',
+  },
+  {
+    icon: Rocket,
+    title: 'Deployment & Launch',
+    description: 'Thorough testing and seamless deployment to high-performance infrastructure.',
+    color: 'from-pink-500 to-rose-600',
+    shadow: 'shadow-pink-500/20',
+  },
+  {
+    icon: RefreshCw,
+    title: 'Growth & Support',
+    description: 'Post-launch optimization and ongoing support to ensure your product continues to scale.',
+    color: 'from-emerald-500 to-teal-600',
+    shadow: 'shadow-emerald-500/20',
+  },
 ];
 
 export default function Process() {
-    return (
-        <section className="py-24 bg-[#ECEEFF] relative overflow-hidden font-sans">
-            {/* Subtle background glow effects */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[60%] bg-purple-200/40 rounded-full blur-[120px]"></div>
-                <div className="absolute bottom-[-10%] left-[-5%] w-[60%] h-[60%] bg-indigo-200/40 rounded-full blur-[120px]"></div>
-            </div>
+  return (
+    <Section id="process" bg="dark-isometric" className="relative overflow-hidden">
+      {/* Background radial glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-indigo-500/5 rounded-full blur-[120px] pointer-events-none" />
 
-            <div className="max-w-4xl mx-auto px-6 relative z-10">
-                {/* Header */}
-                <div className="text-center mb-20">
-                    <h2 className="text-4xl md:text-5xl font-bold text-[#2D2E3E] mb-4">
-                        Our Development Process
-                    </h2>
-                    <p className="text-[#6B7280] text-lg font-medium opacity-80">
-                        A proven methodology to deliver exceptional results
-                    </p>
+      <Container>
+        <motion.div
+          className="text-center mb-24"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <Badge variant="glass" dot animated className="mb-6 px-4 py-1.5 text-indigo-300">
+            Our Methodology
+          </Badge>
+          <Heading level={2} className="text-4xl lg:text-6xl font-bold !text-white mb-8 leading-tight">
+            How we turn ideas into{' '}
+            <span className="block lg:inline bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              scalable products
+            </span>
+          </Heading>
+          <Text className="text-gray-400 text-xl max-w-3xl mx-auto leading-relaxed">
+            Our proven five-step process ensures transparency, quality, and 
+            strategic alignment every step of the way.
+          </Text>
+        </motion.div>
+
+        <div className="relative">
+          {/* Connecting Line (Desktop) with animated pulse */}
+          <div className="absolute top-[52px] left-0 w-full h-[2px] hidden lg:block overflow-hidden">
+            <div className="w-full h-full bg-white/5 absolute inset-0" />
+            <motion.div 
+              className="h-full bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent w-1/3"
+              animate={{ x: ['-100%', '300%'] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 relative">
+            {steps.map((step, index) => (
+              <motion.div
+                key={step.title}
+                className="relative group h-full"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.15 }}
+              >
+                {/* Connection Arrows (Mobile/Tablet) */}
+                {index < steps.length - 1 && (
+                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 lg:hidden text-white/10">
+                    <ArrowRight className="w-6 h-6 rotate-90" />
+                  </div>
+                )}
+
+                <div className="flex flex-col items-center h-full">
+                  {/* Icon Container */}
+                  <div className="relative mb-8">
+                    {/* Background glow for the icon */}
+                    <div className="absolute inset-0 bg-white/5 opacity-10 blur-2xl rounded-3xl -z-10" />
+                    
+                    <div className="w-24 h-24 lg:w-24 lg:h-24 rounded-[2rem] bg-white/5 border border-white/10 p-[1px] shadow-2xl metallic-shine ring-1 ring-white/5">
+                      <div className="w-full h-full rounded-[1.9rem] bg-[#0A0A1B] flex items-center justify-center relative overflow-hidden">
+                        {/* Subtle number background */}
+                        <span className="absolute -bottom-2 -left-2 text-6xl font-black text-white/[0.03] select-none">
+                          {index + 1}
+                        </span>
+                        <step.icon className="w-10 h-10 text-white relative z-10" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col items-center gap-3 mb-6">
+                    <span className="text-[10px] font-bold text-indigo-400 font-mono tracking-[0.2em] bg-indigo-500/10 px-3 py-1 rounded-full uppercase">
+                      Step 0{index + 1}
+                    </span>
+                    <div className="min-h-[60px] flex items-center justify-center text-center">
+                      <h3 className="text-xl lg:text-2xl font-bold text-white leading-tight">
+                        {step.title}
+                      </h3>
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-400 text-base font-medium leading-relaxed text-center max-w-[280px]">
+                    {step.description}
+                  </p>
                 </div>
-
-                {/* Steps List */}
-                <div className="space-y-12">
-                    {steps.map((step, index) => (
-                        <div
-                            key={index}
-                            className="flex items-start gap-8 md:gap-12 group"
-                        >
-                            {/* Number Circle */}
-                            <div className="flex-shrink-0">
-                                <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${step.gradient} flex items-center justify-center text-white text-2xl font-bold shadow-[0_15px_30px_-5px_rgba(79,70,229,0.3)] ring-8 ring-white/10 group-hover:scale-110 transition-transform duration-300`}>
-                                    {step.number}
-                                </div>
-                            </div>
-
-                            {/* Text Content */}
-                            <div className="pt-2">
-                                <h3 className="text-2xl font-bold text-[#2D2E3E] mb-2 tracking-tight group-hover:text-indigo-700 transition-colors duration-300">
-                                    {step.title}
-                                </h3>
-                                <p className="text-[#4B5563] text-lg leading-relaxed max-w-2xl opacity-90">
-                                    {step.description}
-                                </p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </Section>
+  );
 }

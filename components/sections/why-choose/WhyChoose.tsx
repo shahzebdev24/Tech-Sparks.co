@@ -1,125 +1,143 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Zap, Shield, Sparkles, TrendingUp, Headphones, Layers } from 'lucide-react';
+import { Target, Users, ShieldCheck, Zap, BarChart3, Clock, ArrowUpRight } from 'lucide-react';
+import { Section, Container, Heading, Text, Card, Badge } from '@/components/ui';
+
+const reasons = [
+  {
+    icon: Target,
+    title: 'Integrated Strategy',
+    description: "We don't just write code. We align technology with your business objectives from day one.",
+    color: 'from-blue-500 to-indigo-500',
+  },
+  {
+    icon: Users,
+    title: 'Partnership Model',
+    description: 'We act as your extended team, not just a service provider. Your success is our primary metric.',
+    color: 'from-purple-500 to-pink-500',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Technical Excellence',
+    description: 'Our engineering standards ensure secure, scalable, and high-performance applications.',
+    color: 'from-emerald-500 to-teal-500',
+  },
+  {
+    icon: Clock,
+    title: 'Agile Delivery',
+    description: 'Transparent workflows and frequent updates keep you in control of the timeline and budget.',
+    color: 'from-orange-500 to-amber-500',
+  },
+  {
+    icon: BarChart3,
+    title: 'Data-Driven Growth',
+    description: 'We build features that provide actionable insights to help you scale your business faster.',
+    color: 'from-indigo-500 to-purple-500',
+  },
+  {
+    icon: Zap,
+    title: 'Global Quality',
+    description: 'International standards of design and code delivery, accessible from our hub in Karachi.',
+    color: 'from-cyan-500 to-blue-500',
+  },
+];
 
 export default function WhyChoose() {
-    const features = [
-        {
-            icon: Zap,
-            title: 'Ultra-Fast Performance',
-            description: 'Optimized architectures that ensure your product is blazing fast.',
-            color: 'text-amber-500',
-            bg: 'bg-amber-50'
-        },
-        {
-            icon: Shield,
-            title: 'Security First',
-            description: 'Enterprise-grade protection built into every layer of your application.',
-            color: 'text-green-500',
-            bg: 'bg-green-50'
-        },
-        {
-            icon: Sparkles,
-            title: 'Modern UI/UX',
-            description: 'Beautiful, intuitive designs that your users will actually love.',
-            color: 'text-purple-500',
-            bg: 'bg-purple-50'
-        },
-        {
-            icon: TrendingUp,
-            title: 'Built for Scale',
-            description: 'Infrastructure that grows seamlessly with your business needs.',
-            color: 'text-blue-500',
-            bg: 'bg-blue-50'
-        }
-    ];
+  return (
+    <Section id="why-choose" bg="dark-topo" className="overflow-hidden">
+      {/* Background Decorative Glows */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[140px] translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
-    return (
-        <section className="py-24 bg-white overflow-hidden">
-            <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
-                    {/* Left: Content and features */}
-                    <div className="order-2 lg:order-1">
-                        <motion.span
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className="text-indigo-600 font-bold uppercase tracking-widest text-sm mb-4 block"
-                        >
-                            The Tech Sparks Edge
-                        </motion.span>
-                        <motion.h2
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
-                            className="text-4xl md:text-5xl font-extrabold text-[#1E293B] mb-8 leading-tight font-sans"
-                        >
-                            Why Businesses <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Trust Us</span> To Deliver
-                        </motion.h2>
+      <Container>
+        <div className="flex flex-col lg:flex-row gap-20 items-start">
+          {/* Left Content */}
+          <div className="lg:w-5/12 lg:sticky lg:top-32">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <Badge variant="glass" dot animated className="mb-6 px-4 py-1.5 text-indigo-300">
+                Our Value Proposition
+              </Badge>
+              
+              <Heading level={2} className="text-5xl lg:text-6xl font-bold !text-white mb-8 leading-[1.1]">
+                Why ambitious businesses{' '}
+                <span className="block mt-2 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  choose Tech Sparks
+                </span>
+              </Heading>
+              
+              <Text className="text-gray-400 text-xl mb-12 max-w-xl leading-relaxed">
+                We bridge the gap between complex business challenges and elegant 
+                digital solutions. Our approach combines precision engineering 
+                with strategic design to deliver measurable competitive advantages.
+              </Text>
 
-                        <div className="grid sm:grid-cols-2 gap-8 pt-4">
-                            {features.map((feature, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: index * 0.1 + 0.2 }}
-                                    className="group"
-                                >
-                                    <div className={`w-14 h-14 ${feature.bg} rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
-                                        <feature.icon className={`w-7 h-7 ${feature.color}`} />
-                                    </div>
-                                    <h3 className="text-xl font-bold text-[#1E293B] mb-2">{feature.title}</h3>
-                                    <p className="text-gray-500 text-sm leading-relaxed">{feature.description}</p>
-                                </motion.div>
-                            ))}
-                        </div>
+              <div className="flex flex-wrap gap-6">
+                <div className="flex-1 min-w-[200px] p-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-2xl metallic-shine">
+                  <div className="flex justify-between items-start mb-4">
+                    <h4 className="text-4xl font-bold text-white">100%</h4>
+                    <div className="p-2 rounded-full bg-indigo-500/10 text-indigo-400">
+                      <ArrowUpRight className="w-4 h-4" />
                     </div>
-
-                    {/* Right: Premium Visual */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="relative order-1 lg:order-2"
-                    >
-                        <div className="relative z-10 p-8 bg-[#F8FAFC] rounded-[4rem] border border-gray-100 shadow-inner">
-                            <div className="grid grid-cols-2 gap-6">
-                                <div className="space-y-6">
-                                    <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-50 flex flex-col items-center text-center">
-                                        <span className="text-3xl font-extrabold text-[#1E293B]">98%</span>
-                                        <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">Efficiency</span>
-                                    </div>
-                                    <div className="bg-indigo-600 p-8 rounded-3xl shadow-xl shadow-indigo-200 text-white flex flex-col items-center text-center">
-                                        <Headphones className="w-8 h-8 mb-4" />
-                                        <span className="text-2xl font-bold">24/7</span>
-                                        <span className="text-[10px] opacity-80 font-bold uppercase tracking-widest">Support</span>
-                                    </div>
-                                </div>
-                                <div className="space-y-6 pt-12">
-                                    <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-50 flex flex-col items-center text-center group hover:bg-indigo-50 transition-colors">
-                                        <Layers className="w-8 h-8 text-indigo-600 mb-4 group-hover:scale-110 transition-transform" />
-                                        <span className="text-2xl font-bold text-[#1E293B]">100+</span>
-                                        <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Delivered</span>
-                                    </div>
-                                    <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-50 flex flex-col items-center text-center">
-                                        <span className="text-3xl font-extrabold text-green-500">4.9/5</span>
-                                        <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">Rating</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* Decorative Blobs */}
-                            <div className="absolute -top-10 -right-10 w-40 h-40 bg-purple-100 rounded-full blur-3xl -z-10 opacity-60 animate-pulse"></div>
-                            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-100 rounded-full blur-3xl -z-10 opacity-60 animate-pulse" style={{ animationDelay: '1s' }}></div>
-                        </div>
-                    </motion.div>
+                  </div>
+                  <p className="text-gray-400 font-semibold text-xs uppercase tracking-[0.2em]">Transparent Pricing</p>
                 </div>
-            </div>
-        </section>
-    );
+
+                <div className="flex-1 min-w-[200px] p-8 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-2xl metallic-shine">
+                  <div className="flex justify-between items-start mb-4">
+                    <h4 className="text-4xl font-bold text-white">Agile</h4>
+                    <div className="p-2 rounded-full bg-purple-500/10 text-purple-400">
+                      <ArrowUpRight className="w-4 h-4" />
+                    </div>
+                  </div>
+                  <p className="text-gray-400 font-semibold text-xs uppercase tracking-[0.2em]">Delivery Model</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right Grid */}
+          <div className="lg:w-7/12 grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+            {reasons.map((reason, index) => (
+              <motion.div
+                key={reason.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className={index % 2 !== 0 ? 'md:mt-12' : ''}
+              >
+                <div className="relative h-full">
+                  <Card 
+                    variant="glass" 
+                    padding="lg" 
+                    className="h-full relative overflow-hidden bg-white/[0.03] border-white/5 transition-all duration-500 rounded-[2rem]"
+                  >
+                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${reason.color} p-[1px] mb-6`}>
+                      <div className="w-full h-full rounded-[0.9rem] bg-[#0A0A1B] flex items-center justify-center">
+                        <reason.icon className="w-7 h-7 text-white" />
+                      </div>
+                    </div>
+                    
+                    <h3 className="text-2xl font-bold text-white mb-4">
+                      {reason.title}
+                    </h3>
+                    
+                    <p className="text-gray-400 text-base font-medium leading-relaxed">
+                      {reason.description}
+                    </p>
+                  </Card>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </Section>
+  );
 }
