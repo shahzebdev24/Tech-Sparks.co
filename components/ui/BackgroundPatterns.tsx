@@ -349,17 +349,17 @@ export function PerspectivePattern() {
           path={path} 
           duration={7 + i} 
           delay={i * 1.5}
-          color="rgba(165, 180, 252, 0.4)"
+          color="rgba(196, 181, 253, 0.3)"
           size={180}
         />
       ))}
 
       {/* Vanishing Point Glow */}
-      <div className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-indigo-500/10 rounded-full blur-[120px]" />
+      <div className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-purple-600/15 rounded-full blur-[120px]" />
 
       {/* Perspective Grid Implementation */}
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" className="absolute inset-0 w-full h-full opacity-[0.12]">
-        <g stroke="currentColor" strokeWidth="1" className="text-indigo-400">
+        <g stroke="currentColor" strokeWidth="1" className="text-purple-400">
           {/* Radial Lines */}
           <line x1="500" y1="1000" x2="0" y2="0" />
           <line x1="500" y1="1000" x2="200" y2="0" />
@@ -625,7 +625,7 @@ export function ConstellationPattern() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden bg-[var(--color-darker-bg)]">
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-900/20 rounded-full blur-[120px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-900/30 rounded-full blur-[120px]" />
       
       {/* Constellation Lines */}
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" className="absolute inset-0 w-full h-full opacity-20">

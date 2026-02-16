@@ -73,55 +73,55 @@ export default function Contact({
                 <Badge variant="glass" dot animated className="mb-8 px-4 py-1.5 text-indigo-300">
                   Contact Us
                 </Badge>
-                <Heading level={isPage ? 1 : 2} className={`font-bold !text-white mb-8 leading-[1.05] tracking-tight ${isPage ? 'text-5xl md:text-7xl' : 'text-4xl lg:text-7xl'}`}>
+                <Heading level={isPage ? 1 : 2} className={`font-bold !text-white mb-6 md:mb-8 leading-[1.1] md:leading-[1.05] tracking-tight ${isPage ? 'text-4xl sm:text-5xl md:text-7xl' : 'text-3xl sm:text-4xl lg:text-7xl'}`}>
                   {title || defaultTitle}
                 </Heading>
-                <Text variant="large" className="text-gray-400 max-w-xl leading-relaxed">
+                <Text variant="large" className="text-gray-400 max-w-xl leading-relaxed text-base sm:text-lg">
                   {description || defaultDescription}
                 </Text>
               </div>
 
               <div className="space-y-10">
-                <div className="flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl group-hover:bg-indigo-600 transition-all duration-700 metallic-shine shrink-0">
-                    <Mail className="w-7 h-7 text-indigo-400 group-hover:text-white transition-colors duration-500" />
+                <div className="flex gap-6 group">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl group-hover:bg-indigo-600 transition-all duration-700 metallic-shine shrink-0">
+                    <Mail className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-indigo-400 group-hover:text-white transition-colors duration-500" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <Text variant="caption" className="mb-2 text-indigo-400/60 uppercase tracking-[0.3em] font-black text-[10px]">Email us at</Text>
-                    <a href={`mailto:${contactInfo.email}`} className="text-2xl font-bold text-white hover:text-indigo-400 transition-colors duration-300 tracking-tight">
+                    <a href={`mailto:${contactInfo.email}`} className="text-lg sm:text-xl lg:text-2xl font-bold text-white hover:text-indigo-400 transition-colors duration-300 tracking-tight break-all">
                       {contactInfo.email}
                     </a>
                   </div>
                 </div>
 
-                <div className="flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl group-hover:bg-indigo-600 transition-all duration-700 metallic-shine shrink-0">
-                    <Phone className="w-7 h-7 text-indigo-400 group-hover:text-white transition-colors duration-500" />
+                <div className="flex gap-6 group">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl group-hover:bg-indigo-600 transition-all duration-700 metallic-shine shrink-0">
+                    <Phone className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-indigo-400 group-hover:text-white transition-colors duration-500" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <Text variant="caption" className="mb-2 text-indigo-400/60 uppercase tracking-[0.3em] font-black text-[10px]">WhatsApp or Call</Text>
                     <a 
                       href={`https://wa.me/923408399014?text=Hi%20Tech%20Sparks!%20I'd%20like%20to%20discuss%20a%20project.`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-2xl font-bold text-white hover:text-indigo-400 transition-colors duration-300 tracking-tight"
+                      className="text-lg sm:text-xl lg:text-2xl font-bold text-white hover:text-indigo-400 transition-colors duration-300 tracking-tight"
                     >
                       {contactInfo.phone}
                     </a>
-                    <p className="text-gray-400 text-sm font-medium mt-1">Available 5pm - 2am (PKT)</p>
+                    <p className="text-gray-400 text-xs sm:text-sm font-medium mt-1">Available 5pm - 2am (PKT)</p>
                   </div>
                 </div>
 
-                <div className="flex gap-8 group">
-                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl group-hover:bg-indigo-600 transition-all duration-700 metallic-shine shrink-0">
-                    <MapPin className="w-7 h-7 text-indigo-400 group-hover:text-white transition-colors duration-500" />
+                <div className="flex gap-6 group">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl group-hover:bg-indigo-600 transition-all duration-700 metallic-shine shrink-0">
+                    <MapPin className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-indigo-400 group-hover:text-white transition-colors duration-500" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <Text variant="caption" className="mb-2 text-indigo-400/60 uppercase tracking-[0.3em] font-black text-[10px]">Based in</Text>
-                    <p className="text-2xl font-bold text-white tracking-tight">
+                    <p className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-tight">
                       {contactInfo.location}
                     </p>
-                    <p className="text-gray-400 text-sm font-medium mt-1">Delivering Products Globally</p>
+                    <p className="text-gray-400 text-xs sm:text-sm font-medium mt-1">Delivering Products Globally</p>
                   </div>
                 </div>
               </div>

@@ -29,7 +29,7 @@ export default function Footer() {
               We partner with ambitious founders and enterprises to deliver 
               high-impact digital products. Based in Karachi, delivering globally.
             </Text>
-            <Badge variant="dark" className="border-white/10 metallic-shine">Version 1.0 Production</Badge>
+            {/* <Badge variant="dark" className="border-white/10 metallic-shine">Version 1.0 Production</Badge> */}
           </div>
 
           {/* Navigation Links */}

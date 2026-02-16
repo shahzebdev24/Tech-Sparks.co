@@ -62,18 +62,18 @@ export default function AboutPage() {
                 strategists who share a common goal: building technology that 
                 makes a difference.
               </Text>
-              <div className="flex flex-wrap gap-8">
-                <div className="p-6 rounded-[2rem] bg-white/12 backdrop-blur-md border border-white/15 metallic-shine">
-                  <div className="text-3xl font-black text-white mb-1">2026</div>
-                  <p className="text-gray-300 font-bold text-[10px] uppercase tracking-[0.2em]">Founded</p>
+              <div className="flex flex-wrap gap-4 sm:gap-6 lg:gap-8">
+                <div className="p-4 sm:p-6 rounded-2xl sm:rounded-[2rem] bg-white/12 backdrop-blur-md border border-white/15 metallic-shine">
+                  <div className="text-2xl sm:text-3xl font-black text-white mb-1">2026</div>
+                  <p className="text-gray-300 font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em]">Founded</p>
                 </div>
-                <div className="p-6 rounded-[2rem] bg-white/12 backdrop-blur-md border border-white/15 metallic-shine">
-                  <div className="text-3xl font-black text-white mb-1">Premium</div>
-                  <p className="text-gray-300 font-bold text-[10px] uppercase tracking-[0.2em]">Standards</p>
+                <div className="p-4 sm:p-6 rounded-2xl sm:rounded-[2rem] bg-white/12 backdrop-blur-md border border-white/15 metallic-shine">
+                  <div className="text-2xl sm:text-3xl font-black text-white mb-1">Premium</div>
+                  <p className="text-gray-300 font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em]">Standards</p>
                 </div>
-                <div className="p-6 rounded-[2rem] bg-white/12 backdrop-blur-md border border-white/15 metallic-shine">
-                  <div className="text-3xl font-black text-white mb-1">Growth</div>
-                  <p className="text-gray-300 font-bold text-[10px] uppercase tracking-[0.2em]">Obsessed</p>
+                <div className="p-4 sm:p-6 rounded-2xl sm:rounded-[2rem] bg-white/12 backdrop-blur-md border border-white/15 metallic-shine">
+                  <div className="text-2xl sm:text-3xl font-black text-white mb-1">Growth</div>
+                  <p className="text-gray-300 font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.2em]">Obsessed</p>
                 </div>
               </div>
             </div>
