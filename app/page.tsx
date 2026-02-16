@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import Hero from '@/components/sections/hero/Hero';
 import Services from '@/components/sections/services/Services';
 import WhyChoose from '@/components/sections/why-choose/WhyChoose';
@@ -10,14 +9,13 @@ import Stats from '@/components/sections/stats/Stats';
 // import Team from '@/components/sections/team/Team'; // Commented out due to stock photos/unverified content
 import Contact from '@/components/sections/contact/Contact';
 
-export const metadata: Metadata = {
-  title: 'Tech Sparks — Premium Software, Engineered for Growth',
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
   description:
     'We partner with startups, SMBs, and enterprises to design and build custom web applications, SaaS platforms, and digital products that drive real, measurable results. Based in Karachi, delivering globally.',
-  alternates: {
-    canonical: 'https://techsparks.co',
-  },
-};
+  path: '/',
+});
 
 export default function Home() {
   return (

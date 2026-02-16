@@ -115,9 +115,9 @@ export default function Services() {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">
+                <Heading level={4} className="text-white font-bold mb-3 group-hover:text-indigo-300 transition-colors">
                   {service.title}
-                </h3>
+                </Heading>
 
                 {/* Description */}
                 <p className="text-gray-300 text-[15px] leading-relaxed mb-6 font-medium">

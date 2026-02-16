@@ -1,21 +1,26 @@
-'use client';
-
 import { Section, Container, Heading, Text } from '@/components/ui';
+import { createPageMetadata } from '@/lib/seo';
+
+export const metadata = createPageMetadata({
+  title: 'Terms of Service | Tech Sparks',
+  description: 'Our terms of service agreement for using the Tech Sparks website and services.',
+  path: '/terms',
+});
 
 export default function TermsPage() {
   const lastUpdated = 'February 13, 2026';
 
   return (
-    <div className="pt-24">
+    <div className="pt-24 min-h-screen bg-white">
       <Section bg="white" spacing="md">
         <Container size="md">
-          <Heading level={1} className="mb-4">Terms of Service</Heading>
-          <Text className="mb-12">Last Updated: {lastUpdated}</Text>
+          <Heading level={1} className="mb-4 text-gray-900">Terms of Service</Heading>
+          <Text className="mb-12 text-gray-600">Last Updated: {lastUpdated}</Text>
 
           <div className="prose prose-indigo max-w-none space-y-10">
             <div>
-              <Heading level={3} className="mb-4">1. Agreement to Terms</Heading>
-              <Text>
+              <Heading level={3} className="mb-4 text-gray-900">1. Agreement to Terms</Heading>
+              <Text className="text-gray-700">
                 By accessing or using the Tech Sparks website, you agree to be 
                 bound by these Terms of Service. If you do not agree, please 
                 do not use our site.
@@ -23,8 +28,8 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <Heading level={3} className="mb-4">2. Intellectual Property</Heading>
-              <Text>
+              <Heading level={3} className="mb-4 text-gray-900">2. Intellectual Property</Heading>
+              <Text className="text-gray-700">
                 The content on this website, including text, graphics, logos, 
                 and code, is the property of Tech Sparks and is protected by 
                 copyright and other intellectual property laws.
@@ -32,8 +37,8 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <Heading level={3} className="mb-4">3. Use of Services</Heading>
-              <Text>
+              <Heading level={3} className="mb-4 text-gray-900">3. Use of Services</Heading>
+              <Text className="text-gray-700">
                 Our services are provided on a project-by-project basis, 
                 governed by separate Master Service Agreements (MSA) signed with 
                 our clients. The content on this site is for informational 
@@ -42,16 +47,16 @@ export default function TermsPage() {
             </div>
 
             <div>
-              <Heading level={3} className="mb-4">4. Limitation of Liability</Heading>
-              <Text>
+              <Heading level={3} className="mb-4 text-gray-900">4. Limitation of Liability</Heading>
+              <Text className="text-gray-700">
                 Tech Sparks will not be liable for any indirect, incidental, or 
                 consequential damages arising from your use of this website.
               </Text>
             </div>
 
             <div>
-              <Heading level={3} className="mb-4">5. Governing Law</Heading>
-              <Text>
+              <Heading level={3} className="mb-4 text-gray-900">5. Governing Law</Heading>
+              <Text className="text-gray-700">
                 These terms are governed by the laws of Pakistan. Any disputes 
                 shall be resolved in the courts of Karachi.
               </Text>

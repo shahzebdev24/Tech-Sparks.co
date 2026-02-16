@@ -13,17 +13,17 @@ export default function Footer() {
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-600/5 rounded-full blur-[100px] pointer-events-none" />
       
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16 relative z-10">
           {/* Brand Info */}
           <div className="lg:col-span-2">
             <Link href="/" className="group flex items-center gap-2 mb-8 w-fit metallic-shine">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-500/20">
-                S
+              <div className="w-[50px] h-[50px] rounded-xl flex items-center justify-center p-1.5 overflow-hidden">
+                <img src="/techsparkslogo.png" alt="S" className="w-full h-full object-contain" />
               </div>
               <span className="text-xl font-black tracking-tighter text-white uppercase">TECH SPARKS</span>
             </Link>
             <Heading level={4} className="!text-white mb-6 max-w-sm">
-              Premium software, engineered for growth and built for scale.
+              Software development, engineered for growth and built for scale.
             </Heading>
             <Text className="text-gray-400 mb-8 max-w-sm font-medium">
               We partner with ambitious founders and enterprises to deliver 

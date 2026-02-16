@@ -4,6 +4,7 @@ import React from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  labelClassName?: string;
   helperText?: string;
   error?: string;
   success?: boolean;
@@ -13,6 +14,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
+  labelClassName?: string;
   helperText?: string;
   error?: string;
   success?: boolean;
@@ -21,6 +23,7 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
 
 export function Input({
   label,
+  labelClassName = '',
   helperText,
   error,
   success,
@@ -33,17 +36,17 @@ export function Input({
   const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
 
   const stateStyles = error
-    ? 'border-red-300 focus:ring-red-500/10 focus:border-red-500'
+    ? 'border-red-500 focus:ring-red-500/10 focus:border-red-500'
     : success
-      ? 'border-emerald-300 focus:ring-emerald-500/10 focus:border-emerald-500'
-      : 'border-gray-100 focus:ring-indigo-500/10 focus:border-indigo-300';
+      ? 'border-emerald-500 focus:ring-emerald-500/10 focus:border-emerald-500'
+      : 'border-white/10 focus:ring-indigo-500/10 focus:border-indigo-400';
 
   return (
     <div className={`${fullWidth ? 'w-full' : ''}`}>
       {label && (
         <label
           htmlFor={inputId}
-          className="block text-sm font-semibold text-gray-700 mb-2"
+          className={`block text-sm font-semibold text-gray-300 mb-2 ${labelClassName}`}
         >
           {label}
           {props.required && <span className="text-red-500 ml-1" aria-hidden="true">*</span>}
@@ -57,9 +60,9 @@ export function Input({
         )}
         <input
           id={inputId}
-          className={`w-full bg-[#F8FAFC] border rounded-2xl py-4 ${
+          className={`w-full bg-white/[0.03] border rounded-2xl py-4 ${
             icon ? 'pl-11 pr-5' : 'px-5'
-          } text-[15px] font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-4 ${stateStyles} ${className}`}
+          } text-[15px] font-medium transition-all duration-300 focus:outline-none focus:ring-4 ${stateStyles} ${className}`}
           aria-invalid={error ? 'true' : undefined}
           aria-describedby={
             error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined
@@ -83,6 +86,7 @@ export function Input({
 
 export function Textarea({
   label,
+  labelClassName = '',
   helperText,
   error,
   success,
@@ -94,17 +98,17 @@ export function Textarea({
   const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
 
   const stateStyles = error
-    ? 'border-red-300 focus:ring-red-500/10 focus:border-red-500'
+    ? 'border-red-500 focus:ring-red-500/10 focus:border-red-500'
     : success
-      ? 'border-emerald-300 focus:ring-emerald-500/10 focus:border-emerald-500'
-      : 'border-gray-100 focus:ring-indigo-500/10 focus:border-indigo-300';
+      ? 'border-emerald-500 focus:ring-emerald-500/10 focus:border-emerald-500'
+      : 'border-white/10 focus:ring-indigo-500/10 focus:border-indigo-400';
 
   return (
     <div className={`${fullWidth ? 'w-full' : ''}`}>
       {label && (
         <label
           htmlFor={inputId}
-          className="block text-sm font-semibold text-gray-700 mb-2"
+          className={`block text-sm font-semibold text-gray-300 mb-2 ${labelClassName}`}
         >
           {label}
           {props.required && <span className="text-red-500 ml-1" aria-hidden="true">*</span>}
@@ -112,7 +116,7 @@ export function Textarea({
       )}
       <textarea
         id={inputId}
-        className={`w-full bg-[#F8FAFC] border rounded-2xl py-4 px-5 text-[15px] font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-4 resize-none ${stateStyles} ${className}`}
+        className={`w-full bg-white/[0.03] border rounded-2xl py-4 px-5 text-[15px] font-medium transition-all duration-300 focus:outline-none focus:ring-4 resize-none ${stateStyles} ${className}`}
         aria-invalid={error ? 'true' : undefined}
         aria-describedby={
           error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined

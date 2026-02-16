@@ -7,6 +7,7 @@ interface CardProps {
   hover?: boolean;
   padding?: 'none' | 'sm' | 'md' | 'lg';
   rounded?: 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+  overflowHidden?: boolean;
   className?: string;
   children: React.ReactNode;
 }
@@ -16,10 +17,11 @@ export default function Card({
   hover = true,
   padding = 'lg',
   rounded = '3xl',
+  overflowHidden = true,
   className = '',
   children,
 }: CardProps) {
-  const baseStyles = 'relative overflow-hidden transition-all duration-500';
+  const baseStyles = `relative ${overflowHidden ? 'overflow-hidden' : 'overflow-visible'} transition-all duration-500`;
 
   const variants: Record<string, string> = {
     default: 'bg-white border border-gray-100',

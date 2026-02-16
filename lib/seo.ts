@@ -7,11 +7,11 @@ export const SITE_URL = 'https://techsparks.co';
 export const DEFAULT_METADATA: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Tech Sparks — Premium Software, Engineered for Growth',
+    default: 'Tech Sparks — Software Development Agency, Engineered for Growth',
     template: '%s | Tech Sparks',
   },
   description:
-    'Tech Sparks is a premium software agency building custom web applications, SaaS platforms, and digital products for startups and enterprises. Based in Karachi, delivering globally.',
+    'Tech Sparks is a software development agency building custom web applications, SaaS platforms, and digital products for startups and enterprises. Based in Karachi, delivering globally.',
   keywords: [
     'software agency',
     'web development',
@@ -21,7 +21,7 @@ export const DEFAULT_METADATA: Metadata = {
     'Next.js development',
     'React development',
     'software house Karachi',
-    'premium software development',
+    'software development agency',
     'digital product development',
   ],
   authors: [{ name: 'Tech Sparks', url: SITE_URL }],
@@ -43,7 +43,7 @@ export const DEFAULT_METADATA: Metadata = {
     locale: 'en_US',
     url: SITE_URL,
     siteName: 'Tech Sparks',
-    title: 'Tech Sparks — Premium Software, Engineered for Growth',
+    title: 'Tech Sparks — Software Development Agency, Engineered for Growth',
     description:
       'We partner with startups, SMBs, and enterprises to design and build custom web applications, SaaS platforms, and digital products that drive real, measurable results.',
     images: [
@@ -51,19 +51,19 @@ export const DEFAULT_METADATA: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Tech Sparks — Premium Software Agency',
+        alt: 'Tech Sparks — Software Development Agency',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Tech Sparks — Premium Software, Engineered for Growth',
+    title: 'Tech Sparks — Software Development Agency, Engineered for Growth',
     description:
-      'Premium software agency building custom web apps, SaaS platforms, and digital products. Based in Karachi, delivering globally.',
+      'Software development agency building custom web apps, SaaS platforms, and digital products. Based in Karachi, delivering globally.',
     images: ['/og-image.png'],
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: '/techsparkslogo.png',
   },
   alternates: {
     canonical: SITE_URL,
@@ -77,6 +77,11 @@ export function createPageMetadata(overrides: Partial<Metadata> & { path?: strin
   const { path, ...rest } = overrides;
   const canonical = path ? `${SITE_URL}${path}` : SITE_URL;
 
+  const title = rest.title 
+    ? (typeof rest.title === 'string' ? rest.title : (rest.title as any).absolute || (rest.title as any).default) 
+    : undefined;
+  const description = rest.description || undefined;
+
   return {
     ...rest,
     alternates: {
@@ -86,7 +91,15 @@ export function createPageMetadata(overrides: Partial<Metadata> & { path?: strin
     openGraph: {
       ...DEFAULT_METADATA.openGraph,
       url: canonical,
+      ...(title && { title }),
+      ...(description && { description }),
       ...(rest.openGraph as Record<string, unknown>),
+    },
+    twitter: {
+      ...DEFAULT_METADATA.twitter,
+      ...(title && { title }),
+      ...(description && { description }),
+      ...(rest.twitter as Record<string, unknown>),
     },
   };
 }
@@ -102,7 +115,7 @@ export function getOrganizationSchema() {
     url: SITE_URL,
     logo: `${SITE_URL}/logo.svg`,
     description:
-      'Premium software agency building custom web applications, SaaS platforms, and digital products for startups and enterprises.',
+      'Software development agency building custom web applications, SaaS platforms, and digital products for startups and enterprises.',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Karachi',
@@ -127,7 +140,7 @@ export function getWebsiteSchema() {
     name: 'Tech Sparks',
     url: SITE_URL,
     description:
-      'Premium software agency building custom web applications, SaaS platforms, and digital products.',
+      'Software development agency building custom web applications, SaaS platforms, and digital products.',
     potentialAction: {
       '@type': 'SearchAction',
       target: `${SITE_URL}/search?q={search_term_string}`,
@@ -155,5 +168,19 @@ export function getServiceSchema(service: {
       url: SITE_URL,
     },
     url: service.url,
+  };
+}
+
+/**
+ * JSON-LD for Contact Page
+ */
+export function getContactPageSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: 'Contact Tech Sparks',
+    description: 'Get in touch with Tech Sparks for custom software development services.',
+    url: `${SITE_URL}/contact`,
+    mainEntity: getOrganizationSchema(),
   };
 }

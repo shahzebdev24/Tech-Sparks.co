@@ -25,7 +25,7 @@ export default function Badge({
     'inline-flex items-center gap-2 font-semibold tracking-wide select-none';
 
   const variants: Record<string, string> = {
-    primary: 'bg-indigo-50 text-indigo-600 border border-indigo-100',
+    primary: 'bg-white text-indigo-600 border border-indigo-100 shadow-sm',
     secondary: 'bg-purple-50 text-purple-600 border border-purple-100',
     success: 'bg-emerald-50 text-emerald-600 border border-emerald-100',
     warning: 'bg-amber-50 text-amber-600 border border-amber-100',

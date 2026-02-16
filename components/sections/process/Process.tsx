@@ -121,9 +121,9 @@ export default function Process() {
                       Step 0{index + 1}
                     </span>
                     <div className="min-h-[60px] flex items-center justify-center text-center">
-                      <h3 className="text-xl lg:text-2xl font-bold text-white leading-tight">
+                      <Heading level={4} className="font-bold text-white leading-tight text-center">
                         {step.title}
-                      </h3>
+                      </Heading>
                     </div>
                   </div>
                   

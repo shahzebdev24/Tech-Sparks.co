@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, Code2, Palette, Zap } from 'lucide-react';
+import { Heading } from '@/components/ui';
 
 export default function Hero() {
   return (
@@ -110,23 +111,27 @@ export default function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-400" />
               </span>
-              Premium Software Studio — Karachi
+              Software Development Agency — Karachi
             </div>
           </motion.div>
 
           {/* Main headline */}
-          <motion.h1
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight text-white mb-8"
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
-            Premium software,{' '}
-            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
-              engineered to grow
-            </span>{' '}
-            your business
-          </motion.h1>
+            <Heading
+              level={1}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight !text-white mb-8"
+            >
+              Software development,{' '}
+              <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+                engineered to grow
+              </span>{' '}
+              your business
+            </Heading>
+          </motion.div>
 
           {/* Description */}
           <motion.p
@@ -197,7 +202,7 @@ export default function Hero() {
                   <feature.icon className="w-8 h-8" />
                 </div>
                 <div>
-                  <h3 className="text-white font-bold text-lg mb-1 group-hover:text-indigo-200 transition-colors">{feature.title}</h3>
+                  <Heading level={5} className="text-white font-bold mb-1 group-hover:text-indigo-200 transition-colors uppercase tracking-wider text-[11px]">{feature.title}</Heading>
                   <p className="text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
                 </div>
               </motion.div>

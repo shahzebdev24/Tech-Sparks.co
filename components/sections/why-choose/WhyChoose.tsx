@@ -124,9 +124,9 @@ export default function WhyChoose() {
                       </div>
                     </div>
                     
-                    <h3 className="text-2xl font-bold text-white mb-4">
+                    <Heading level={4} className="text-white font-bold mb-4">
                       {reason.title}
-                    </h3>
+                    </Heading>
                     
                     <p className="text-gray-400 text-base font-medium leading-relaxed">
                       {reason.description}

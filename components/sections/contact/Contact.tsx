@@ -2,11 +2,54 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, ArrowRight } from 'lucide-react';
-import { Section, Container, Heading, Text, Badge, Button, Input, Textarea, Card } from '@/components/ui';
+import { Mail, MapPin, Send, ArrowRight, Phone } from 'lucide-react';
+import { Section, Container, Heading, Text, Badge, Button, Input, Textarea, Card, Select } from '@/components/ui';
+import { contactInfo, contactSubjects } from '@/content/contact';
+import { SectionProps } from '@/components/ui/Section';
 
-export default function Contact() {
+interface ContactProps {
+  variant?: 'section' | 'page';
+  showLocationBlock?: boolean;
+  title?: React.ReactNode;
+  description?: string;
+  bg?: SectionProps['bg'];
+  id?: string;
+  className?: string;
+}
+
+export default function Contact({
+  variant = 'section',
+  showLocationBlock = false,
+  title,
+  description,
+  bg = 'dark-ripple',
+  id = 'contact',
+  className = '',
+}: ContactProps) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+  const isPage = variant === 'page';
+
+  const defaultTitle = isPage ? (
+    <>
+      Let&apos;s Build Your{' '}
+      <span className="relative inline-block">
+        <span className="relative z-10 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+          Next Big Idea
+        </span>
+      </span>
+    </>
+  ) : (
+    <>
+      Let&apos;s build for the{' '}
+      <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+        future
+      </span>
+    </>
+  );
+
+  const defaultDescription = isPage
+    ? "Whether you're a startup or an enterprise, we're here to help you scale. Drop us a message and we'll get back to you within 24 hours."
+    : "Have a project in mind? We're ready to help you scale your business with software development engineered for growth.";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,49 +58,70 @@ export default function Contact() {
   };
 
   return (
-    <Section id="contact" bg="dark-ripple">
+    <Section id={id} bg={bg} spacing="lg" className={className}>
       <Container>
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-32 relative z-10 items-start">
           {/* Left Side: Info */}
-          <div className="lg:w-5/12">
+          <div className="lg:w-5/12 sticky top-32">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="space-y-12"
             >
-              <Badge variant="dark" className="mb-6">Start a Conversation</Badge>
-              <Heading level={2} className="!text-white mb-8">
-                Let&apos;s build something{' '}
-                <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">extraordinary</span> together
-              </Heading>
-              <Text className="text-gray-300 text-lg mb-12">
-                Have a project in mind? We&apos;re ready to help you scale your 
-                business with premium software engineered for growth.
-              </Text>
+              <div>
+                <Badge variant="glass" dot animated className="mb-8 px-4 py-1.5 text-indigo-300">
+                  Contact Us
+                </Badge>
+                <Heading level={isPage ? 1 : 2} className={`font-bold !text-white mb-8 leading-[1.05] tracking-tight ${isPage ? 'text-5xl md:text-7xl' : 'text-4xl lg:text-7xl'}`}>
+                  {title || defaultTitle}
+                </Heading>
+                <Text variant="large" className="text-gray-400 max-w-xl leading-relaxed">
+                  {description || defaultDescription}
+                </Text>
+              </div>
 
-              <div className="space-y-8">
-                <div className="flex gap-6 group">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center shadow-lg group-hover:bg-indigo-600 transition-all duration-500 metallic-shine">
-                    <Mail className="w-6 h-6 text-indigo-400 group-hover:text-white transition-colors" />
+              <div className="space-y-10">
+                <div className="flex gap-8 group">
+                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl group-hover:bg-indigo-600 transition-all duration-700 metallic-shine shrink-0">
+                    <Mail className="w-7 h-7 text-indigo-400 group-hover:text-white transition-colors duration-500" />
                   </div>
                   <div>
-                    <Text variant="caption" className="mb-1 text-gray-400 uppercase tracking-widest font-black text-[10px]">Email us at</Text>
-                    <a href="mailto:techsparks.co@gmail.com" className="text-xl font-bold text-white hover:text-indigo-400 transition-colors">
-                      techsparks.co@gmail.com
+                    <Text variant="caption" className="mb-2 text-indigo-400/60 uppercase tracking-[0.3em] font-black text-[10px]">Email us at</Text>
+                    <a href={`mailto:${contactInfo.email}`} className="text-2xl font-bold text-white hover:text-indigo-400 transition-colors duration-300 tracking-tight">
+                      {contactInfo.email}
                     </a>
                   </div>
                 </div>
 
-                <div className="flex gap-6 group">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center shadow-lg group-hover:bg-indigo-600 transition-all duration-500 metallic-shine">
-                    <MapPin className="w-6 h-6 text-indigo-400 group-hover:text-white transition-colors" />
+                <div className="flex gap-8 group">
+                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl group-hover:bg-indigo-600 transition-all duration-700 metallic-shine shrink-0">
+                    <Phone className="w-7 h-7 text-indigo-400 group-hover:text-white transition-colors duration-500" />
                   </div>
                   <div>
-                    <Text variant="caption" className="mb-1 text-gray-400 uppercase tracking-widest font-black text-[10px]">Based in</Text>
-                    <p className="text-xl font-bold text-white">
-                      Karachi, Pakistan
+                    <Text variant="caption" className="mb-2 text-indigo-400/60 uppercase tracking-[0.3em] font-black text-[10px]">WhatsApp or Call</Text>
+                    <a 
+                      href={`https://wa.me/923408399014?text=Hi%20Tech%20Sparks!%20I'd%20like%20to%20discuss%20a%20project.`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-2xl font-bold text-white hover:text-indigo-400 transition-colors duration-300 tracking-tight"
+                    >
+                      {contactInfo.phone}
+                    </a>
+                    <p className="text-gray-400 text-sm font-medium mt-1">Available 5pm - 2am (PKT)</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-8 group">
+                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl group-hover:bg-indigo-600 transition-all duration-700 metallic-shine shrink-0">
+                    <MapPin className="w-7 h-7 text-indigo-400 group-hover:text-white transition-colors duration-500" />
+                  </div>
+                  <div>
+                    <Text variant="caption" className="mb-2 text-indigo-400/60 uppercase tracking-[0.3em] font-black text-[10px]">Based in</Text>
+                    <p className="text-2xl font-bold text-white tracking-tight">
+                      {contactInfo.location}
                     </p>
-                    <p className="text-gray-300 text-sm font-medium">Delivering Products Globally</p>
+                    <p className="text-gray-400 text-sm font-medium mt-1">Delivering Products Globally</p>
                   </div>
                 </div>
               </div>
@@ -65,62 +129,107 @@ export default function Contact() {
           </div>
 
           {/* Right Side: Form */}
-          <div className="lg:w-7/12">
+          <div className="lg:w-7/12 w-full max-lg:mt-26">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <Card padding="lg" variant="glass" className="glossy-card">
-                {status === 'success' ? (
-                  <motion.div 
-                    className="py-12 text-center"
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                  >
-                    <div className="w-20 h-20 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-500/20">
-                      <Send className="w-10 h-10 text-emerald-500 rotate-12" />
-                    </div>
-                    <Heading level={3} className="text-white mb-4">Message Received!</Heading>
-                    <Text className="text-gray-300">Thanks for reaching out. Our strategy team will get back to you within 24 hours.</Text>
-                    <Button 
-                      variant="ghost" 
-                      className="mt-8 !text-indigo-400 hover:!bg-white/5"
-                      onClick={() => setStatus('idle')}
+              <Card padding="none" variant="glass" className="relative bg-white/[0.04] border-white/10 backdrop-blur-3xl rounded-[3rem] overflow-hidden shadow-2xl">
+                <div className="p-10 lg:p-14 relative z-10">
+                  {status === 'success' ? (
+                    <motion.div 
+                      className="py-16 text-center"
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
                     >
-                      Send another message
-                    </Button>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <Input label="Full Name" placeholder="Strategic Sarah" required className="!bg-white/5 !border-white/10 !text-white" />
-                      <Input label="Email Address" type="email" placeholder="sarah@example.com" required className="!bg-white/5 !border-white/10 !text-white" />
-                    </div>
-                    <Input label="Company Name" placeholder="Your Business Ltd." className="!bg-white/5 !border-white/10 !text-white" />
-                    <Textarea label="Tell us about your project" placeholder="What are you building?" rows={4} required className="!bg-white/5 !border-white/10 !text-white" />
-                    
-                    <Button 
-                      loading={status === 'loading'} 
-                      fullWidth 
-                      size="lg" 
-                      type="submit"
-                      icon={<ArrowRight className="w-5 h-5 ml-1" />}
-                      iconPosition="right"
-                      className="glossy-button"
-                    >
-                      Send Message
-                    </Button>
-                    <Text variant="small" className="text-center !text-gray-400 font-medium">
-                      We usually respond in less than 24 business hours.
-                    </Text>
-                  </form>
-                )}
+                      <div className="w-24 h-24 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-emerald-500/20 shadow-xl">
+                        <Send className="w-10 h-10 text-emerald-500 rotate-12" />
+                      </div>
+                      <Heading level={4} className="text-white text-3xl mb-4 font-bold">Message Received!</Heading>
+                      <Text className="text-gray-400 text-lg">Thanks for reaching out. Our team will get back to you within 24 hours.</Text>
+                      <Button 
+                        variant="ghost" 
+                        className="mt-10 !text-indigo-400 hover:!bg-white/5 px-8"
+                        onClick={() => setStatus('idle')}
+                      >
+                        Send another message
+                      </Button>
+                    </motion.div>
+                  ) : (
+                    <form onSubmit={handleSubmit} className="space-y-8">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <Input 
+                          label="Full Name" 
+                          placeholder="John Doe" 
+                          required 
+                          labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em] mb-3"
+                          className="!bg-white/[0.02] !border-white/10 !text-white placeholder:text-gray-600 focus:!border-indigo-500/50" 
+                        />
+                        <Input 
+                          label="Email Address" 
+                          type="email" 
+                          placeholder="john@example.com" 
+                          required 
+                          labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em] mb-3"
+                          className="!bg-white/[0.02] !border-white/10 !text-white placeholder:text-gray-600 focus:!border-indigo-500/50" 
+                        />
+                      </div>
+                      
+                      <Input 
+                        label="Company Name" 
+                        placeholder="Your Business Ltd." 
+                        labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em] mb-3"
+                        className="!bg-white/[0.02] !border-white/10 !text-white placeholder:text-gray-600 focus:!border-indigo-500/50" 
+                      />
+
+                      <Textarea 
+                        label={isPage ? "Your Message" : "Project Details"} 
+                        placeholder={isPage ? "Tell us about your project..." : "Tell us what you're building..."}
+                        rows={5} 
+                        required 
+                        labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em] mb-3"
+                        className="!bg-white/[0.02] !border-white/10 !text-white placeholder:text-gray-600 focus:!border-indigo-500/50" 
+                      />
+                      
+                      <div className="pt-4">
+                        <Button 
+                          loading={status === 'loading'} 
+                          fullWidth 
+                          size="lg" 
+                          type="submit"
+                          icon={<ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />}
+                          iconPosition="right"
+                          className="h-16 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-lg font-bold shadow-2xl shadow-indigo-600/20 border-0"
+                        >
+                          Send Message
+                        </Button>
+                      </div>
+                    </form>
+                  )}
+                </div>
               </Card>
             </motion.div>
           </div>
         </div>
+
+        {showLocationBlock && (
+            <div className="mt-32 pt-20 border-t border-white/10">
+                <div className="text-center mb-16">
+                <Heading level={2} className="text-4xl font-extrabold text-white tracking-tight">Our Base</Heading>
+                </div>
+                <div className="max-w-md mx-auto">
+                    <div className="p-8 bg-white/5 border border-white/10 rounded-[2.5rem] shadow-lg hover:shadow-indigo-500/5 transition-all text-center glossy-card">
+                        <MapPin className="w-8 h-8 text-indigo-400 mx-auto mb-4" />
+                        <Heading level={4} className="text-xl font-bold text-white mb-2">{contactInfo.location.split(',')[0]}</Heading>
+                         <p className="text-gray-400 text-sm font-medium">{contactInfo.location.split(',')[1]}</p>
+                    </div>
+                </div>
+            </div>
+        )}
+
       </Container>
     </Section>
   );
 }
+

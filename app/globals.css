@@ -192,6 +192,8 @@
   background: var(--glossy-reflect);
   pointer-events: none;
   opacity: 0.5;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
 }
 
 .glossy-card:hover {
@@ -221,6 +223,7 @@
   );
   animation: shine-sweep 4s infinite ease-in-out;
   pointer-events: none;
+  border-radius: inherit;
 }
 
 @keyframes shine-sweep {
@@ -254,6 +257,7 @@
   );
   animation: button-shine 2.5s infinite;
   pointer-events: none;
+  border-radius: inherit;
 }
 
 .glossy-button:hover {
@@ -289,6 +293,7 @@
   );
   animation: shimmer 3s infinite;
   pointer-events: none;
+  border-radius: inherit;
 }
 
 @keyframes shimmer {
@@ -511,7 +516,6 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-primary-indigo);
   outline-offset: 2px;
-  border-radius: var(--radius-sm);
 }
 
 /* ============================================

@@ -18,14 +18,14 @@ export default function Heading({
   const levels: Record<number, string> = {
     1: 'text-4xl sm:text-5xl md:text-6xl lg:text-7xl',
     2: 'text-3xl sm:text-4xl lg:text-5xl',
-    3: 'text-2xl sm:text-3xl lg:text-4xl',
-    4: 'text-xl sm:text-2xl',
-    5: 'text-lg sm:text-xl',
-    6: 'text-base sm:text-lg',
+    3: 'text-xl sm:text-2xl lg:text-3xl',
+    4: 'text-lg sm:text-xl lg:text-2xl',
+    5: 'text-base sm:text-lg',
+    6: 'text-sm sm:text-base',
   };
 
   const Tag = `h${level}` as any;
-  const baseStyles = 'font-extrabold tracking-tight text-[var(--color-midnight)] leading-[1.15]';
+  const baseStyles = 'font-extrabold tracking-tight leading-[1.15]';
 
   const gradientStyles = gradient 
     ? 'bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent' 

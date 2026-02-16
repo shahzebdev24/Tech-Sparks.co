@@ -25,13 +25,6 @@ export function BackgroundSparkles() {
             left: `${Math.random() * 100}%`,
           }}
           initial={{ x: '-100%', opacity: 0 }}
-          animate={{ x: '200%', opacity: [0, 1, 1, 0] }}
-          transition={{
-            duration: Math.random() * 5 + 4,
-            repeat: Infinity,
-            delay: Math.random() * 10,
-            ease: "linear"
-          }}
         />
       ))}
       {[...Array(8)].map((_, i) => (
@@ -44,13 +37,6 @@ export function BackgroundSparkles() {
             top: `${Math.random() * 100}%`,
           }}
           initial={{ y: '-100%', opacity: 0 }}
-          animate={{ y: '200%', opacity: [0, 1, 1, 0] }}
-          transition={{
-            duration: Math.random() * 5 + 4,
-            repeat: Infinity,
-            delay: Math.random() * 10,
-            ease: "linear"
-          }}
         />
       ))}
     </div>
@@ -92,17 +78,6 @@ export function SparklingLineSegment({
           strokeLinecap="round"
           fill="none"
           initial={{ strokeDasharray: `${length} 1000`, strokeDashoffset: 1000 + length, opacity: 0 }}
-          animate={{ 
-            strokeDashoffset: -1000,
-            opacity: [0, 1, 1, 0]
-          }}
-          transition={{
-            duration: duration,
-            repeat: Infinity,
-            ease: "linear",
-            delay: delay,
-            times: [0, 0.1, 0.9, 1]
-          }}
           filter="url(#spark-glow)"
         />
       </svg>
@@ -149,17 +124,6 @@ export function AmbientGlintPulse({
           fill="none"
           strokeLinecap="round"
           initial={{ strokeDasharray: `1 ${size + 1000}`, strokeDashoffset: 1000, opacity: 0 }}
-          animate={{ 
-            strokeDashoffset: -1000,
-            opacity: [0, 1, 1, 0]
-          }}
-          transition={{
-            duration: duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: delay,
-            times: [0, 0.2, 0.8, 1]
-          }}
           filter="url(#soft-glow)"
         />
       </svg>
@@ -350,7 +314,7 @@ export function DotPattern() {
       ))}
       {/* Accent orbs - BOOSTED */}
       <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-indigo-500/15 rounded-full blur-[140px]" />
-      <div className="absolute bottom-0 right-1/4 w-[700px] h-[700px] bg-purple-500/15 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute bottom-0 right-1/4 w-[700px] h-[700px] bg-purple-500/15 rounded-full blur-[120px]" />
       {/* Dots grid - BOOSTED */}
       <div 
         className="absolute inset-0 opacity-[0.25]" 
@@ -471,7 +435,7 @@ export function PurpleDominantOrbs() {
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <BackgroundSparkles />
       {/* Top-right purple orb */}
-      <div className="absolute top-1/4 right-1/4 w-[700px] h-[700px] bg-purple-600/15 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute top-1/4 right-1/4 w-[700px] h-[700px] bg-purple-600/15 rounded-full blur-[120px]" />
       {/* Bottom-left purple orb */}
       <div className="absolute bottom-1/4 left-1/4 w-[600px] h-[600px] bg-purple-500/12 rounded-full blur-[100px]" />
       {/* Center accent */}
@@ -487,7 +451,7 @@ export function IndigoDominantOrbs() {
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <BackgroundSparkles />
       {/* Top-left indigo orb */}
-      <div className="absolute top-1/4 left-1/4 w-[700px] h-[700px] bg-indigo-600/15 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute top-1/4 left-1/4 w-[700px] h-[700px] bg-indigo-600/15 rounded-full blur-[120px]" />
       {/* Bottom-right indigo orb */}
       <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-indigo-500/12 rounded-full blur-[100px]" />
       {/* Center accent */}
@@ -538,7 +502,7 @@ export function RadialGradientCenter() {
       />
       {/* Secondary radial */}
       <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[100px] animate-pulse"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[100px]"
         style={{
           background: 'radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%)'
         }}
@@ -575,16 +539,12 @@ export function DigitalWavePattern() {
             fill="url(#wave-grad-1)"
             fillOpacity="1"
             initial={{ x: -50 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 10, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
           />
           <motion.path
             d="M0,256L48,261.3C96,267,192,277,288,266.7C384,256,480,224,576,197.3C672,171,768,149,864,160C960,171,1056,213,1152,229.3C1248,245,1344,235,1392,229.3L1440,224L1440,800L1392,800C1344,800,1248,800,1152,800C1056,800,960,800,864,800C768,800,672,800,576,800C480,800,384,800,288,800C192,800,96,800,48,800L0,800Z"
             fill="url(#wave-grad-2)"
             fillOpacity="1"
             initial={{ x: 0 }}
-            animate={{ x: -50 }}
-            transition={{ duration: 15, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
             style={{ mixBlendMode: 'overlay' }}
           />
           <defs>
@@ -610,16 +570,6 @@ export function DigitalWavePattern() {
              y: Math.random() * 800 + 200, 
              scale: 0 
            }}
-           animate={{ 
-             y: [null, Math.random() * -100],
-             opacity: [0, 0.5, 0],
-             scale: [0, 1.5, 0]
-           }}
-           transition={{ 
-             duration: Math.random() * 5 + 5, 
-             repeat: Infinity, 
-             delay: Math.random() * 5 
-           }}
         />
       ))}
     </div>
@@ -632,33 +582,19 @@ export function LuminescentFluidPattern() {
       {/* Primary Fluid Blob - Visible again, deep indigo */}
       <motion.div 
         className="absolute top-[-20%] left-[-10%] w-[80vw] h-[80vw] bg-indigo-800/30 rounded-full blur-[180px] opacity-60"
-        animate={{ 
-          scale: [1, 1.1, 1],
-          x: [0, 50, 0],
-          y: [0, 30, 0],
-        }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        initial={{ scale: 1, x: 0, y: 0 }}
       />
       
       {/* Secondary Fluid Blob - Visible again, deep purple */}
       <motion.div 
         className="absolute bottom-[-20%] right-[-10%] w-[70vw] h-[70vw] bg-purple-800/25 rounded-full blur-[160px] opacity-50"
-        animate={{ 
-          scale: [1, 1.2, 1],
-          x: [0, -40, 0],
-          y: [0, -60, 0],
-        }}
-        transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        initial={{ scale: 1, x: 0, y: 0 }}
       />
 
       {/* Accent Fluid Blob - Visible again, slate/cyan */}
       <motion.div 
         className="absolute top-[30%] left-[50%] -translate-x-1/2 w-[60vw] h-[60vw] bg-slate-800/30 rounded-full blur-[140px] mix-blend-screen opacity-40"
-        animate={{ 
-          scale: [1, 1.15, 1],
-          opacity: [0.3, 0.5, 0.3]
-        }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+        initial={{ scale: 1, opacity: 0.3 }}
       />
     </div>
   );
@@ -699,9 +635,7 @@ export function ConstellationPattern() {
             d={d}
             stroke="white"
             strokeWidth="1"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.5 }}
-            transition={{ duration: 3, delay: i * 0.5, ease: "easeInOut" }}
+            initial={{ pathLength: 1, opacity: 0.5 }}
           />
         ))}
       </svg>
@@ -715,9 +649,7 @@ export function ConstellationPattern() {
             cy={star.cy}
             r={star.r}
             fill="white"
-            initial={{ opacity: 0.2, scale: 0.8 }}
-            animate={{ opacity: [0.2, 0.8, 0.2], scale: [0.8, 1.2, 0.8] }}
-            transition={{ duration: 4, repeat: Infinity, delay: star.delay, ease: "easeInOut" }}
+            initial={{ opacity: 0.8, scale: 1 }}
           />
         ))}
       </svg>
@@ -732,7 +664,7 @@ export function StandardGradientOrbs() {
       <BackgroundSparkles />
       <MovingGridLines spacing={64} />
       {/* Top-right orb */}
-      <div className="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px]" />
       {/* Bottom-left orb */}
       <div className="absolute -bottom-[20%] -left-[10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px]" />
       {/* Grid pattern - Standard 64px */}

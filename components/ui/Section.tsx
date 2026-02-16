@@ -21,7 +21,7 @@ import {
   BackgroundSparkles,
 } from './BackgroundPatterns';
 
-interface SectionProps {
+export interface SectionProps {
   children: React.ReactNode;
   id?: string;
   className?: string;

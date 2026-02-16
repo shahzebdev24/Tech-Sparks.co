@@ -6,4 +6,7 @@ export { default as Heading } from './Heading';
 export { default as Text } from './Text';
 export { default as Container } from './Container';
 export { default as Section } from './Section';
+export { ProjectCard } from './ProjectCard';
+export { PricingCard } from './PricingCard';
+export { Select } from './Select';
 export * from './BackgroundPatterns';
