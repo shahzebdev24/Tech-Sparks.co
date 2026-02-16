@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Target, Users, ShieldCheck, Zap, BarChart3, Clock, ArrowUpRight } from 'lucide-react';
-import { Section, Container, Heading, Text, Card, Badge } from '@/components/ui';
+import { Section, Container, Heading, Text, Card, Badge, GradientText } from '@/components/ui';
 
 const reasons = [
   {
@@ -66,9 +66,9 @@ export default function WhyChoose() {
               
               <Heading level={2} className="text-5xl lg:text-6xl font-bold !text-white mb-8 leading-[1.1]">
                 Why ambitious businesses{' '}
-                <span className="block mt-2 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <GradientText variant="indigo-purple-pink" className="block mt-2">
                   choose Tech Sparks
-                </span>
+                </GradientText>
               </Heading>
               
               <Text className="text-gray-400 text-xl mb-12 max-w-xl leading-relaxed">

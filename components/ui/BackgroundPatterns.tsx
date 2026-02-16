@@ -1,41 +1,59 @@
 'use client';
 
-import React from 'react';
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 
-/**
- * Background pattern components for different visual styles
- * Used to create variety across pages while maintaining brand consistency
- */
+/** Background pattern components for section backgrounds and hero. */
 
-/**
- * Sparkle Light Effect for backgrounds
- * These are small light streaks that travel across the screen
- */
+const HERO_GRID_KEYFRAMES = `
+@keyframes hero-line-right { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+@keyframes hero-line-left  { from { transform: translateX(100%); }  to { transform: translateX(-100%); } }
+@keyframes hero-line-down  { from { transform: translateY(-100%); } to { transform: translateY(100%); } }
+@keyframes hero-line-up    { from { transform: translateY(100%); }  to { transform: translateY(-100%); } }
+`;
+
+const HERO_H_LR_TOPS = [64, 320, 576, 832] as const;
+const HERO_H_RL_TOPS = [192, 448, 704] as const;
+const HERO_V_TB_LEFTS = [128, 448, 832, 1216] as const;
+const HERO_V_BT_LEFTS = [256, 640, 1024, 1408] as const;
+
+/** Sparkle light effect: small streaks across the screen. */
 export function BackgroundSparkles() {
+  const horizontal = useMemo(
+    () =>
+      [...Array(8)].map((_, i) => ({
+        key: `sparkle-h-${i}`,
+        width: `${Math.random() * 600 + 400}px`,
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+      })),
+    []
+  );
+  const vertical = useMemo(
+    () =>
+      [...Array(8)].map((_, i) => ({
+        key: `sparkle-v-${i}`,
+        height: `${Math.random() * 600 + 400}px`,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+      })),
+    []
+  );
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden z-[1]">
-      {[...Array(8)].map((_, i) => (
+      {horizontal.map(({ key, width, top, left }) => (
         <motion.div
-          key={`sparkle-h-${i}`}
-          className="absolute h-[1px] bg-gradient-to-r from-transparent via-indigo-400/50 to-transparent"
-          style={{
-            width: `${Math.random() * 600 + 400}px`,
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-          }}
+          key={key}
+          className="absolute h-px bg-gradient-to-r from-transparent via-indigo-400/50 to-transparent"
+          style={{ width, top, left }}
           initial={{ x: '-100%', opacity: 0 }}
         />
       ))}
-      {[...Array(8)].map((_, i) => (
+      {vertical.map(({ key, height, left, top }) => (
         <motion.div
-          key={`sparkle-v-${i}`}
-          className="absolute w-[1px] bg-gradient-to-b from-transparent via-purple-400/50 to-transparent"
-          style={{
-            height: `${Math.random() * 600 + 400}px`,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
+          key={key}
+          className="absolute w-px bg-gradient-to-b from-transparent via-purple-400/50 to-transparent"
+          style={{ height, left, top }}
           initial={{ y: '-100%', opacity: 0 }}
         />
       ))}
@@ -43,66 +61,24 @@ export function BackgroundSparkles() {
   );
 }
 
-/**
- * Sparkling Line Segment - A sharp, bright white segment that travels
- * within the path of a line. Looks like a moving spark or energy pulse.
- */
-export function SparklingLineSegment({ 
-  path, 
-  duration = 4, 
-  delay = 0, 
-  length = 80,
-  strokeWidth = 2,
-  color = "white"
-}: { 
-  path: string, 
-  duration?: number, 
-  delay?: number, 
-  length?: number,
-  strokeWidth?: number,
-  color?: string
-}) {
-  return (
-    <div className="absolute inset-0 pointer-events-none z-[4]">
-      <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" className="absolute inset-0 w-full h-full overflow-visible">
-        <defs>
-          <filter id="spark-glow">
-            <feGaussianBlur stdDeviation="3" result="glow" />
-            <feComposite in="SourceGraphic" in2="glow" operator="over" />
-          </filter>
-        </defs>
-        <motion.path
-          d={path}
-          stroke={color}
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-          fill="none"
-          initial={{ strokeDasharray: `${length} 1000`, strokeDashoffset: 1000 + length, opacity: 0 }}
-          filter="url(#spark-glow)"
-        />
-      </svg>
-    </div>
-  );
+/** Ambient glint pulse: subtle light along an SVG path. */
+interface AmbientGlintPulseProps {
+  path: string;
+  duration?: number;
+  delay?: number;
+  color?: string;
+  size?: number;
+  strokeWidth?: number;
 }
 
-/**
- * Ambient Glint Pulse - A highly sophisticated, subtle light catch.
- */
-export function AmbientGlintPulse({ 
-  path, 
-  duration = 8, 
-  delay = 0, 
-  color = "rgba(165, 180, 252, 0.4)",
+export function AmbientGlintPulse({
+  path,
+  duration = 8,
+  delay = 0,
+  color = 'rgba(165, 180, 252, 0.4)',
   size = 60,
-  strokeWidth = 3
-}: { 
-  path: string, 
-  duration?: number, 
-  delay?: number, 
-  color?: string,
-  size?: number,
-  strokeWidth?: number 
-}) {
+  strokeWidth = 3,
+}: AmbientGlintPulseProps) {
   return (
     <div className="absolute inset-0 pointer-events-none z-[3]">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" className="absolute inset-0 w-full h-full overflow-visible">
@@ -131,21 +107,21 @@ export function AmbientGlintPulse({
   );
 }
 
-/**
- * Moving Grid Lines - Redesigned as subtle glints for the blueprint/grid patterns
- */
+/** Moving grid lines as subtle glints (used by blueprint/mesh-style patterns). */
 export function MovingGridLines({ spacing = 64 }: { spacing?: number }) {
-  const beamPaths = [
-    `M 0 ${spacing * 4} L 1000 ${spacing * 4}`,
-    `M 0 ${spacing * 10} L 1000 ${spacing * 10}`,
-    `M ${spacing * 6} 0 L ${spacing * 6} 1000`,
-    `M ${spacing * 14} 0 L ${spacing * 14} 1000`,
-  ];
-
+  const beamPaths = useMemo(
+    () => [
+      `M 0 ${spacing * 4} L 1000 ${spacing * 4}`,
+      `M 0 ${spacing * 10} L 1000 ${spacing * 10}`,
+      `M ${spacing * 6} 0 L ${spacing * 6} 1000`,
+      `M ${spacing * 14} 0 L ${spacing * 14} 1000`,
+    ],
+    [spacing]
+  );
   return (
     <>
       {beamPaths.map((path, i) => (
-        <AmbientGlintPulse 
+        <AmbientGlintPulse
           key={`glint-grid-${i}`}
           path={path}
           duration={10 + i * 2}
@@ -158,16 +134,56 @@ export function MovingGridLines({ spacing = 64 }: { spacing?: number }) {
   );
 }
 
-export function HexagonPattern() {
-  const hexPaths = [
-    "M 0 50 L 28 66 L 56 50 L 56 16 L 28 0 L 0 16 Z", // One full hex
-    "M 0 150 L 1000 150", 
-    "M 0 350 L 500 650 L 1000 350", // Zig-zag
-  ];
+/**
+ * Hero grid lines: GPU-optimized moving pulses for the hero (route /).
+ * Uses CSS keyframes (compositor) instead of JS to avoid lag.
+ */
+export function HeroGridLines() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden>
+      <style dangerouslySetInnerHTML={{ __html: HERO_GRID_KEYFRAMES }} />
+      {HERO_H_LR_TOPS.map((top, i) => (
+        <div
+          key={`h-lr-${top}`}
+          className="absolute left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent will-change-transform"
+          style={{ top: `${top}px`, animation: `hero-line-right ${3 + (i % 3)}s linear ${i * 2}s infinite` }}
+        />
+      ))}
+      {HERO_H_RL_TOPS.map((top, i) => (
+        <div
+          key={`h-rl-${top}`}
+          className="absolute left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-400/50 to-transparent will-change-transform"
+          style={{ top: `${top}px`, animation: `hero-line-left ${4 + (i % 4)}s linear ${i * 2.5}s infinite` }}
+        />
+      ))}
+      {HERO_V_TB_LEFTS.map((left, i) => (
+        <div
+          key={`v-tb-${left}`}
+          className="absolute top-0 w-px h-full bg-gradient-to-b from-transparent via-indigo-400/50 to-transparent will-change-transform"
+          style={{ left: `${left}px`, animation: `hero-line-down ${5 + (i % 3)}s linear ${i * 1.5}s infinite` }}
+        />
+      ))}
+      {HERO_V_BT_LEFTS.map((left, i) => (
+        <div
+          key={`v-bt-${left}`}
+          className="absolute top-0 w-px h-full bg-gradient-to-b from-transparent via-purple-400/40 to-transparent will-change-transform"
+          style={{ left: `${left}px`, animation: `hero-line-up ${4 + (i % 4)}s linear ${i * 2.2}s infinite` }}
+        />
+      ))}
+    </div>
+  );
+}
 
+const HEX_PATHS = [
+  'M 0 50 L 28 66 L 56 50 L 56 16 L 28 0 L 0 16 Z',
+  'M 0 150 L 1000 150',
+  'M 0 350 L 500 650 L 1000 350',
+];
+
+export function HexagonPattern() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {hexPaths.map((path, i) => (
+      {HEX_PATHS.map((path, i) => (
         <AmbientGlintPulse 
           key={`hex-glint-${i}`} 
           path={path} 
@@ -205,16 +221,16 @@ export function BlueprintPattern() {
   );
 }
 
-export function TopographicPattern() {
-  const curvedPaths = [
-    "M -100 200 C 200 50, 500 350, 1100 250",
-    "M -100 550 C 350 450, 750 650, 1100 550",
-    "M -100 850 C 450 750, 850 950, 1100 850",
-  ];
+const TOPO_PATHS = [
+  'M -100 200 C 200 50, 500 350, 1100 250',
+  'M -100 550 C 350 450, 750 650, 1100 550',
+  'M -100 850 C 450 750, 850 950, 1100 850',
+];
 
+export function TopographicPattern() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {curvedPaths.map((path, i) => (
+      {TOPO_PATHS.map((path, i) => (
         <AmbientGlintPulse 
           key={`topo-glint-${i}`} 
           path={path} 
@@ -237,16 +253,16 @@ export function TopographicPattern() {
   );
 }
 
-export function IsometricPattern() {
-  const diagonalPaths = [
-    "M 0 0 L 1000 600", 
-    "M 0 500 L 900 0", 
-    "M 1000 500 L 100 1000",
-  ];
+const ISO_PATHS = [
+  'M 0 0 L 1000 600',
+  'M 0 500 L 900 0',
+  'M 1000 500 L 100 1000',
+];
 
+export function IsometricPattern() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {diagonalPaths.map((path, i) => (
+      {ISO_PATHS.map((path, i) => (
         <AmbientGlintPulse 
           key={`iso-glint-${i}`} 
           path={path} 
@@ -293,16 +309,16 @@ export function ArchitecturalPulse() {
   );
 }
 
-export function DotPattern() {
-  const floatingPaths = [
-    "M 100 200 Q 300 100 500 200",
-    "M 800 600 Q 600 700 400 600",
-    "M 200 800 Q 400 900 600 800",
-  ];
+const DOT_PATHS = [
+  'M 100 200 Q 300 100 500 200',
+  'M 800 600 Q 600 700 400 600',
+  'M 200 800 Q 400 900 600 800',
+];
 
+export function DotPattern() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {floatingPaths.map((path, i) => (
+      {DOT_PATHS.map((path, i) => (
         <AmbientGlintPulse 
           key={`dot-glint-${i}`} 
           path={path} 
@@ -312,10 +328,8 @@ export function DotPattern() {
           size={140}
         />
       ))}
-      {/* Accent orbs - BOOSTED */}
       <div className="absolute top-0 left-1/4 w-[800px] h-[800px] bg-indigo-500/15 rounded-full blur-[140px]" />
       <div className="absolute bottom-0 right-1/4 w-[700px] h-[700px] bg-purple-500/15 rounded-full blur-[120px]" />
-      {/* Dots grid - BOOSTED */}
       <div 
         className="absolute inset-0 opacity-[0.25]" 
         style={{
@@ -328,22 +342,18 @@ export function DotPattern() {
   );
 }
 
-/**
- * Perspective Pattern - A 3D vanishing point design that creates
- * a sense of depth and scale. Not square-based.
- */
-export function PerspectivePattern() {
-  const perspectivePaths = [
-    "M 500 1000 L 0 0",
-    "M 500 1000 L 250 0",
-    "M 500 1000 L 500 0",
-    "M 500 1000 L 750 0",
-    "M 500 1000 L 1000 0",
-  ];
+const PERSP_PATHS = [
+  'M 500 1000 L 0 0',
+  'M 500 1000 L 250 0',
+  'M 500 1000 L 500 0',
+  'M 500 1000 L 750 0',
+  'M 500 1000 L 1000 0',
+];
 
+export function PerspectivePattern() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {perspectivePaths.map((path, i) => (
+      {PERSP_PATHS.map((path, i) => (
         <AmbientGlintPulse 
           key={`persp-glint-${i}`} 
           path={path} 
@@ -354,21 +364,15 @@ export function PerspectivePattern() {
         />
       ))}
 
-      {/* Vanishing Point Glow */}
       <div className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-purple-600/15 rounded-full blur-[120px]" />
-
-      {/* Perspective Grid Implementation */}
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" className="absolute inset-0 w-full h-full opacity-[0.12]">
         <g stroke="currentColor" strokeWidth="1" className="text-purple-400">
-          {/* Radial Lines */}
           <line x1="500" y1="1000" x2="0" y2="0" />
           <line x1="500" y1="1000" x2="200" y2="0" />
           <line x1="500" y1="1000" x2="400" y2="0" />
           <line x1="500" y1="1000" x2="600" y2="0" />
           <line x1="500" y1="1000" x2="800" y2="0" />
           <line x1="500" y1="1000" x2="1000" y2="0" />
-          
-          {/* Horizontal Perspective Lines (Receding) */}
           {[0, 100, 250, 450, 700].map((y) => (
             <line key={y} x1="0" y1={y} x2="1000" y2={y} />
           ))}
@@ -380,17 +384,17 @@ export function PerspectivePattern() {
   );
 }
 
-export function CircuitPattern() {
-  const circuitPaths = [
-    "M 0 160 L 320 160 L 320 0", // L-shape
-    "M 320 1000 L 320 640 L 1000 640", // L-shape
-    "M 0 400 L 640 400 L 640 1000", // L-shape
-    "M 1000 160 L 640 160 L 640 0", // L-shape
-  ];
+const CIRCUIT_PATHS = [
+  'M 0 160 L 320 160 L 320 0',
+  'M 320 1000 L 320 640 L 1000 640',
+  'M 0 400 L 640 400 L 640 1000',
+  'M 1000 160 L 640 160 L 640 0',
+];
 
+export function CircuitPattern() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {circuitPaths.map((path, i) => (
+      {CIRCUIT_PATHS.map((path, i) => (
         <AmbientGlintPulse 
           key={`circuit-glint-${i}`} 
           path={path} 
@@ -400,13 +404,9 @@ export function CircuitPattern() {
           size={140}
         />
       ))}
-      
-      {/* Glow orbs for technological depth - BOOSTED */}
       <div className="absolute top-1/4 right-0 w-[800px] h-[800px] bg-indigo-600/10 rounded-full blur-[140px]" />
       <div className="absolute bottom-1/4 left-0 w-[700px] h-[700px] bg-blue-600/10 rounded-full blur-[120px]" />
-
-      {/* Circuit-like grid with illuminated nodes - BOOSTED */}
-      <div 
+      <div
         className="absolute inset-0 opacity-[0.12]"
         style={{
           backgroundImage: `
@@ -416,8 +416,7 @@ export function CircuitPattern() {
           backgroundSize: '40px 40px',
         }}
       >
-        {/* Connection Nodes - BOOSTED */}
-        <div 
+        <div
           className="absolute inset-0"
           style={{
             backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 2px, transparent 2px)',
@@ -434,13 +433,9 @@ export function PurpleDominantOrbs() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <BackgroundSparkles />
-      {/* Top-right purple orb */}
       <div className="absolute top-1/4 right-1/4 w-[700px] h-[700px] bg-purple-600/15 rounded-full blur-[120px]" />
-      {/* Bottom-left purple orb */}
       <div className="absolute bottom-1/4 left-1/4 w-[600px] h-[600px] bg-purple-500/12 rounded-full blur-[100px]" />
-      {/* Center accent */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-400/8 rounded-full blur-[80px]" />
-      {/* Grid pattern - Purple-tinted, 48px */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(196,181,253,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(196,181,253,0.08)_1px,transparent_1px)] bg-[size:48px_48px]" />
     </div>
   );
@@ -450,13 +445,9 @@ export function IndigoDominantOrbs() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <BackgroundSparkles />
-      {/* Top-left indigo orb */}
       <div className="absolute top-1/4 left-1/4 w-[700px] h-[700px] bg-indigo-600/15 rounded-full blur-[120px]" />
-      {/* Bottom-right indigo orb */}
       <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-indigo-500/12 rounded-full blur-[100px]" />
-      {/* Center accent */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-400/8 rounded-full blur-[80px]" />
-      {/* Grid pattern - Indigo-tinted, 56px */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(165,180,252,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(165,180,252,0.07)_1px,transparent_1px)] bg-[size:56px_56px]" />
     </div>
   );
@@ -467,10 +458,8 @@ export function MeshPattern() {
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <BackgroundSparkles />
       <MovingGridLines spacing={64} />
-      {/* Mesh gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/20 via-transparent to-purple-900/20" />
-      {/* Diagonal mesh lines - Enhanced with color variation */}
-      <div 
+      <div
         className="absolute inset-0 opacity-50"
         style={{
           backgroundImage: `
@@ -480,10 +469,8 @@ export function MeshPattern() {
           backgroundSize: '40px 40px',
         }}
       />
-      {/* Gradient orbs for depth */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-indigo-600/8 rounded-full blur-[100px]" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/8 rounded-full blur-[100px]" />
-      {/* Grid pattern - Standard overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:64px_64px]" />
     </div>
   );
@@ -493,22 +480,19 @@ export function RadialGradientCenter() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <BackgroundSparkles />
-      {/* Radial gradient from center */}
-      <div 
+      <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] rounded-full blur-[150px]"
         style={{
-          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.08) 50%, transparent 100%)'
+          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.08) 50%, transparent 100%)',
         }}
       />
-      {/* Secondary radial */}
-      <div 
+      <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[100px]"
         style={{
-          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%)'
+          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%)',
         }}
       />
-      {/* Grid pattern - Radial-fade, 72px */}
-      <div 
+      <div
         className="absolute inset-0"
         style={{
           backgroundImage: `
@@ -527,11 +511,8 @@ export function RadialGradientCenter() {
 export function DigitalWavePattern() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden bg-[var(--color-darker-bg)]">
-      {/* Deep background glow */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-indigo-900/10 rounded-full blur-[120px] opacity-60" />
       <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-purple-900/10 rounded-full blur-[120px] opacity-60" />
-
-      {/* Digital Waves - Animated SVG paths */}
       <div className="absolute inset-0 opacity-20">
         <svg viewBox="0 0 1440 800" className="w-full h-full" preserveAspectRatio="none">
           <motion.path
@@ -559,8 +540,6 @@ export function DigitalWavePattern() {
           </defs>
         </svg>
       </div>
-
-      {/* Floating Particles for 'Digital' feel */}
       {[...Array(15)].map((_, i) => (
         <motion.div
            key={`digi-particle-${i}`}
@@ -579,20 +558,15 @@ export function DigitalWavePattern() {
 export function LuminescentFluidPattern() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden bg-[var(--color-darker-bg)]">
-      {/* Primary Fluid Blob - Visible again, deep indigo */}
-      <motion.div 
+      <motion.div
         className="absolute top-[-20%] left-[-10%] w-[80vw] h-[80vw] bg-indigo-800/30 rounded-full blur-[180px] opacity-60"
         initial={{ scale: 1, x: 0, y: 0 }}
       />
-      
-      {/* Secondary Fluid Blob - Visible again, deep purple */}
-      <motion.div 
+      <motion.div
         className="absolute bottom-[-20%] right-[-10%] w-[70vw] h-[70vw] bg-purple-800/25 rounded-full blur-[160px] opacity-50"
         initial={{ scale: 1, x: 0, y: 0 }}
       />
-
-      {/* Accent Fluid Blob - Visible again, slate/cyan */}
-      <motion.div 
+      <motion.div
         className="absolute top-[30%] left-[50%] -translate-x-1/2 w-[60vw] h-[60vw] bg-slate-800/30 rounded-full blur-[140px] mix-blend-screen opacity-40"
         initial={{ scale: 1, opacity: 0.3 }}
       />
@@ -600,36 +574,32 @@ export function LuminescentFluidPattern() {
   );
 }
 
+const CONSTELLATION_CONNECTIONS = [
+  'M 100 200 L 300 150',
+  'M 300 150 L 500 300',
+  'M 500 300 L 400 600',
+  'M 700 200 L 900 400',
+  'M 900 400 L 800 700',
+  'M 200 800 L 400 600',
+  'M 400 600 L 600 800',
+];
+
 export function ConstellationPattern() {
-  // Generate random stars/nodes
-  const stars = React.useMemo(() => {
-    return [...Array(20)].map((_, i) => ({
-      cx: Math.random() * 1000,
-      cy: Math.random() * 1000,
-      r: Math.random() * 2 + 1,
-      delay: Math.random() * 5,
-    }));
-  }, []);
-
-  // Generate connections between nearby stars (pre-calculated or simplified for performance)
-  const connections = [
-    "M 100 200 L 300 150", 
-    "M 300 150 L 500 300",
-    "M 500 300 L 400 600",
-    "M 700 200 L 900 400",
-    "M 900 400 L 800 700",
-    "M 200 800 L 400 600",
-    "M 400 600 L 600 800",
-  ];
-
+  const stars = useMemo(
+    () =>
+      [...Array(20)].map(() => ({
+        cx: Math.random() * 1000,
+        cy: Math.random() * 1000,
+        r: Math.random() * 2 + 1,
+        delay: Math.random() * 5,
+      })),
+    []
+  );
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden bg-[var(--color-darker-bg)]">
-      {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-900/30 rounded-full blur-[120px]" />
-      
-      {/* Constellation Lines */}
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" className="absolute inset-0 w-full h-full opacity-20">
-        {connections.map((d, i) => (
+        {CONSTELLATION_CONNECTIONS.map((d, i) => (
           <motion.path
             key={`const-line-${i}`}
             d={d}
@@ -639,8 +609,6 @@ export function ConstellationPattern() {
           />
         ))}
       </svg>
-      
-      {/* Stars/Nodes */}
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
         {stars.map((star, i) => (
           <motion.circle
@@ -653,7 +621,6 @@ export function ConstellationPattern() {
           />
         ))}
       </svg>
-      
     </div>
   );
 }
@@ -663,12 +630,37 @@ export function StandardGradientOrbs() {
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <BackgroundSparkles />
       <MovingGridLines spacing={64} />
-      {/* Top-right orb */}
       <div className="absolute -top-[20%] -right-[10%] w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[120px]" />
-      {/* Bottom-left orb */}
       <div className="absolute -bottom-[20%] -left-[10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px]" />
-      {/* Grid pattern - Standard 64px */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:64px_64px]" />
+    </div>
+  );
+}
+
+/** Static deep-space background for 404 / error pages. */
+export function ImmersiveSpacePattern() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 opacity-[0.12]">
+        <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" className="w-full h-full overflow-visible">
+          <g stroke="rgba(99, 102, 241, 0.5)" strokeWidth="1">
+            <line x1="500" y1="1000" x2="0" y2="0" />
+            <line x1="500" y1="1000" x2="250" y2="0" />
+            <line x1="500" y1="1000" x2="500" y2="0" />
+            <line x1="500" y1="1000" x2="750" y2="0" />
+            <line x1="500" y1="1000" x2="1000" y2="0" />
+            {[0, 100, 250, 450, 700].map((y) => (
+              <line key={y} x1="0" y1={y} x2="1000" y2={y} />
+            ))}
+          </g>
+        </svg>
+      </div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.1)_0%,transparent_70%)]" />
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px]" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[140px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--color-darker-bg)_100%)] opacity-80" />
+      <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-[var(--color-darker-bg)] to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[var(--color-darker-bg)] to-transparent" />
     </div>
   );
 }

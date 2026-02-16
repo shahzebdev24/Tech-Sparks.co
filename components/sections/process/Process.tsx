@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Search, PenTool, Code2, Rocket, RefreshCw, ArrowRight } from 'lucide-react';
-import { Section, Container, Heading, Text, Badge } from '@/components/ui';
+import { Section, Container, Heading, Text, Badge, GradientText } from '@/components/ui';
 
 const steps = [
   {
@@ -61,9 +61,9 @@ export default function Process() {
           </Badge>
           <Heading level={2} className="text-4xl lg:text-6xl font-bold !text-white mb-8 leading-tight">
             How we turn ideas into{' '}
-            <span className="block lg:inline bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <GradientText variant="indigo-purple-pink" className="block lg:inline">
               scalable products
-            </span>
+            </GradientText>
           </Heading>
           <Text className="text-gray-400 text-xl max-w-3xl mx-auto leading-relaxed">
             Our proven five-step process ensures transparency, quality, and 

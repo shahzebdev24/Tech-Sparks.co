@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Section, Container, Heading, Text, Badge, ProjectCard, Button } from '@/components/ui';
+import { Section, Container, Heading, Text, Badge, ProjectCard, Button, GradientText, SectionHeader } from '@/components/ui';
 import { projects } from '@/content/projects';
 
 export default function Projects() {
@@ -12,17 +12,14 @@ export default function Projects() {
     <Section id="projects" bg="dark-hex">
       <Container>
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-20">
-          <div className="max-w-2xl">
-            <Badge variant="dark" className="mb-4">Our Portfolio</Badge>
-            <Heading level={2} className="!text-white mb-6">
-              Engineering solutions that{' '}
-              <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">fuel growth</span>
-            </Heading>
-            <Text className="text-gray-300 text-lg font-medium leading-relaxed">
-              Explore our recent projects where technical precision meets 
-              strategic design to deliver high-impact digital products.
-            </Text>
-          </div>
+          <SectionHeader
+            badge="Our Portfolio"
+            title={<>Engineering solutions that <GradientText variant="indigo-purple">fuel growth</GradientText></>}
+            description="Explore our recent projects where technical precision meets strategic design to deliver high-impact digital products."
+            headingLevel={2}
+            align="left"
+            maxWidth="md"
+          />
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}

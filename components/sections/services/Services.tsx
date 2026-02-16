@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Globe, Code2, Palette, ShoppingCart, Server, Smartphone } from 'lucide-react';
-import { Container, Section, Card, Heading, Text, Badge } from '@/components/ui';
+import { Container, Section, Card, Heading, Text, Badge, GradientText } from '@/components/ui';
 
 const services = [
   {
@@ -84,9 +84,9 @@ export default function Services() {
           </Badge>
           <Heading level={2} className="!text-white mb-6">
             Custom-built digital solutions{' '}
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-              designed around your goals
-            </span>
+<GradientText variant="indigo-purple">
+            designed around your goals
+            </GradientText>
           </Heading>
           <Text className="text-gray-300 text-lg max-w-2xl mx-auto font-medium leading-relaxed">
             From web applications to SaaS platforms — every solution is engineered 
@@ -106,7 +106,7 @@ export default function Services() {
             >
               <Card 
                 variant="glass" 
-                className="glossy-card group h-full"
+                className="glossy-card group h-full flex flex-col"
                 padding="lg"
               >
                 {/* Icon */}
@@ -125,7 +125,7 @@ export default function Services() {
                 </p>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mt-auto">
                   {service.tags.map((tag) => (
                     <span
                       key={tag}

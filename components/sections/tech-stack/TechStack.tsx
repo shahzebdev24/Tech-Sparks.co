@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Section, Container, Heading, Text, Badge } from '@/components/ui';
+import { Section, Container, Heading, Text, Badge, GradientText } from '@/components/ui';
 import { 
   Layout, 
   Server, 
@@ -56,9 +56,9 @@ export default function TechStack() {
               </Badge>
               <Heading level={2} className="text-4xl lg:text-7xl font-bold !text-white mb-8 leading-[1.05] tracking-tight">
                 Modern tools for{' '}
-                <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                <GradientText variant="indigo-purple-pink">
                   modern problems
-                </span>
+                </GradientText>
               </Heading>
               <Text variant="large" className="text-gray-400 max-w-xl">
                 We leverage the most stable and scalable technologies to ensure 

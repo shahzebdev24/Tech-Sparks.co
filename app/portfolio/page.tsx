@@ -1,6 +1,6 @@
 
 
-import { Section, Container, Heading, Text, Badge, ProjectCard } from '@/components/ui';
+import { Section, Container, Heading, Text, Badge, ProjectCard, GradientText, SectionHeader, DarkPageLayout } from '@/components/ui';
 import { projects } from '@/content/projects';
 import { createPageMetadata } from '@/lib/seo';
 
@@ -12,22 +12,18 @@ export const metadata = createPageMetadata({
 
 export default function PortfolioPage() {
   return (
-    <div className="bg-[var(--color-darker-bg)] min-h-screen">
+    <DarkPageLayout>
       <Section bg="dark-hex" spacing="lg">
         <Container>
-          <div className="max-w-3xl mb-16 lg:mb-20">
-            <Badge variant="glass" className="mb-4">Our Work</Badge>
-            <Heading level={1} className="!text-white mb-8 tracking-tighter">
-              Case studies of{' '}
-              <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                engineering excellence
-              </span>
-            </Heading>
-            <Text className="text-gray-400 text-lg font-medium leading-relaxed">
-              Each project is a testament to our commitment to quality, strategy, 
-              and measurable growth. We build digital products that matter.
-            </Text>
-          </div>
+          <SectionHeader
+            badge="Our Work"
+            title={<>Case studies of <GradientText variant="indigo-purple-pink">engineering excellence</GradientText></>}
+            description="Each project is a testament to our commitment to quality, strategy, and measurable growth. We build digital products that matter."
+            headingLevel={1}
+            align="left"
+            maxWidth="lg"
+            className="mb-16 lg:mb-20"
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {projects.map((project, index) => (
@@ -41,7 +37,7 @@ export default function PortfolioPage() {
           </div>
         </Container>
       </Section>
-    </div>
+    </DarkPageLayout>
   );
 }
 

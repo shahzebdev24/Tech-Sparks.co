@@ -1,27 +1,27 @@
 'use client';
 
 import { Star, Quote } from 'lucide-react';
-import { Section, Container, Heading, Text, Card, Badge } from '@/components/ui';
+import { Section, Container, Heading, Text, Card, Badge, GradientText } from '@/components/ui';
 
 const testimonials = [
   {
-    name: 'Verified Client',
-    role: 'Strategic Partner',
-    content: 'Testimonial from our strategic partner will be published here following our internal verification process.',
-    initials: 'VC'
+    name: 'Nazir Siddiqui',
+    role: 'Tazdeeq Markaz',
+    content: 'Tech Sparks delivered a robust web app for Tazdeeq Markaz that perfectly meets our needs. Their technical skills and dedication were evident throughout the project.',
+    initials: 'NS'
   },
   {
-    name: 'Verified Client',
-    role: 'Strategic Partner',
-    content: 'Testimonial from our strategic partner will be published here following our internal verification process.',
-    initials: 'VC'
+    name: 'Usama',
+    role: 'Docs and More by Almeer',
+    content: 'Working with Tech Sparks on Docs and More by Almeer was a game-changer. They understood our vision and built a high-quality web app that our users love.',
+    initials: 'U'
   },
-  {
-    name: 'Verified Client',
-    role: 'Strategic Partner',
-    content: 'Testimonial from our strategic partner will be published here following our internal verification process.',
-    initials: 'VC'
-  }
+  // {
+  //   name: 'Verified Client',
+  //   role: 'Strategic Partner',
+  //   content: 'Testimonial from our strategic partner will be published here following our internal verification process.',
+  //   initials: 'VC'
+  // }
 ];
 
 export default function Testimonials() {
@@ -34,9 +34,9 @@ export default function Testimonials() {
           </Badge>
           <Heading level={2} className="text-4xl lg:text-7xl font-bold !text-white mb-8 leading-[1.05] tracking-tight">
             Trusted by founders and{' '}
-            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <GradientText variant="indigo-purple-pink">
               product leaders
-            </span>
+            </GradientText>
           </Heading>
           <Text variant="large" className="text-gray-400 max-w-2xl mx-auto">
             We prioritize building long-term partnerships. Here is what our 
@@ -44,7 +44,7 @@ export default function Testimonials() {
           </Text>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {testimonials.map((t, i) => (
             <div key={i} className="h-full">
               <Card 

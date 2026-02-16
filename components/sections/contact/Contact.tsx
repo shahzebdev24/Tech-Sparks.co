@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Send, ArrowRight, Phone } from 'lucide-react';
-import { Section, Container, Heading, Text, Badge, Button, Input, Textarea, Card, Select } from '@/components/ui';
+import { Section, Container, Heading, Text, Badge, Button, Input, Textarea, Card, Select, GradientText } from '@/components/ui';
 import { contactInfo, contactSubjects } from '@/content/contact';
 import { SectionProps } from '@/components/ui/Section';
 
@@ -32,18 +32,12 @@ export default function Contact({
   const defaultTitle = isPage ? (
     <>
       Let&apos;s Build Your{' '}
-      <span className="relative inline-block">
-        <span className="relative z-10 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-          Next Big Idea
-        </span>
-      </span>
+      <GradientText variant="indigo-purple" className="relative z-10">Next Big Idea</GradientText>
     </>
   ) : (
     <>
       Let&apos;s build for the{' '}
-      <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
-        future
-      </span>
+      <GradientText variant="indigo-via-purple-indigo">future</GradientText>
     </>
   );
 
@@ -157,9 +151,43 @@ export default function Contact({
                       </Button>
                     </motion.div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="space-y-8">
+                    <form onSubmit={async (e) => {
+                      e.preventDefault();
+                      setStatus('loading');
+                      
+                      const formData = new FormData(e.currentTarget);
+                      const data = {
+                        name: formData.get('name'),
+                        email: formData.get('email'),
+                        company: formData.get('company'),
+                        message: formData.get('message'),
+                      };
+
+                      try {
+                        const response = await fetch('/api/contact', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify(data),
+                        });
+
+                        const result = await response.json();
+
+                        if (result.success) {
+                          setStatus('success');
+                        } else {
+                          console.error(result.message);
+                          alert('Failed to send message: ' + result.message); // Simple error handling for now
+                          setStatus('idle');
+                        }
+                      } catch (error) {
+                        console.error('Submission error:', error);
+                        alert('Something went wrong. Please try again.');
+                        setStatus('idle');
+                      }
+                    }} className="space-y-8">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                         <Input 
+                          name="name"
                           label="Full Name" 
                           placeholder="John Doe" 
                           required 
@@ -167,6 +195,7 @@ export default function Contact({
                           className="!bg-white/[0.02] !border-white/10 !text-white placeholder:text-gray-600 focus:!border-indigo-500/50" 
                         />
                         <Input 
+                          name="email"
                           label="Email Address" 
                           type="email" 
                           placeholder="john@example.com" 
@@ -177,6 +206,7 @@ export default function Contact({
                       </div>
                       
                       <Input 
+                        name="company"
                         label="Company Name" 
                         placeholder="Your Business Ltd." 
                         labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em] mb-3"
@@ -184,6 +214,7 @@ export default function Contact({
                       />
 
                       <Textarea 
+                        name="message"
                         label={isPage ? "Your Message" : "Project Details"} 
                         placeholder={isPage ? "Tell us about your project..." : "Tell us what you're building..."}
                         rows={5} 

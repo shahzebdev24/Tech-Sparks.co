@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, Code2, Palette, Zap } from 'lucide-react';
-import { Heading } from '@/components/ui';
+import { Heading, GradientText, HeroGridLines } from '@/components/ui';
 
 export default function Hero() {
   return (
@@ -18,81 +18,9 @@ export default function Hero() {
         
         {/* Grid pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:64px_64px]" />
-        
-        {/* Shining Grid Pulse Effect (Multi-Directional & Randomized) */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Horizontal Grid Pulses (Left to Right) */}
-          {[64, 320, 576, 832].map((top, i) => (
-            <motion.div 
-              key={`h-lr-${top}`}
-              className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-indigo-400/60 to-transparent"
-              style={{ top: `${top}px` }}
-              initial={{ x: '-100%' }}
-              animate={{ x: '100%' }}
-              transition={{ 
-                duration: 3 + (i % 3), 
-                repeat: Infinity, 
-                ease: "linear",
-                delay: i * 2,
-                repeatDelay: Math.random() * 5
-              }}
-            />
-          ))}
 
-          {/* Horizontal Grid Pulses (Right to Left) */}
-          {[192, 448, 704].map((top, i) => (
-            <motion.div 
-              key={`h-rl-${top}`}
-              className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-purple-400/50 to-transparent"
-              style={{ top: `${top}px` }}
-              initial={{ x: '100%' }}
-              animate={{ x: '-100%' }}
-              transition={{ 
-                duration: 4 + (i % 4), 
-                repeat: Infinity, 
-                ease: "linear",
-                delay: i * 2.5,
-                repeatDelay: Math.random() * 6
-              }}
-            />
-          ))}
-
-          {/* Vertical Grid Pulses (Top to Bottom) */}
-          {[128, 448, 832, 1216].map((left, i) => (
-            <motion.div 
-              key={`v-tb-${left}`}
-              className="absolute top-0 w-[1px] h-full bg-gradient-to-b from-transparent via-indigo-400/50 to-transparent"
-              style={{ left: `${left}px` }}
-              initial={{ y: '-100%' }}
-              animate={{ y: '100%' }}
-              transition={{ 
-                duration: 5 + (i % 3), 
-                repeat: Infinity, 
-                ease: "linear",
-                delay: i * 1.5,
-                repeatDelay: Math.random() * 4
-              }}
-            />
-          ))}
-
-          {/* Vertical Grid Pulses (Bottom to Top) */}
-          {[256, 640, 1024, 1408].map((left, i) => (
-            <motion.div 
-              key={`v-bt-${left}`}
-              className="absolute top-0 w-[1px] h-full bg-gradient-to-b from-transparent via-purple-400/40 to-transparent"
-              style={{ left: `${left}px` }}
-              initial={{ y: '100%' }}
-              animate={{ y: '-100%' }}
-              transition={{ 
-                duration: 4 + (i % 4), 
-                repeat: Infinity, 
-                ease: "linear",
-                delay: i * 2.2,
-                repeatDelay: Math.random() * 5
-              }}
-            />
-          ))}
-        </div>
+        {/* Shining grid pulses — CSS keyframe–driven for smooth performance */}
+        <HeroGridLines />
 
         {/* Top gradient fade */}
         <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[var(--color-darker-bg)] to-transparent z-10" />
@@ -126,9 +54,7 @@ export default function Hero() {
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight !text-white mb-8"
             >
               Software development,{' '}
-              <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
-                engineered to grow
-              </span>{' '}
+              <GradientText variant="indigo-via-purple-indigo">engineered to grow</GradientText>{' '}
               your business
             </Heading>
           </motion.div>

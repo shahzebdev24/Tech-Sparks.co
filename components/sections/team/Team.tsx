@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Twitter, Plus, Quote } from 'lucide-react';
-import { Section } from '@/components/ui';
+import { Section, GradientText } from '@/components/ui';
 
 const team = [
     {
@@ -58,7 +58,7 @@ export default function Team() {
                             className="text-6xl md:text-9xl font-black text-white leading-[0.85] tracking-tighter"
                         >
                             The Team <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Selected.</span>
+                            <GradientText variant="indigo-purple">Selected.</GradientText>
                         </motion.h2>
                         <motion.p
                             initial={{ opacity: 0, y: 20 }}

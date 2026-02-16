@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Mail, MapPin, ArrowRight } from 'lucide-react';
+import { Mail, MapPin, Phone, ArrowRight } from 'lucide-react';
 import { Container, Heading, Text, Badge } from '@/components/ui';
 
 export default function Footer() {
@@ -36,7 +36,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-bold mb-8 uppercase tracking-[0.2em] text-[10px] text-indigo-400">Company</h4>
             <ul className="space-y-4">
-              {['Services', 'Portfolio', 'Pricing', 'About'].map((item) => (
+              {['Services', 'Portfolio', /* 'Pricing', */ 'About'].map((item) => (
                 <li key={item}>
                   <Link 
                     href={item === 'Services' ? '/#services' : `/${item.toLowerCase()}`}
@@ -57,6 +57,17 @@ export default function Footer() {
                 <Mail className="w-5 h-5 text-indigo-500 shrink-0" />
                 <a href="mailto:techsparks.co@gmail.com" className="text-gray-400 hover:text-indigo-400 text-sm font-bold transition-colors">
                   techsparks.co@gmail.com
+                </a>
+              </li>
+              <li className="flex gap-4">
+                <Phone className="w-5 h-5 text-indigo-500 shrink-0" />
+                <a 
+                  href="https://wa.me/923408399014?text=Hi%20Tech%20Sparks!%20I'd%20like%20to%20discuss%20a%20project."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-indigo-400 text-sm font-bold transition-colors"
+                >
+                  +92 340 8399014
                 </a>
               </li>
               <li className="flex gap-4">
