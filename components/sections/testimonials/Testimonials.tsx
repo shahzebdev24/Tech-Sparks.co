@@ -11,10 +11,10 @@ const testimonials = [
     initials: 'NS'
   },
   {
-    name: 'Usama',
+    name: 'Muhammad Usama Hussain',
     role: 'Docs and More by Almeer',
     content: 'Working with Tech Sparks on Docs and More by Almeer was a game-changer. They understood our vision and built a high-quality web app that our users love.',
-    initials: 'U'
+    initials: 'UH'
   },
   // {
   //   name: 'Verified Client',

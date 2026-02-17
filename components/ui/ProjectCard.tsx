@@ -16,23 +16,31 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, variant = 'preview', className = '', delay = 0 }: ProjectCardProps) {
   const isFull = variant === 'full';
+  const [isExpanded, setIsExpanded] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   
   return (
     <motion.div
-      className={`group relative h-full ${className}`}
+      className={`group relative ${className}`}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
     >
-      <div className="relative h-full p-6 rounded-[2.5rem] bg-white/[0.05] border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden flex flex-col hover:bg-white/[0.08] hover:border-white/20 transition-all duration-500">
+      <div className="relative p-6 rounded-[2.5rem] bg-white/[0.05] border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden flex flex-col hover:bg-white/[0.08] hover:border-white/20 transition-all duration-500">
         {/* Image Container */}
-        <div className="relative aspect-[16/10] rounded-[1.75rem] overflow-hidden mb-8 border border-white/5">
+        <div className="relative aspect-[16/10] rounded-[1.75rem] overflow-hidden mb-8 border border-white/5 bg-white/5">
+          {isLoading && (
+            <div className="absolute inset-0 bg-white/5 animate-pulse flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full border-2 border-indigo-500/20 border-t-indigo-500 animate-spin" />
+            </div>
+          )}
           <Image
             src={project.image}
             alt={project.title}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className={`object-cover transition-all duration-700 group-hover:scale-103 ${isLoading ? 'scale-110 blur-xl opacity-0' : 'scale-100 blur-0 opacity-100'}`}
+            onLoadingComplete={() => setIsLoading(false)}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A1B]/60 to-transparent" />
@@ -45,8 +53,8 @@ export function ProjectCard({ project, variant = 'preview', className = '', dela
 
         {/* Content */}
         <div className="flex-1 flex flex-col">
-          <div className="flex items-start justify-between mb-4">
-            <span className="text-[10px] font-black tracking-[0.25em] uppercase text-indigo-400">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xs font-black tracking-[0.25em] uppercase text-indigo-400">
               {project.category}
             </span>
             <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-indigo-600 group-hover:border-indigo-600 transition-all duration-500">
@@ -58,11 +66,21 @@ export function ProjectCard({ project, variant = 'preview', className = '', dela
             {project.title}
           </Heading>
           
-          <p className="text-gray-400 text-sm lg:text-base font-medium leading-relaxed mb-8 flex-1">
-            {project.description}
-          </p>
+          <div className="relative flex-1 mb-6">
+            <p className={`text-gray-400 text-sm lg:text-base font-medium leading-relaxed transition-all duration-300 ${!isExpanded ? 'line-clamp-3' : ''}`}>
+              {project.description}
+            </p>
+            {project.description.length > 120 && (
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="mt-2 text-indigo-400 hover:text-indigo-300 text-xs font-bold uppercase tracking-widest transition-colors active:scale-95"
+              >
+                {isExpanded ? 'Read Less' : 'Read More'}
+              </button>
+            )}
+          </div>
 
-          <div className={`flex flex-wrap gap-2 ${isFull ? 'mb-8' : 'mt-auto'}`}>
+          <div className="flex flex-wrap gap-2 mb-8 mt-auto">
             {project.tags.map((tag) => (
               <span
                 key={tag}
@@ -73,16 +91,18 @@ export function ProjectCard({ project, variant = 'preview', className = '', dela
             ))}
           </div>
 
-          {isFull && (
-             <Button 
-               variant="outline" 
-               href={project.link || '/portfolio'}
-               fullWidth 
-               className="mt-auto border-white/10 text-white hover:bg-white/10 metallic-shine rounded-xl"
-             >
-               View on portfolio <ArrowUpRight className="ml-2 w-4 h-4" />
-             </Button>
-          )}
+          {(() => {
+            const isExternal = project.link?.startsWith('http');
+            return (
+              <a
+                href={project.link || '/portfolio'}
+                {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                className="w-full inline-flex items-center justify-center gap-2 font-bold transition-all duration-300 transform active:scale-[0.97] cursor-pointer select-none bg-transparent text-gray-300 border-2 border-white/10 hover:border-indigo-500 hover:text-white px-6 py-3 text-base rounded-xl metallic-shine hover:bg-white/10"
+              >
+                {isExternal ? 'Visit Live Project' : 'View on portfolio'} <ArrowUpRight className="ml-2 w-4 h-4" />
+              </a>
+            );
+          })()}
         </div>
       </div>
     </motion.div>

@@ -27,6 +27,7 @@ export default function Contact({
   className = '',
 }: ContactProps) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const isPage = variant === 'page';
 
   const defaultTitle = isPage ? (
@@ -44,6 +45,17 @@ export default function Contact({
   const defaultDescription = isPage
     ? "Whether you're a startup or an enterprise, we're here to help you scale. Drop us a message and we'll get back to you within 24 hours."
     : "Have a project in mind? We're ready to help you scale your business with software development engineered for growth.";
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name } = e.target;
+    if (errors[name]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -153,15 +165,32 @@ export default function Contact({
                   ) : (
                     <form onSubmit={async (e) => {
                       e.preventDefault();
-                      setStatus('loading');
+                      setErrors({});
                       
                       const formData = new FormData(e.currentTarget);
                       const data = {
-                        name: formData.get('name'),
-                        email: formData.get('email'),
-                        company: formData.get('company'),
-                        message: formData.get('message'),
+                        name: formData.get('name') as string,
+                        email: formData.get('email') as string,
+                        company: formData.get('company') as string,
+                        message: formData.get('message') as string,
                       };
+
+                      // Client-side validation
+                      const { contactFormSchema } = await import('@/lib/schemas');
+                      const validation = contactFormSchema.safeParse(data);
+                      
+                      if (!validation.success) {
+                        const newErrors: Record<string, string> = {};
+                        validation.error.issues.forEach((issue) => {
+                          if (issue.path[0]) {
+                            newErrors[issue.path[0].toString()] = issue.message;
+                          }
+                        });
+                        setErrors(newErrors);
+                        return;
+                      }
+
+                      setStatus('loading');
 
                       try {
                         const response = await fetch('/api/contact', {
@@ -176,7 +205,15 @@ export default function Contact({
                           setStatus('success');
                         } else {
                           console.error(result.message);
-                          alert('Failed to send message: ' + result.message); // Simple error handling for now
+                          if (result.errors) {
+                            const apiErrors: Record<string, string> = {};
+                            result.errors.forEach((err: any) => {
+                              if (err.path[0]) apiErrors[err.path[0]] = err.message;
+                            });
+                            setErrors(apiErrors);
+                          } else {
+                            alert('Failed to send message: ' + result.message);
+                          }
                           setStatus('idle');
                         }
                       } catch (error) {
@@ -191,8 +228,10 @@ export default function Contact({
                           label="Full Name" 
                           placeholder="John Doe" 
                           required 
-                          labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em] mb-3"
-                          className="!bg-white/[0.02] !border-white/10 !text-white placeholder:text-gray-600 focus:!border-indigo-500/50" 
+                          labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em]"
+                          className="!bg-white/[0.08] !border-white/30 !text-white placeholder:text-gray-400 focus:!border-indigo-500/50" 
+                          error={errors.name}
+                          onChange={handleChange}
                         />
                         <Input 
                           name="email"
@@ -200,8 +239,10 @@ export default function Contact({
                           type="email" 
                           placeholder="john@example.com" 
                           required 
-                          labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em] mb-3"
-                          className="!bg-white/[0.02] !border-white/10 !text-white placeholder:text-gray-600 focus:!border-indigo-500/50" 
+                          labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em]"
+                          className="!bg-white/[0.08] !border-white/30 !text-white placeholder:text-gray-400 focus:!border-indigo-500/50" 
+                          error={errors.email}
+                          onChange={handleChange}
                         />
                       </div>
                       
@@ -209,8 +250,10 @@ export default function Contact({
                         name="company"
                         label="Company Name" 
                         placeholder="Your Business Ltd." 
-                        labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em] mb-3"
-                        className="!bg-white/[0.02] !border-white/10 !text-white placeholder:text-gray-600 focus:!border-indigo-500/50" 
+                        labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em]"
+                        className="!bg-white/[0.08] !border-white/30 !text-white placeholder:text-gray-400 focus:!border-indigo-500/50" 
+                        error={errors.company}
+                        onChange={handleChange}
                       />
 
                       <Textarea 
@@ -219,8 +262,12 @@ export default function Contact({
                         placeholder={isPage ? "Tell us about your project..." : "Tell us what you're building..."}
                         rows={5} 
                         required 
-                        labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em] mb-3"
-                        className="!bg-white/[0.02] !border-white/10 !text-white placeholder:text-gray-600 focus:!border-indigo-500/50" 
+                        maxLength={2000}
+                        showCharacterCount
+                        labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em]"
+                        className="!bg-white/[0.08] !border-white/30 !text-white placeholder:text-gray-400 focus:!border-indigo-500/50" 
+                        error={errors.message}
+                        onChange={handleChange}
                       />
                       
                       <div className="pt-4">

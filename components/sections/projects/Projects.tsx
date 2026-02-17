@@ -32,14 +32,15 @@ export default function Projects() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-10 space-y-10">
           {featuredProjects.map((project, index) => (
-            <ProjectCard 
-              key={project.title} 
-              project={project} 
-              variant="preview" 
-              delay={index * 0.1}
-            />
+            <div key={project.title} className="break-inside-avoid mb-10 last:mb-0">
+              <ProjectCard 
+                project={project} 
+                variant="preview" 
+                delay={index * 0.1}
+              />
+            </div>
           ))}
         </div>
 

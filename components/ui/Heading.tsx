@@ -25,7 +25,7 @@ export default function Heading({
   };
 
   const Tag = `h${level}` as any;
-  const baseStyles = 'font-extrabold tracking-tight leading-[1.15]';
+  const baseStyles = 'font-extrabold tracking-normal leading-[1.15]';
 
   const gradientStyles = gradient 
     ? 'bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent' 
