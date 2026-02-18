@@ -1,8 +1,32 @@
 'use client';
 
 import Link from 'next/link';
-import { Mail, MapPin, Phone, ArrowRight } from 'lucide-react';
+import { Mail, MapPin, Phone, ArrowRight, Facebook, Instagram } from 'lucide-react';
 import { Container, Heading, Text, Badge } from '@/components/ui';
+
+const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 448 512" fill="currentColor" {...props}>
+    <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+  </svg>
+);
+
+const socialLinks = [
+  {
+    name: 'Facebook',
+    icon: Facebook,
+    href: 'https://www.facebook.com/share/1H2DKLuMNA/',
+  },
+  {
+    name: 'Instagram',
+    icon: Instagram,
+    href: 'https://www.instagram.com/tech.sparks.co?igsh=YWV1Nnp5NngwMnp1',
+  },
+  {
+    name: 'TikTok',
+    icon: TikTokIcon,
+    href: 'https://www.tiktok.com/@tech.sparks.co?_r=1&_t=ZS-940CPHqYGd6',
+  },
+];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -25,11 +49,26 @@ export default function Footer() {
             <Heading level={4} className="!text-white mb-6 max-w-sm">
               Software development, engineered for growth and built for scale.
             </Heading>
-            <Text className="text-gray-400 mb-8 max-w-sm font-medium">
+            <Text className="text-gray-400 mb-10 max-w-sm font-medium">
               We partner with ambitious founders and enterprises to deliver 
               high-impact digital products. Based in Karachi, delivering globally.
             </Text>
-            {/* <Badge variant="dark" className="border-white/10 metallic-shine">Version 1.0 Production</Badge> */}
+            
+            {/* Social Links */}
+            <div className="flex gap-4">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-purple-600 transition-all duration-500 group"
+                  aria-label={social.name}
+                >
+                  <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-500" />
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Navigation Links */}

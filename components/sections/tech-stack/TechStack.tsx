@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Section, Container, Heading, Text, Badge, GradientText } from '@/components/ui';
 import { 
   Layout, 
@@ -19,6 +20,13 @@ const stacks = [
     techs: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
     span: 'lg:col-span-2 lg:row-span-1',
     color: 'from-blue-600/20 to-indigo-600/20',
+    iconColor: 'text-blue-400',
+    bgGradient: 'from-blue-500/10',
+    logos: [
+      { name: 'React', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+      { name: 'Next.js', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
+      { name: 'TypeScript', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+    ]
   },
   {
     category: 'Backend',
@@ -26,6 +34,13 @@ const stacks = [
     techs: ['Node.js', 'Express', 'Python', 'PostgreSQL', 'Redis'],
     span: 'lg:col-span-1 lg:row-span-1',
     color: 'from-purple-600/20 to-pink-600/20',
+    iconColor: 'text-purple-400',
+    bgGradient: 'from-purple-500/10',
+    logos: [
+      { name: 'Node.js', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+      { name: 'Python', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+      { name: 'PostgreSQL', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
+    ]
   },
   {
     category: 'DevOps & Cloud',
@@ -33,6 +48,12 @@ const stacks = [
     techs: ['AWS', 'Docker', 'Vercel', 'Netlify', 'Terraform'],
     span: 'lg:col-span-1 lg:row-span-1',
     color: 'from-emerald-600/20 to-cyan-600/20',
+    iconColor: 'text-emerald-400',
+    bgGradient: 'from-emerald-500/10',
+    logos: [
+      { name: 'Docker', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+      { name: 'AWS', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg' },
+    ]
   },
   {
     category: 'Design & Tools',
@@ -40,98 +61,178 @@ const stacks = [
     techs: ['Figma', 'Adobe Suite', 'Linear', 'GitHub', 'Framer'],
     span: 'lg:col-span-2 lg:row-span-1',
     color: 'from-orange-600/20 to-yellow-600/20',
+    iconColor: 'text-orange-400',
+    bgGradient: 'from-orange-500/10',
+    logos: [
+      { name: 'Figma', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+      { name: 'GitHub', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
+    ]
   },
 ];
 
 export default function TechStack() {
   return (
-    <Section id="tech-stack" bg="dark-topo" spacing="lg">
-      <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
+    <Section id="tech-stack" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--color-darker-bg)]">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <Image
+          src="https://images.pexels.com/photos/254770/pexels-photo-254770.jpeg"
+          alt="Tech Stack Background"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-95" />
+        <div className="absolute inset-0 bg-black/85" />
+      </div>
+
+      {/* Content with proper padding */}
+      <div className="relative py-24 lg:py-32 z-10">
+        <Container>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
           {/* Left Side: Content */}
-          <div className="lg:col-span-6 space-y-12">
+          <div className="space-y-10">
             <div>
               <Badge variant="glass" dot animated className="mb-6 px-4 py-1.5 text-indigo-300">
                 Our Tech Stack
               </Badge>
-              <Heading level={2} className="text-4xl lg:text-7xl font-bold !text-white mb-8 leading-[1.05] tracking-tight">
+              <Heading level={2} className="text-4xl lg:text-6xl font-black !text-white mb-6 leading-[1.05] tracking-tight">
                 Modern tools for{' '}
                 <GradientText variant="indigo-purple-pink">
                   modern problems
                 </GradientText>
               </Heading>
-              <Text variant="large" className="text-gray-400 max-w-xl">
+              <Text variant="large" className="text-gray-400 max-w-xl leading-relaxed">
                 We leverage the most stable and scalable technologies to ensure 
                 your application is performant today and future-proof tomorrow.
               </Text>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="relative p-10 rounded-[2.5rem] bg-white/[0.03] border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden group hover:bg-white/[0.06] hover:border-white/20 transition-all duration-500 shadow-indigo-500/5">
+            {/* Featured Tech Cards */}
+            <div className="grid grid-cols-2 gap-4">
+              <motion.div 
+                className="relative p-8 rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden group hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <Monitor className="w-7 h-7 text-indigo-400" />
                   </div>
-                  <Text variant="caption" className="text-gray-500 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">Primary Framework</Text>
-                  <h4 className="text-white font-bold text-2xl tracking-tight">Next.js 15+</h4>
+                  <Text variant="caption" className="text-indigo-400/80 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">Primary Framework</Text>
+                  <h4 className="text-white font-black text-2xl tracking-tight">Next.js 15+</h4>
                 </div>
-              </div>
-              <div className="relative p-10 rounded-[2.5rem] bg-white/[0.03] border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden group hover:bg-white/[0.06] hover:border-white/20 transition-all duration-500 shadow-purple-500/5">
+              </motion.div>
+              
+              <motion.div 
+                className="relative p-8 rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden group hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                whileHover={{ scale: 1.05, y: -5 }}
+              >
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <ShieldCheck className="w-7 h-7 text-purple-400" />
                   </div>
-                  <Text variant="caption" className="text-gray-500 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">Infrastructure</Text>
-                  <h4 className="text-white font-bold text-2xl tracking-tight">AWS & Cloud</h4>
+                  <Text variant="caption" className="text-purple-400/80 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">Infrastructure</Text>
+                  <h4 className="text-white font-black text-2xl tracking-tight">AWS & Cloud</h4>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
 
-          {/* Right Side: Bento Grid Cards */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Right Side: Enhanced Tech Stack Cards - Mobile Responsive */}
+          <div className="grid grid-cols-1 gap-5">
             {stacks.map((stack, idx) => (
               <motion.div
                 key={stack.category}
-                className={`relative flex flex-col p-10 rounded-[2.5rem] bg-white/[0.03] border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden group hover:bg-white/[0.06] hover:border-white/20 transition-all duration-500 ${stack.span}`}
-                initial={{ opacity: 0, y: 20 }}
+                className="relative flex flex-col p-6 rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden group hover:border-white/20 transition-all duration-500"
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.7, delay: idx * 0.1 }}
               >
-                {/* Visual Decoration */}
-                <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${stack.color} rounded-full blur-[60px] opacity-10 group-hover:opacity-30 transition-opacity duration-700`} />
+                {/* Enhanced Visual Decoration with Gradient on Hover */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${stack.color} opacity-0 group-hover:opacity-30 transition-opacity duration-700`} />
                 
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className="flex items-center justify-between mb-10">
-                    <div className={`w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-lg`}>
-                      <stack.icon className="w-7 h-7 text-white/90" />
+                {/* Shimmer Effect on Hover */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  animate={{ x: ["-100%", "200%"] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+                />
+                
+                {/* Mobile: Vertical Layout, Desktop: Horizontal */}
+                <div className="relative z-10 space-y-4 sm:space-y-0 sm:flex sm:items-center sm:gap-5">
+                  {/* Header Row - Icon and Logos */}
+                  <div className="flex items-center justify-between sm:contents">
+                    {/* Icon Section */}
+                    <div className="flex-shrink-0">
+                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${stack.color} border border-white/10 flex items-center justify-center transition-all duration-500 shadow-xl group-hover:shadow-2xl`}>
+                        <stack.icon className={`w-7 h-7 ${stack.iconColor} group-hover:scale-110 transition-transform duration-500`} />
+                      </div>
                     </div>
-                    <Zap className="w-5 h-5 text-white/5 group-hover:text-amber-400/30 transition-colors" />
+
+                    {/* Technology Logos - Mobile: Right side, Desktop: Far right */}
+                    <div className="flex-shrink-0 flex items-center gap-2 sm:order-3">
+                      {stack.logos.map((logo, logoIdx) => (
+                        <motion.div
+                          key={logo.name}
+                          className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/5 border border-white/10 p-2 group-hover:bg-white/10 group-hover:border-white/20 transition-all duration-300"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: idx * 0.1 + logoIdx * 0.1 }}
+                          title={logo.name}
+                        >
+                          <Image
+                            src={logo.url}
+                            alt={logo.name}
+                            width={44}
+                            height={44}
+                            className="w-full h-full object-contain filter brightness-90 group-hover:brightness-110 transition-all"
+                          />
+                          <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${stack.color} opacity-0 group-hover:opacity-30 blur-md -z-10 transition-opacity`} />
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
 
-                  <h4 className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.3em] mb-8">
-                    {stack.category}
-                  </h4>
+                  {/* Content Section */}
+                  <div className="flex-1 min-w-0 sm:order-2">
+                    {/* Category Title */}
+                    <h4 className="text-[10px] font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 uppercase tracking-[0.25em] mb-2.5">
+                      {stack.category}
+                    </h4>
 
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {stack.techs.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1.5 bg-white/[0.03] text-gray-300 text-[10px] font-bold tracking-[0.1em] uppercase rounded-lg border border-white/5 group-hover:bg-white/10 group-hover:text-white transition-all shadow-sm"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                    {/* Technology Tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {stack.techs.map((tech, techIdx) => (
+                        <motion.span
+                          key={tech}
+                          className="px-2.5 py-1 bg-white/[0.05] text-gray-300 text-[10px] font-bold tracking-wide rounded-lg border border-white/5 group-hover:bg-white/10 group-hover:text-white group-hover:border-white/10 transition-all shadow-sm"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: idx * 0.1 + techIdx * 0.05 }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
-      </Container>
+        </Container>
+      </div>
     </Section>
   );
 }

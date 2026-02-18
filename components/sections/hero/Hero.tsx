@@ -1,37 +1,41 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, Code2, Palette, Zap } from 'lucide-react';
-import { Heading, GradientText, HeroGridLines } from '@/components/ui';
+import { Heading, GradientText } from '@/components/ui';
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-[var(--color-darker-bg)]">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0">
-        {/* Primary gradient orb */}
-        <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/20 via-transparent to-transparent rounded-full blur-[140px] animate-pulse" />
-        {/* Secondary orb */}
-        <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-purple-600/15 via-transparent to-transparent rounded-full blur-[120px]" />
-        {/* Tertiary orb */}
-        <div className="absolute -bottom-[10%] left-[10%] w-[600px] h-[600px] bg-indigo-700/10 via-transparent to-transparent rounded-full blur-[100px]" />
-        
-        {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:64px_64px]" />
-
-        {/* Shining grid pulses — CSS keyframe–driven for smooth performance */}
-        <HeroGridLines />
-
-        {/* Top gradient fade */}
-        <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[var(--color-darker-bg)] to-transparent z-10" />
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0 bg-black">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg"
+          className="w-full h-full object-cover opacity-80 object-center sm:object-left"
+        >
+          <source 
+            src="/hero.mp4" 
+            type="video/mp4" 
+          />
+        </video>
+        {/* Subtle light black overlay */}
+        <div className="absolute inset-0 bg-black/40" />
+        {/* Professional gradients for depth and readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-32 lg:py-40 w-full z-20">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-2xl">
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-indigo-300 font-bold text-sm backdrop-blur-md mb-8 metallic-shine">
@@ -45,25 +49,25 @@ export default function Hero() {
 
           {/* Main headline */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
             <Heading
               level={1}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight !text-white mb-8"
+              className="text-4xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold leading-[1.1] tracking-tight !text-white mb-8"
             >
               Software development,{' '}
-              <GradientText variant="indigo-via-purple-indigo">engineered to grow</GradientText>{' '}
-              your business
+              <GradientText variant="indigo-via-purple-indigo">engineered</GradientText>{' '}
+              to grow your business
             </Heading>
           </motion.div>
 
-          {/* Description */}
+          {/* Description text */}
           <motion.p
-            className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed font-medium"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            className="text-lg sm:text-xl text-gray-400 max-w-xl mb-12 leading-relaxed font-medium"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             We partner with startups, SMBs, and enterprises to design and build 
@@ -73,21 +77,21 @@ export default function Hero() {
 
           {/* CTA buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-col sm:flex-row items-center justify-start gap-4 mb-20"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
           >
             <a
               href="/contact"
-              className="group inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-bold text-lg shadow-lg shadow-indigo-500/25 hover:shadow-xl transition-all duration-300 active:scale-[0.97] glossy-button"
+              className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-bold text-lg shadow-lg shadow-indigo-500/25 hover:shadow-xl transition-all duration-300 active:scale-[0.97] glossy-button"
             >
               Start Your Project
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="/portfolio"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-gray-300 rounded-2xl font-bold text-lg backdrop-blur-md hover:bg-white/10 hover:text-white hover:border-white/20 transition-all duration-300 metallic-shine"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-gray-300 rounded-2xl font-bold text-lg backdrop-blur-md hover:bg-white/10 hover:text-white hover:border-white/20 transition-all duration-300 metallic-shine"
             >
               See Our Work
             </a>
@@ -95,7 +99,7 @@ export default function Hero() {
 
           {/* Feature cards row */}
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -104,32 +108,40 @@ export default function Hero() {
               {
                 icon: Code2,
                 title: 'Precision Engineering',
-                desc: 'Clean, tested, future-proof code',
+                desc: 'Clean, future-proof code architected for scale.',
               },
               {
                 icon: Palette,
                 title: 'Strategic Design',
-                desc: 'Every pixel serves a purpose',
+                desc: 'Pixel-perfect UI/UX that converts visitors.',
               },
               {
                 icon: Zap,
-                title: 'Measurable Results',
-                desc: 'Growth you can track',
+                title: 'Scalable Growth',
+                desc: 'Future-ready tech stack built for performance.',
               },
             ].map((feature, i) => (
               <motion.div
                 key={feature.title}
-                className="group flex flex-col items-center text-center gap-4 p-4 rounded-2xl hover:bg-white/5 transition-colors duration-300"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                className="relative flex flex-col items-start p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
               >
-                <div className="p-3 rounded-xl bg-indigo-500/10 text-indigo-400 group-hover:text-indigo-300 group-hover:bg-indigo-500/20 transition-all duration-300">
-                  <feature.icon className="w-8 h-8" />
+                <div className="relative p-2 rounded-xl bg-indigo-500/10 text-indigo-400 mb-4">
+                  <feature.icon className="w-5 h-5" />
                 </div>
-                <div>
-                  <Heading level={5} className="text-white font-bold mb-1 group-hover:text-indigo-200 transition-colors uppercase tracking-wider text-[11px]">{feature.title}</Heading>
-                  <p className="text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
+                
+                <div className="relative">
+                  <Heading 
+                    level={6} 
+                    className="text-white font-bold mb-2 text-base sm:text-lg"
+                  >
+                    {feature.title}
+                  </Heading>
+                  <p className="text-gray-400 text-sm sm:text-xs leading-relaxed font-medium">
+                    {feature.desc}
+                  </p>
                 </div>
               </motion.div>
             ))}
