@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useTheme } from 'next-themes';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, Sun, Moon } from 'lucide-react';
 import { Container, Button } from '@/components/ui';
 
 const navLinks = [
@@ -18,6 +19,8 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState<string>('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { resolvedTheme, setTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,9 +80,13 @@ export default function Navbar() {
     <>
       <nav 
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 py-4 ${
-          isScrolled 
-            ? 'bg-[var(--color-darker-bg)]/80 backdrop-blur-xl border-b border-white/10 shadow-lg' 
-            : 'bg-[var(--color-darker-bg)]/40 backdrop-blur-md border-b border-white/5'
+          isDark
+            ? isScrolled 
+              ? 'bg-[var(--nav-bg)]/90 backdrop-blur-xl border-b border-[var(--nav-border)] shadow-lg' 
+              : 'bg-[var(--nav-bg)]/70 backdrop-blur-md border-b border-[var(--nav-border)]'
+            : isScrolled
+              ? 'bg-white border-b border-[var(--nav-border)] shadow-lg'
+              : 'bg-white border-b border-[var(--nav-border)]'
         }`}
       >
         <Container>
@@ -89,7 +96,7 @@ export default function Navbar() {
               <div className="w-[50px] h-[50px] rounded-xl flex items-center justify-center p-1.5 overflow-hidden">
                 <img src="/techsparkslogo.png" alt="S" className="w-full h-full object-contain" />
               </div>
-              <span className="text-xl font-black tracking-tighter text-white uppercase">
+              <span className="text-xl font-black tracking-tighter text-[var(--nav-text)] uppercase">
                 TECH SPARKS
               </span>
             </Link>
@@ -104,8 +111,8 @@ export default function Navbar() {
                     href={link.href}
                     className={`relative px-4 py-2 text-sm font-bold tracking-wide transition-all duration-300 rounded-xl flex items-center gap-2 ${
                       active 
-                        ? 'text-indigo-400 bg-white/5 shadow-[inset_0_0_20px_rgba(129,140,248,0.1)]' 
-                        : isScrolled ? 'text-white/80 hover:text-white hover:bg-white/5' : 'text-white/60 hover:text-white hover:bg-white/5'
+                        ? 'text-indigo-600 bg-indigo-50 border border-indigo-200/90 shadow-sm dark:bg-white/5 dark:border-white/10 dark:shadow-[inset_0_0_20px_rgba(129,140,248,0.1)] dark:text-indigo-400' 
+                        : 'text-[var(--nav-text)]/80 hover:text-[var(--nav-text)] hover:bg-black/5 dark:hover:bg-white/5'
                     }`}
                   >
                     {active && (
@@ -119,7 +126,16 @@ export default function Navbar() {
                   </Link>
                 );
               })}
-              <div className="ml-4">
+              <div className="ml-2 flex items-center gap-4">
+                <button
+                  type="button"
+                  onClick={() => setTheme((resolvedTheme ?? 'dark') === 'dark' ? 'light' : 'dark')}
+                  className="p-2 rounded-xl bg-black/5 dark:bg-white/10 text-[var(--nav-text)] hover:opacity-80 transition-opacity"
+                  aria-label={(resolvedTheme ?? 'dark') === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+                  title={(resolvedTheme ?? 'dark') === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+                >
+                  {(resolvedTheme ?? 'dark') === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                </button>
                 <Button 
                   size="sm" 
                   href="/contact" 
@@ -134,7 +150,7 @@ export default function Navbar() {
 
             {/* Mobile Toggle */}
             <button 
-              className="lg:hidden p-2 rounded-xl bg-white/10 text-white hover:bg-white/20 transition-colors"
+              className="lg:hidden p-2 rounded-xl bg-black/5 dark:bg-white/10 text-[var(--nav-text)] hover:opacity-80 transition-colors"
               onClick={() => setMobileMenuOpen(true)}
             >
               <Menu className="w-6 h-6" />
@@ -149,7 +165,7 @@ export default function Navbar() {
           <div className="fixed inset-0 z-[60] lg:hidden flex">
             {/* Left Drawer Panel */}
             <motion.div 
-              className="w-[85%] max-w-[320px] bg-[var(--color-darker-bg)] h-full flex flex-col p-6 shadow-2xl overflow-y-auto"
+              className="w-[85%] max-w-[320px] bg-[var(--nav-bg)] h-full flex flex-col p-6 shadow-2xl overflow-y-auto"
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
@@ -160,10 +176,10 @@ export default function Navbar() {
                   <div className="w-[50px] h-[50px] rounded-xl flex items-center justify-center p-1.5 overflow-hidden">
                     <img src="/techsparkslogo.png" alt="S" className="w-full h-full object-contain" />
                   </div>
-                  <span className="text-xl font-black tracking-tighter text-white uppercase">TECH SPARKS</span>
+                  <span className="text-xl font-black tracking-tighter text-[var(--nav-text)] uppercase">TECH SPARKS</span>
                 </Link>
                 <button 
-                  className="p-2 bg-white/10 text-white rounded-xl"
+                  className="p-2 bg-black/5 dark:bg-white/10 text-[var(--nav-text)] rounded-xl"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <X className="w-6 h-6" />
@@ -177,8 +193,8 @@ export default function Navbar() {
                     <Link 
                       key={link.name} 
                       href={link.href}
-                      className={`py-5 text-xl font-semibold border-b border-white/5 last:border-0 transition-colors flex items-center gap-3 ${
-                        active ? 'text-indigo-400' : 'text-white/90 hover:text-white'
+                      className={`py-5 text-xl font-semibold border-b border-[var(--nav-border)] last:border-0 transition-colors flex items-center gap-3 ${
+                        active ? 'text-indigo-500' : 'text-[var(--nav-text)]/90 hover:text-[var(--nav-text)]'
                       }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
@@ -190,9 +206,18 @@ export default function Navbar() {
               </div>
 
               <div className="mt-auto pt-8">
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400/60 mb-6 font-mono">
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500/70 mb-6 font-mono">
                   Software Development Agency — Karachi
                 </p>
+                <button
+                  type="button"
+                  onClick={() => setTheme((resolvedTheme ?? 'dark') === 'dark' ? 'light' : 'dark')}
+                  className="w-full mb-4 p-3 rounded-xl bg-black/5 dark:bg-white/10 text-[var(--nav-text)] flex items-center justify-center gap-2 font-bold"
+                  aria-label={(resolvedTheme ?? 'dark') === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+                >
+                  {(resolvedTheme ?? 'dark') === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                  {(resolvedTheme ?? 'dark') === 'dark' ? 'Light mode' : 'Dark mode'}
+                </button>
                 <Button size="lg" fullWidth href="/contact" onClick={() => setMobileMenuOpen(false)} className={pathname === '/contact' ? 'ring-2 ring-indigo-500/50' : ''}>
                   Start Project
                 </Button>

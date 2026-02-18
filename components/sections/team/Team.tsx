@@ -55,7 +55,7 @@ export default function Team() {
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="text-6xl md:text-9xl font-black text-white leading-[0.85] tracking-tighter"
+                            className="text-6xl md:text-9xl font-black text-[var(--text-primary)] leading-[0.85] tracking-tighter"
                         >
                             The Team <br />
                             <GradientText variant="indigo-purple">Selected.</GradientText>
@@ -64,7 +64,7 @@ export default function Team() {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="text-2xl text-gray-400 font-medium leading-relaxed max-w-sm pb-2"
+                            className="text-2xl text-[var(--text-secondary)] font-medium leading-relaxed max-w-sm pb-2"
                         >
                             Custom-built teams for high-stakes projects. We only hire the top 1%.
                         </motion.p>
@@ -80,33 +80,33 @@ export default function Team() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                            className="group relative h-[500px] overflow-hidden rounded-[3rem] bg-white/5 border border-white/5"
+                            className="group relative h-[500px] overflow-hidden rounded-[3rem] bg-white dark:bg-white/5 border border-gray-200 dark:border-white/5 shadow-xl dark:shadow-none"
                         >
                             {/* Image with Contrast Filter */}
                             <img
                                 src={member.image}
                                 alt={member.name}
-                                className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-110 group-hover:blur-[6px] opacity-80 group-hover:opacity-100"
+                                className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-110 group-hover:blur-[6px] opacity-100 dark:opacity-80 dark:group-hover:opacity-100"
                             />
 
                             {/* Pro Dark Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-darker-bg)] via-transparent to-transparent opacity-90" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[var(--section-bg)] via-transparent to-transparent opacity-90" />
 
                             {/* Default View Content */}
-                            <div className="absolute inset-0 p-12 flex flex-col justify-end text-white transition-opacity duration-500 group-hover:opacity-0">
+                            <div className="absolute inset-0 p-12 flex flex-col justify-end text-[var(--text-primary)] transition-opacity duration-500 group-hover:opacity-0">
                                 <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-4 text-indigo-400">
                                     {member.role}
                                 </p>
                                 <h3 className="text-4xl font-black tracking-tighter leading-none mb-6">
                                     {member.name}
                                 </h3>
-                                <div className="w-12 h-12 bg-white/10 backdrop-blur-xl rounded-2xl flex items-center justify-center border border-white/20">
+                                <div className="w-12 h-12 bg-white/90 dark:bg-white/10 backdrop-blur-xl rounded-2xl flex items-center justify-center border border-gray-200 dark:border-white/20 shadow-md dark:shadow-none">
                                     <Plus className="w-6 h-6" />
                                 </div>
                             </div>
 
                             {/* Hover Reveal Content (Bio & Socials) */}
-                            <div className="absolute inset-0 p-12 bg-indigo-950/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-700 flex flex-col justify-between text-white">
+                            <div className="absolute inset-0 p-12 bg-indigo-950/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-700 flex flex-col justify-between text-[var(--text-primary)]">
                                 <div className="space-y-8 translate-y-8 group-hover:translate-y-0 transition-transform duration-700 delay-100">
                                     <Quote className="w-10 h-10 opacity-30 fill-white" />
                                     <p className="text-xl font-medium leading-relaxed italic">
@@ -119,13 +119,13 @@ export default function Team() {
                                     <div className="space-y-4">
                                         <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-60">Connect Professional</p>
                                         <div className="flex gap-3">
-                                            <a href={member.social.linkedin} className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white hover:text-indigo-600 transition-all shadow-lg">
+                                            <a href={member.social.linkedin} className="w-12 h-12 rounded-2xl bg-white dark:bg-white/10 flex items-center justify-center hover:bg-white hover:text-indigo-600 transition-all shadow-lg">
                                                 <Linkedin className="w-5 h-5" />
                                             </a>
-                                            <a href={member.social.github} className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white hover:text-indigo-600 transition-all shadow-lg">
+                                            <a href={member.social.github} className="w-12 h-12 rounded-2xl bg-white dark:bg-white/10 flex items-center justify-center hover:bg-white hover:text-indigo-600 transition-all shadow-lg">
                                                 <Github className="w-5 h-5" />
                                             </a>
-                                            <a href={member.social.twitter} className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center hover:bg-white hover:text-indigo-600 transition-all shadow-lg">
+                                            <a href={member.social.twitter} className="w-12 h-12 rounded-2xl bg-white dark:bg-white/10 flex items-center justify-center hover:bg-white hover:text-indigo-600 transition-all shadow-lg">
                                                 <Twitter className="w-5 h-5" />
                                             </a>
                                         </div>
@@ -144,15 +144,15 @@ export default function Team() {
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    className="mt-40 pt-20 border-t border-white/5 flex flex-wrap gap-x-20 gap-y-12"
+                    className="mt-40 pt-20 border-t border-gray-200 dark:border-white/5 flex flex-wrap gap-x-20 gap-y-12"
                 >
                     <div className="space-y-2">
-                        <p className="text-6xl font-black text-white">Top 1%</p>
-                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Global Talent Pool Only</p>
+                        <p className="text-6xl font-black text-[var(--text-primary)]">Top 1%</p>
+                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-tertiary)]">Global Talent Pool Only</p>
                     </div>
                     <div className="space-y-2">
-                        <p className="text-6xl font-black text-white">Ex-Tech</p>
-                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">MAANG Background Experience</p>
+                        <p className="text-6xl font-black text-[var(--text-primary)]">Ex-Tech</p>
+                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[var(--text-tertiary)]">MAANG Background Experience</p>
                     </div>
                 </motion.div>
             </div>

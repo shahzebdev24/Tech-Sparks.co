@@ -1,18 +1,21 @@
 'use client';
 
+import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Section, Container, ProjectCard, Button, GradientText, SectionHeader } from '@/components/ui';
 import { projects } from '@/content/projects';
 
 export default function Projects() {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
   // Only show the first 3 projects for the home section
   const featuredProjects = projects.slice(0, 3);
 
   return (
-    <Section id="projects" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--color-darker-bg)]">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 w-full h-full z-0">
+    <Section id="projects" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--section-bg)]">
+      {/* Background - same image; gradient + black overlay only in dark */}
+      <div className="section-bg-wrapper absolute inset-0 w-full h-full z-0">
         <Image
           src="/portfolio.jpg"
           alt="Projects Background"
@@ -20,29 +23,44 @@ export default function Projects() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-95" />
-        <div className="absolute inset-0 bg-black/75" />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[var(--section-bg)] via-transparent to-[var(--section-bg)] opacity-95"
+          style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
+        <div
+          className="absolute inset-0 bg-black/75"
+          style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
+        {/* Light theme: subtle dark overlay */}
+        {!isDark && <div className="absolute inset-0 bg-black/40 pointer-events-none" />}
       </div>
 
       {/* Content with proper padding */}
       <div className="relative py-24 lg:py-32 z-10">
         <Container>
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-20">
-          <SectionHeader
-            badge="Our Portfolio"
-            title={<>Engineering solutions that <GradientText variant="indigo-purple">fuel growth</GradientText></>}
-            description="Explore our recent projects where technical precision meets strategic design to deliver high-impact digital products."
-            headingLevel={2}
-            align="left"
-            maxWidth="md"
-          />
+          <div className={!isDark ? '[&_.text-indigo-600]:!text-white [&_.text-indigo-300]:!text-white [&_h2]:!text-white [&_p]:!text-white/90' : ''}>
+            <SectionHeader
+              badge="Our Portfolio"
+              title={<>Engineering solutions that <GradientText variant="indigo-purple">fuel growth</GradientText></>}
+              description="Explore our recent projects where technical precision meets strategic design to deliver high-impact digital products."
+              headingLevel={2}
+              align="left"
+              maxWidth="md"
+            />
+          </div>
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="hidden md:block"
           >
-            <Button variant="outline" href="/portfolio" className="border-white/20 text-white hover:bg-white/10 metallic-shine">
+            <Button
+              variant="outline"
+              href="/portfolio"
+              style={!isDark ? { backgroundColor: '#ffffff', color: '#000000' } : undefined}
+              className="border-gray-200 dark:border-[var(--nav-border)] hover:bg-gray-50 dark:hover:bg-white/10 shadow-lg dark:shadow-none metallic-shine dark:bg-transparent dark:text-[var(--text-primary)]"
+            >
               View All Projects
             </Button>
           </motion.div>
@@ -61,7 +79,15 @@ export default function Projects() {
         </div>
 
         <div className="mt-12 text-center md:hidden">
-          <Button variant="outline" href="/portfolio" fullWidth className="border-white/20 text-white">View All Projects</Button>
+          <Button
+            variant="outline"
+            href="/portfolio"
+            fullWidth
+            style={!isDark ? { backgroundColor: '#ffffff', color: '#000000' } : undefined}
+            className="border-gray-200 dark:border-[var(--nav-border)] hover:bg-gray-50 dark:hover:bg-white/10 shadow-lg dark:shadow-none dark:bg-transparent dark:text-[var(--text-primary)]"
+          >
+            View All Projects
+          </Button>
         </div>
         </Container>
       </div>

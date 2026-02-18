@@ -8,14 +8,14 @@ import { Container, Heading, Text, GradientText, Button, ImmersiveSpacePattern, 
 
 export function NotFoundHero() {
   return (
-    <div className="fixed inset-0 z-[100] bg-[var(--color-darker-bg)] flex items-center justify-center overflow-hidden">
+    <div className="fixed inset-0 z-[100] bg-[var(--page-bg)] flex items-center justify-center overflow-hidden">
       <ImmersiveSpacePattern />
       <AntigravitySparks />
 
       <Container className="relative z-10">
         <div className="max-w-2xl mx-auto text-center">
           <div className="mb-6 md:mb-8 relative inline-flex">
-            <span className="text-7xl md:text-9xl font-black text-white/[0.1] tracking-tighter select-none">
+            <span className="text-7xl md:text-9xl font-black text-[var(--text-primary)]/[0.1] tracking-tighter select-none">
               404
             </span>
             <div className="absolute inset-0 flex items-center justify-center opacity-30">
@@ -29,14 +29,14 @@ export function NotFoundHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Heading level={1} className="text-4xl md:text-5xl lg:text-7xl font-bold !text-white mb-6 leading-tight tracking-tight px-4">
+            <Heading level={1} className="text-4xl md:text-5xl lg:text-7xl font-bold !text-[var(--text-primary)] mb-6 leading-tight tracking-tight px-4">
               Beyond the{' '}
               <GradientText variant="indigo-purple-pink">
                 Horizon
               </GradientText>
             </Heading>
             
-            <Text variant="large" className="text-gray-400 mb-8 md:mb-12 max-w-[280px] xs:max-w-md mx-auto leading-relaxed text-base md:text-lg px-4">
+            <Text variant="large" className="text-[var(--text-secondary)] mb-8 md:mb-12 max-w-[280px] xs:max-w-md mx-auto leading-relaxed text-base md:text-lg px-4">
               You've drifted into uncharted territory. The page you're looking for doesn't exist in this coordinate system.
             </Text>
 

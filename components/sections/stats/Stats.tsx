@@ -1,5 +1,6 @@
 'use client';
 
+import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Section, Container, Heading, Text } from '@/components/ui';
@@ -32,9 +33,12 @@ const stats = [
 ];
 
 export default function Stats() {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+
   return (
-    <Section id="stats" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--color-darker-bg)]">
-      {/* Background Image with Overlay */}
+    <Section id="stats" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--section-bg)]">
+      {/* Background - same image; gradient + black overlay only in dark; light: bg-black/20 */}
       <div className="absolute inset-0 w-full h-full z-0">
         <Image
           src="/serviceambition.jpg"
@@ -43,8 +47,15 @@ export default function Stats() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-95" />
-        <div className="absolute inset-0 bg-black/75" />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[var(--section-bg)] via-transparent to-[var(--section-bg)] opacity-95"
+          style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
+        <div
+          className="absolute inset-0 bg-black/75"
+          style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
+        {!isDark && <div className="absolute inset-0 bg-black/20 pointer-events-none" />}
       </div>
 
       <div className="relative py-24 lg:py-32 z-10">
@@ -57,11 +68,15 @@ export default function Stats() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative group p-6 sm:p-8 rounded-[2rem] overflow-hidden border border-white/15 hover:border-white/30 transition-all duration-500 text-center"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  backdropFilter: 'blur(20px)',
-                }}
+                className="relative group p-6 sm:p-8 rounded-[2rem] overflow-hidden border border-gray-200 dark:border-white/15 hover:border-gray-300 dark:hover:border-white/30 transition-all duration-500 text-center"
+                style={
+                  !isDark
+                    ? { backgroundColor: '#ffffff' }
+                    : {
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(20px)',
+                      }
+                }
               >
                 {/* Hover Image Background */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
@@ -71,15 +86,15 @@ export default function Stats() {
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-black/50" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-black/50 opacity-0 dark:opacity-100" />
                 </div>
 
                 {/* Content */}
                 <div className="relative z-10">
-                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-2 tracking-tighter group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-purple-400 transition-all duration-500">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[var(--text-primary)] mb-2 tracking-tighter group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-purple-400 transition-all duration-500">
                     {stat.value}{stat.suffix}
                   </div>
-                  <div className="text-indigo-300 group-hover:text-white font-bold uppercase tracking-[0.1em] sm:tracking-[0.3em] text-[10px] sm:text-xs transition-colors duration-500">
+                  <div className="stats-card-label text-blue-800 dark:text-indigo-300 dark:group-hover:text-[var(--text-primary)] font-bold uppercase tracking-[0.1em] sm:tracking-[0.3em] text-[10px] sm:text-xs transition-colors duration-500">
                     {stat.label}
                   </div>
                 </div>

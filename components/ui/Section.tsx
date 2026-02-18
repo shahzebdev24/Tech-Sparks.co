@@ -60,24 +60,24 @@ export default function Section({
   const backgrounds: Record<string, string> = {
     white: 'bg-white',
     gray: 'bg-gray-50',
-    dark: 'bg-[var(--color-darker-bg)] text-white relative',
-    'dark-gradient': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-gradient-1': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-gradient-2': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-gradient-3': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-mesh': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-radial': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-hex': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-blueprint': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-topo': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-isometric': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-pulse': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-dots': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-cross': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-circuit': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-ripple': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-pricing': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
-    'dark-constellation': 'bg-[var(--color-darker-bg)] text-white relative overflow-hidden',
+    dark: 'bg-[var(--section-bg)] text-[var(--text-primary)] relative',
+    'dark-gradient': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-gradient-1': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-gradient-2': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-gradient-3': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-mesh': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-radial': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-hex': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-blueprint': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-topo': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-isometric': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-pulse': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-dots': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-cross': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-circuit': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-ripple': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-pricing': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
+    'dark-constellation': 'bg-[var(--section-bg)] text-[var(--text-primary)] relative overflow-hidden',
     none: '',
   };
 
@@ -150,8 +150,8 @@ export default function Section({
       {/* Transitional fades for dark mode */}
       {isDark && (
         <>
-          <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[var(--color-darker-bg)]/50 to-transparent z-10" />
-          <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[var(--color-darker-bg)]/50 to-transparent z-10" />
+          <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-[var(--section-fade)] to-transparent z-10" />
+          <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[var(--section-fade)] to-transparent z-10" />
         </>
       )}
 

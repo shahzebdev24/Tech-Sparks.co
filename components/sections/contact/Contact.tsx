@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Mail, MapPin, Send, ArrowRight, Phone } from 'lucide-react';
@@ -30,6 +31,8 @@ export default function Contact({
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const isPage = variant === 'page';
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   const defaultTitle = isPage ? (
     <>
@@ -64,19 +67,28 @@ export default function Contact({
     setTimeout(() => setStatus('success'), 1500);
   };
 
+  const contactLightImage = '/contactlight.jpeg';
+  const contactDarkImage = '/contact.jpeg';
+
   return (
-    <Section id={id} bg="none" spacing="none" className={`relative overflow-hidden bg-[var(--color-darker-bg)] ${className}`}>
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 w-full h-full z-0">
+    <Section id={id} bg="none" spacing="none" className={`relative overflow-hidden bg-[var(--section-bg)] ${className}`}>
+      {/* Background Image - light: Pexels image, no overlay; dark: /contact.jpeg with overlays (same pattern as Services) */}
+      <div className="section-bg-wrapper absolute inset-0 w-full h-full z-0">
         <Image
-          src="/contact.jpeg"
+          src={isDark ? contactDarkImage : contactLightImage}
           alt="Contact Background"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-95" />
-        <div className="absolute inset-0 bg-black/85" />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[var(--section-bg)] via-transparent to-[var(--section-bg)]"
+          style={{ opacity: isDark ? 0.95 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
+        <div
+          className="absolute inset-0 bg-black/70"
+          style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
       </div>
 
       {/* Content with proper padding */}
@@ -95,10 +107,10 @@ export default function Contact({
                 <Badge variant="glass" dot animated className="mb-8 px-4 py-1.5 text-indigo-300">
                   Contact Us
                 </Badge>
-                <Heading level={isPage ? 1 : 2} className={`font-bold !text-white mb-6 md:mb-8 leading-[1.1] md:leading-[1.05] tracking-tight ${isPage ? 'text-4xl sm:text-5xl md:text-7xl' : 'text-3xl sm:text-4xl lg:text-7xl'}`}>
+                <Heading level={isPage ? 1 : 2} className={`font-bold !text-[var(--text-primary)] mb-6 md:mb-8 leading-[1.1] md:leading-[1.05] tracking-tight ${isPage ? 'text-4xl sm:text-5xl md:text-7xl' : 'text-3xl sm:text-4xl lg:text-7xl'}`}>
                   {title || defaultTitle}
                 </Heading>
-                <Text variant="large" className="text-gray-400 max-w-xl leading-relaxed text-base sm:text-lg">
+                <Text variant="large" className="text-[var(--text-secondary)] max-w-xl leading-relaxed text-base sm:text-lg">
                   {description || defaultDescription}
                 </Text>
               </div>
@@ -106,11 +118,11 @@ export default function Contact({
               <div className="space-y-10">
                 <div className="flex gap-6 group">
                   <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl group-hover:bg-indigo-600 transition-all duration-700 metallic-shine shrink-0">
-                    <Mail className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-indigo-400 group-hover:text-white transition-colors duration-500" />
+                    <Mail className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-indigo-400 group-hover:text-[var(--text-primary)] transition-colors duration-500" />
                   </div>
                   <div className="min-w-0">
                     <Text variant="caption" className="mb-2 text-indigo-400/60 uppercase tracking-[0.3em] font-black text-[10px]">Email us at</Text>
-                    <a href={`mailto:${contactInfo.email}`} className="text-lg sm:text-xl lg:text-2xl font-bold text-white hover:text-indigo-400 transition-colors duration-300 tracking-tight break-all">
+                    <a href={`mailto:${contactInfo.email}`} className="text-lg sm:text-xl lg:text-2xl font-bold text-[var(--text-primary)] hover:text-indigo-500 transition-colors duration-300 tracking-tight break-all">
                       {contactInfo.email}
                     </a>
                   </div>
@@ -118,7 +130,7 @@ export default function Contact({
 
                 <div className="flex gap-6 group">
                   <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl group-hover:bg-indigo-600 transition-all duration-700 metallic-shine shrink-0">
-                    <Phone className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-indigo-400 group-hover:text-white transition-colors duration-500" />
+                    <Phone className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-indigo-400 group-hover:text-[var(--text-primary)] transition-colors duration-500" />
                   </div>
                   <div className="min-w-0">
                     <Text variant="caption" className="mb-2 text-indigo-400/60 uppercase tracking-[0.3em] font-black text-[10px]">WhatsApp or Call</Text>
@@ -126,24 +138,24 @@ export default function Contact({
                       href={`https://wa.me/923408399014?text=Hi%20Tech%20Sparks!%20I'd%20like%20to%20discuss%20a%20project.`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-lg sm:text-xl lg:text-2xl font-bold text-white hover:text-indigo-400 transition-colors duration-300 tracking-tight"
+                      className="text-lg sm:text-xl lg:text-2xl font-bold text-[var(--text-primary)] hover:text-indigo-500 transition-colors duration-300 tracking-tight"
                     >
                       {contactInfo.phone}
                     </a>
-                    <p className="text-gray-400 text-xs sm:text-sm font-medium mt-1">Available 5pm - 2am (PKT)</p>
+                    <p className="text-[var(--text-secondary)] text-xs sm:text-sm font-medium mt-1">Available 5pm - 2am (PKT)</p>
                   </div>
                 </div>
 
                 <div className="flex gap-6 group">
                   <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl group-hover:bg-indigo-600 transition-all duration-700 metallic-shine shrink-0">
-                    <MapPin className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-indigo-400 group-hover:text-white transition-colors duration-500" />
+                    <MapPin className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-indigo-400 group-hover:text-[var(--text-primary)] transition-colors duration-500" />
                   </div>
                   <div className="min-w-0">
                     <Text variant="caption" className="mb-2 text-indigo-400/60 uppercase tracking-[0.3em] font-black text-[10px]">Based in</Text>
-                    <p className="text-lg sm:text-xl lg:text-2xl font-bold text-white tracking-tight">
+                    <p className="text-lg sm:text-xl lg:text-2xl font-bold text-[var(--text-primary)] tracking-tight">
                       {contactInfo.location}
                     </p>
-                    <p className="text-gray-400 text-xs sm:text-sm font-medium mt-1">Delivering Products Globally</p>
+                    <p className="text-[var(--text-secondary)] text-xs sm:text-sm font-medium mt-1">Delivering Products Globally</p>
                   </div>
                 </div>
               </div>
@@ -157,7 +169,12 @@ export default function Contact({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <Card padding="none" variant="glass" className="relative bg-white/[0.04] border-white/10 backdrop-blur-3xl rounded-[3rem] overflow-hidden shadow-2xl">
+              <Card
+                padding="none"
+                variant={isDark ? 'glass' : 'default'}
+                style={!isDark ? { backgroundColor: '#ffffff' } : undefined}
+                className="relative dark:bg-white/[0.04] border-gray-200 dark:border-white/10 backdrop-blur-3xl rounded-[3rem] overflow-hidden shadow-xl dark:shadow-2xl"
+              >
                 <div className="p-10 lg:p-14 relative z-10">
                   {status === 'success' ? (
                     <motion.div 
@@ -168,11 +185,11 @@ export default function Contact({
                       <div className="w-24 h-24 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-emerald-500/20 shadow-xl">
                         <Send className="w-10 h-10 text-emerald-500 rotate-12" />
                       </div>
-                      <Heading level={4} className="text-white text-3xl mb-4 font-bold">Message Received!</Heading>
-                      <Text className="text-gray-400 text-lg">Thanks for reaching out. Our team will get back to you within 24 hours.</Text>
+                      <Heading level={4} className="text-[var(--text-primary)] text-3xl mb-4 font-bold">Message Received!</Heading>
+                      <Text className="text-[var(--text-secondary)] text-lg">Thanks for reaching out. Our team will get back to you within 24 hours.</Text>
                       <Button 
                         variant="ghost" 
-                        className="mt-10 !text-indigo-400 hover:!bg-white/5 px-8"
+                        className="mt-10 !text-indigo-400 hover:!bg-gray-50 dark:hover:!bg-white/5 px-8"
                         onClick={() => setStatus('idle')}
                       >
                         Send another message
@@ -237,7 +254,7 @@ export default function Contact({
                         alert('Something went wrong. Please try again.');
                         setStatus('idle');
                       }
-                    }} className="space-y-8">
+                    }} className="contact-form space-y-8">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                         <Input 
                           name="name"
@@ -245,7 +262,7 @@ export default function Contact({
                           placeholder="John Doe" 
                           required 
                           labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em]"
-                          className="!bg-white/[0.08] !border-white/30 !text-white placeholder:text-gray-400 focus:!border-indigo-500/50" 
+                          className="!bg-white dark:!bg-white/[0.08] !border-black dark:!border-white/30 !text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:!border-indigo-500/50" 
                           error={errors.name}
                           onChange={handleChange}
                         />
@@ -256,7 +273,7 @@ export default function Contact({
                           placeholder="john@example.com" 
                           required 
                           labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em]"
-                          className="!bg-white/[0.08] !border-white/30 !text-white placeholder:text-gray-400 focus:!border-indigo-500/50" 
+                          className="!bg-white dark:!bg-white/[0.08] !border-black dark:!border-white/30 !text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:!border-indigo-500/50" 
                           error={errors.email}
                           onChange={handleChange}
                         />
@@ -267,7 +284,7 @@ export default function Contact({
                         label="Company Name" 
                         placeholder="Your Business Ltd." 
                         labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em]"
-                        className="!bg-white/[0.08] !border-white/30 !text-white placeholder:text-gray-400 focus:!border-indigo-500/50" 
+                        className="!bg-white dark:!bg-white/[0.08] !border-black dark:!border-white/30 !text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:!border-indigo-500/50" 
                         error={errors.company}
                         onChange={handleChange}
                       />
@@ -281,7 +298,7 @@ export default function Contact({
                         maxLength={2000}
                         showCharacterCount
                         labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em]"
-                        className="!bg-white/[0.08] !border-white/30 !text-white placeholder:text-gray-400 focus:!border-indigo-500/50" 
+                        className="!bg-white dark:!bg-white/[0.08] !border-black dark:!border-white/30 !text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:!border-indigo-500/50" 
                         error={errors.message}
                         onChange={handleChange}
                       />
@@ -308,15 +325,18 @@ export default function Contact({
         </div>
 
         {showLocationBlock && (
-            <div className="mt-32 pt-20 border-t border-white/10">
+            <div className="mt-32 pt-20 border-t border-gray-200 dark:border-white/10">
                 <div className="text-center mb-16">
-                <Heading level={2} className="text-4xl font-extrabold text-white tracking-tight">Our Base</Heading>
+                <Heading level={2} className="text-4xl font-extrabold text-[var(--text-primary)] tracking-tight">Our Base</Heading>
                 </div>
                 <div className="max-w-md mx-auto">
-                    <div className="p-8 bg-white/5 border border-white/10 rounded-[2.5rem] shadow-lg hover:shadow-indigo-500/5 transition-all text-center glossy-card">
+                    <div
+                      style={!isDark ? { backgroundColor: '#ffffff' } : undefined}
+                      className="p-8 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-[2.5rem] shadow-lg dark:shadow-none hover:shadow-indigo-500/5 transition-all text-center glossy-card"
+                    >
                         <MapPin className="w-8 h-8 text-indigo-400 mx-auto mb-4" />
-                        <Heading level={4} className="text-xl font-bold text-white mb-2">{contactInfo.location.split(',')[0]}</Heading>
-                         <p className="text-gray-400 text-sm font-medium">{contactInfo.location.split(',')[1]}</p>
+                        <Heading level={4} className="text-xl font-bold text-[var(--text-primary)] mb-2">{contactInfo.location.split(',')[0]}</Heading>
+                         <p className="text-[var(--text-secondary)] text-sm font-medium">{contactInfo.location.split(',')[1]?.trim()}</p>
                     </div>
                 </div>
             </div>

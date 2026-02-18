@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+  import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Target, Heart, Award, Users } from 'lucide-react';
@@ -8,6 +9,8 @@ import { Card, Heading } from '@/components/ui';
 
 export default function AboutValues() {
   const [activeCard, setActiveCard] = useState<number | null>(null);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   const values = [
     {
@@ -55,13 +58,20 @@ export default function AboutValues() {
             className="group relative h-full flex flex-col cursor-pointer"
             onClick={() => setActiveCard(activeCard === idx ? null : idx)}
           >
-            {/* Subtle Glow behind each card */}
-            <div className={`absolute -inset-2 bg-gradient-to-br ${value.color} opacity-0 group-hover:opacity-10 transition-opacity duration-700 blur-2xl ${activeCard === idx ? 'opacity-10' : ''}`} />
+            {/* Subtle Glow behind each card (dark mode only) */}
+            <div className={`absolute -inset-2 bg-gradient-to-br ${value.color} opacity-0 dark:group-hover:opacity-10 transition-opacity duration-700 blur-2xl ${activeCard === idx ? 'dark:opacity-10' : ''}`} />
             
             <Card 
-              variant="glass" 
+              variant={isDark ? 'glass' : 'default'}
               padding="none"
-              className={`flex-1 flex flex-col bg-[#0D0D1F]/60 border-white/5 transition-all duration-500 rounded-[2.5rem] shadow-2xl backdrop-blur-3xl overflow-hidden relative ${activeCard === idx ? 'border-white/10 bg-[#12122b]/70' : 'group-hover:border-white/10 group-hover:bg-[#12122b]/70'}`}
+              style={!isDark ? { backgroundColor: '#ffffff' } : undefined}
+              className={`flex-1 flex flex-col transition-all duration-500 rounded-[2.5rem] overflow-hidden relative
+                border border-gray-200 shadow-xl
+                dark:bg-[#0D0D1F]/60 dark:border-white/5 dark:shadow-2xl dark:backdrop-blur-3xl
+                ${activeCard === idx
+                  ? 'border-indigo-200 bg-gray-50 dark:border-white/10 dark:bg-[#12122b]/70'
+                  : 'group-hover:border-gray-300 group-hover:bg-gray-50 dark:group-hover:border-white/10 dark:group-hover:bg-[#12122b]/70'
+                }`}
             >
               {/* Top Image Section */}
               <div className="relative h-48 w-full overflow-hidden">
@@ -78,8 +88,11 @@ export default function AboutValues() {
                 {/* Hover Overlay Content - Brand Focused (Slides from top) */}
                 <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 z-20 pointer-events-none ${activeCard === idx ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
                   <div className={`text-center transform transition-all duration-700 ease-out ${activeCard === idx ? 'translate-y-0' : '-translate-y-12 group-hover:translate-y-0'}`}>
-                    <span className="block text-indigo-300 text-[10px] font-bold tracking-[0.3em] uppercase mb-2">Our Core Value</span>
-                    <span className="text-white text-2xl font-black tracking-tighter uppercase leading-none px-4">
+                    <span className="block text-[10px] font-bold tracking-[0.3em] uppercase mb-2 text-indigo-400 dark:text-indigo-300">Our Core Value</span>
+                    <span
+                      className="text-2xl font-black tracking-tighter uppercase leading-none px-4 dark:text-[var(--text-primary)]"
+                      style={!isDark ? { color: '#ffffff' } : undefined}
+                    >
                       {value.title}
                     </span>
                     <div className={`mt-4 mx-auto w-12 h-0.5 bg-gradient-to-r ${value.color}`} />
@@ -95,22 +108,25 @@ export default function AboutValues() {
                 <div className="flex items-center gap-4 mb-6">
                   <div className="relative">
                     <div className={`absolute -left-3 top-1/2 -translate-y-1/2 w-1 h-6 rounded-full bg-gradient-to-b ${value.color}`} />
-                    <div className={`w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 transition-all duration-500 ${activeCard === idx ? 'scale-110 bg-white/10' : 'group-hover:scale-110 group-hover:bg-white/10'}`}>
-                      <value.icon className="w-6 h-6 text-white" />
+                    <div
+                      className={`w-12 h-12 rounded-2xl bg-gray-100 dark:bg-white/5 flex items-center justify-center border border-gray-200 dark:border-white/10 transition-all duration-500 ${activeCard === idx ? 'scale-110 bg-gray-200 dark:bg-white/10' : 'group-hover:scale-110 group-hover:bg-gray-200 dark:group-hover:bg-white/10'}`}
+                      style={!isDark ? { borderColor: '#000000' } : undefined}
+                    >
+                      <value.icon className="w-6 h-6 text-[var(--text-primary)]" />
                     </div>
                   </div>
                 </div>
                 
-                <Heading level={4} className={`text-white text-xl font-bold mb-3 tracking-tight transition-colors ${activeCard === idx ? 'text-indigo-300' : 'group-hover:text-indigo-300'}`}>
+                <Heading level={4} className={`text-xl font-bold mb-3 tracking-tight transition-colors text-indigo-600 dark:text-[var(--text-primary)] group-hover:text-indigo-600 dark:group-hover:text-indigo-300 ${activeCard === idx ? 'text-indigo-600 dark:text-indigo-300' : ''}`}>
                   {value.title}
                 </Heading>
                 
-                <p className="text-gray-400 text-base leading-relaxed font-medium flex-1">
+                <p className="text-[var(--text-secondary)] text-base leading-relaxed font-medium flex-1">
                   {value.desc}
                 </p>
 
                 {/* Decorative reflection */}
-                <div className={`absolute -bottom-10 -right-10 w-24 h-24 bg-white/5 rounded-full blur-3xl transition-colors duration-700 ${activeCard === idx ? 'bg-indigo-500/10' : 'group-hover:bg-indigo-500/10'}`} />
+                <div className={`absolute -bottom-10 -right-10 w-24 h-24 rounded-full blur-3xl transition-colors duration-700 bg-gray-200 dark:bg-white/5 ${activeCard === idx ? 'bg-indigo-100 dark:bg-indigo-500/10' : 'group-hover:bg-indigo-100 dark:group-hover:bg-indigo-500/10'}`} />
               </div>
             </Card>
           </div>

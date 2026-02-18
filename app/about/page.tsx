@@ -1,6 +1,13 @@
 import Image from 'next/image';
-import { Section, Container, Heading, Text, Badge, Button, GradientText, StatCard, CTACard, SectionHeader, DarkPageLayout } from '@/components/ui';
+import { Section, Container, Heading, Text, Badge, GradientText, StatCard, CTACard, SectionHeader, DarkPageLayout } from '@/components/ui';
 import AboutValues from '@/components/sections/about/AboutValues';
+import AboutCTAButtons from '@/components/sections/about/AboutCTAButtons';
+import AboutHeroBackground from './AboutHeroBackground';
+import AboutHeroHeader from './AboutHeroHeader';
+import AboutValuesBackground from './AboutValuesBackground';
+import AboutTeamBackground from './AboutTeamBackground';
+import AboutTeamHeader from './AboutTeamHeader';
+import AboutCTABackground from './AboutCTABackground';
 import { createPageMetadata } from '@/lib/seo';
 
 export const metadata = createPageMetadata({
@@ -13,48 +20,20 @@ export default function AboutPage() {
   return (
     <DarkPageLayout>
       {/* Hero Section - Uses H1 */}
-      <Section bg="none" spacing="none" className="relative overflow-hidden bg-[var(--color-darker-bg)]">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 w-full h-full z-0">
-          <Image
-            src="/abouthero.jpeg"
-            alt="About Hero Background"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-95" />
-          <div className="absolute inset-0 bg-black/65" />
-        </div>
+      <Section bg="none" spacing="none" className="relative overflow-hidden bg-[var(--section-bg)] dark:bg-[var(--color-darker-bg)]">
+        <AboutHeroBackground />
 
         {/* Content with proper padding */}
         <div className="relative py-24 lg:py-32 z-10">
           <Container>
-          <SectionHeader
-            badge="Our Story"
-            title={<>Engineering software that <GradientText variant="indigo-purple">measurably accelerates</GradientText> growth</>}
-            description="Tech Sparks was founded on a simple belief: modern businesses deserve more than just code. They deserve a strategic partner who understands their goals and builds the technology to reach them."
-            headingLevel={1}
-            align="center"
-            maxWidth="xl"
-          />
+          <AboutHeroHeader />
           </Container>
         </div>
       </Section>
 
       {/* Values Section */}
-      <Section bg="none" spacing="none" className="relative overflow-hidden bg-[var(--color-darker-bg)]">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 w-full h-full z-0">
-          <Image
-            src="/valuegradient.jpeg"
-            alt="Values Background"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-95" />
-          <div className="absolute inset-0 bg-black/65" />
-        </div>
+      <Section bg="none" spacing="none" className="relative overflow-hidden bg-[var(--section-bg)] dark:bg-[var(--color-darker-bg)]">
+        <AboutValuesBackground />
 
         {/* Content with proper padding */}
         <div className="relative py-24 lg:py-32 z-10">
@@ -72,36 +51,15 @@ export default function AboutPage() {
       </Section>
 
       {/* Team/Karachi Section */}
-      <Section bg="none" spacing="none" className="relative overflow-hidden bg-[var(--color-darker-bg)]">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 w-full h-full z-0">
-          <Image
-            src="/teamgradient.jpeg"
-            alt="Team Background"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-95" />
-          <div className="absolute inset-0 bg-black/65" />
-        </div>
+      <Section bg="none" spacing="none" className="relative overflow-hidden bg-[var(--section-bg)] dark:bg-[var(--color-darker-bg)]">
+        <AboutTeamBackground />
 
         {/* Content with proper padding */}
         <div className="relative py-24 lg:py-32 z-10">
           <Container>
           <div className="flex flex-col lg:flex-row gap-16 items-center">
             <div className="lg:w-1/2">
-              <SectionHeader
-                badge="Global Reach, Local Base"
-                title={<>Based in Karachi, <GradientText variant="indigo-purple">delivering for the world</GradientText></>}
-                description="From our engineering hub in Pakistan, we deliver world-class software solutions to startups and enterprises across the globe."
-                headingLevel={2}
-                align="left"
-              />
-              <Text className="text-gray-300 mb-10 leading-relaxed">
-                Our team consists of passionate engineers, designers, and 
-                strategists who share a common goal: building technology that 
-                makes a difference.
-              </Text>
+              <AboutTeamHeader />
               <div className="flex flex-wrap gap-4 sm:gap-6 lg:gap-8">
                 <StatCard value="2026" label="Founded" />
                 <StatCard value="Premium" label="Standards" />
@@ -117,18 +75,8 @@ export default function AboutPage() {
       </Section>
 
       {/* CTA Section */}
-      <Section bg="none" spacing="none" className="relative overflow-hidden bg-[var(--color-darker-bg)]">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 w-full h-full z-0">
-          <Image
-            src="/ctagradient.jpeg"
-            alt="CTA Background"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-95" />
-          <div className="absolute inset-0 bg-black/75" />
-        </div>
+      <Section bg="none" spacing="none" className="relative overflow-hidden bg-[var(--section-bg)] dark:bg-[var(--color-darker-bg)]">
+        <AboutCTABackground />
 
         {/* Content with proper padding */}
         <div className="relative py-24 lg:py-32 z-10">
@@ -190,25 +138,7 @@ export default function AboutPage() {
                   ))}
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <Button 
-                    href="/contact" 
-                    variant="primary" 
-                    size="lg"
-                    className="group relative overflow-hidden"
-                  >
-                    <span className="relative z-10">Start Your Project</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </Button>
-                  <Button 
-                    href="/portfolio" 
-                    variant="outline" 
-                    size="lg"
-                    className="border-white/20 hover:border-white/40"
-                  >
-                    View Our Work
-                  </Button>
-                </div>
+                <AboutCTAButtons />
               </div>
             </div>
           </Container>

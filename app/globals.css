@@ -163,6 +163,51 @@
   --transition-normal: 300ms;
   --transition-slow: 500ms;
   --transition-slower: 700ms;
+
+  /* --- Theme-aware semantic variables (LIGHT theme default) --- */
+  --page-bg: #FFFFFF;
+  --section-bg: #FFFFFF;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-tertiary: #64748B;
+  --surface: #FFFFFF;
+  --surface-elevated: #F8FAFC;
+  --nav-bg: #FFFFFF;
+  --nav-border: rgba(0, 0, 0, 0.08);
+  --nav-text: #0F172A;
+  --footer-bg: #FAFAFA;
+  --overlay-hero: transparent;
+  --pattern-overlay: transparent;
+  --section-fade: transparent;
+  --focus-ring: var(--color-primary-indigo);
+  --hero-card-bg: #ffffff;
+  --hero-card-border: rgba(0, 0, 0, 0.1);
+  --hero-card-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme overrides */
+.dark {
+  --background: #0A0A1B;
+  --foreground: #FFFFFF;
+  --page-bg: #0A0A1B;
+  --section-bg: #0A0A1B;
+  --text-primary: #FFFFFF;
+  --text-secondary: #E2E8F0;
+  --text-tertiary: #94A3B8;
+  --surface: #0F172A;
+  --surface-elevated: #1E293B;
+  --nav-bg: #0A0A1B;
+  --nav-border: rgba(255, 255, 255, 0.1);
+  --nav-text: #FFFFFF;
+  --footer-bg: #0A0A1B;
+  --overlay-hero: rgba(0, 0, 0, 0.4);
+  --pattern-overlay: linear-gradient(180deg, var(--color-darker-bg) 0%, transparent 50%, var(--color-darker-bg) 100%);
+  --section-fade: rgba(10, 10, 27, 0.5);
+  --focus-ring: var(--color-primary-indigo);
+  --hero-card-bg: rgba(255, 255, 255, 0.05);
+  --hero-card-border: rgba(255, 255, 255, 0.1);
+  --hero-card-shadow: none;
+  --hero-card-backdrop: blur(24px);
 }
 
 /* ============================================
@@ -309,14 +354,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ffffff;
-    /* Keeping light theme for this professional landing page */
-    --foreground: #0F172A;
-  }
-}
-
 /* ============================================
    BASE STYLES
    ============================================ */
@@ -326,8 +363,8 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--page-bg);
+  color: var(--text-primary);
   font-family: var(--font-family-body);
   overflow-x: hidden;
   line-height: var(--leading-normal);
@@ -344,11 +381,11 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-snow);
+  background: var(--surface-elevated);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-secondary-lavender);
+  background: var(--text-tertiary);
   border-radius: 5px;
 }
 
@@ -385,6 +422,28 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Stats section: label white on hover in light mode */
+html:not(.dark) #stats .group:hover .stats-card-label {
+  color: #ffffff !important;
+}
+
+/* Force black borders on contact form inputs in light mode (default state) */
+html:not(.dark) .contact-form input,
+html:not(.dark) .contact-form textarea {
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: #000000 !important;
+}
+/* Focus: blue border only, no ring/shadow */
+html:not(.dark) .contact-form input:focus,
+html:not(.dark) .contact-form input:focus-visible,
+html:not(.dark) .contact-form textarea:focus,
+html:not(.dark) .contact-form textarea:focus-visible {
+  border-color: #6366f1 !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* ============================================
@@ -545,7 +604,7 @@ body {
    ============================================ */
 
 :focus-visible {
-  outline: 2px solid var(--color-primary-indigo);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
@@ -555,5 +614,5 @@ body {
 
 ::selection {
   background: rgba(102, 126, 234, 0.2);
-  color: var(--color-midnight);
+  color: var(--text-primary);
 }

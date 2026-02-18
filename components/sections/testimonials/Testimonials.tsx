@@ -1,5 +1,6 @@
 'use client';
 
+import { useTheme } from 'next-themes';
 import { Star, Quote } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -27,9 +28,12 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+
   return (
-    <Section id="testimonials" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--color-darker-bg)]">
-      {/* Background Image with Overlay */}
+    <Section id="testimonials" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--section-bg)]">
+      {/* Background - same image; gradient + black overlay only in dark; light: bg-black/20 */}
       <div className="absolute inset-0 w-full h-full z-0">
         <Image
           src="/testimonial.jpg"
@@ -38,8 +42,15 @@ export default function Testimonials() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-95" />
-        <div className="absolute inset-0 bg-black/80" />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[var(--section-bg)] via-transparent to-[var(--section-bg)] opacity-95"
+          style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
+        <div
+          className="absolute inset-0 bg-black/80"
+          style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
+        {!isDark && <div className="absolute inset-0 bg-black/20 pointer-events-none" />}
       </div>
 
       {/* Floating Circular Images - Highest z-index */}
@@ -193,13 +204,13 @@ export default function Testimonials() {
           <Badge variant="glass" dot className="mb-6 px-4 py-1.5 text-indigo-300">
             Social Proof
           </Badge>
-          <Heading level={2} className="text-4xl lg:text-7xl font-bold !text-white mb-8 leading-[1.05] tracking-tight">
+          <Heading level={2} className="text-4xl lg:text-7xl font-bold !text-[var(--text-primary)] mb-8 leading-[1.05] tracking-tight">
             Trusted by founders and{' '}
             <GradientText variant="indigo-purple-pink">
               product leaders
             </GradientText>
           </Heading>
-          <Text variant="large" className="text-gray-400 max-w-2xl mx-auto">
+          <Text variant="large" className="text-[var(--text-secondary)] max-w-2xl mx-auto">
             We prioritize building long-term partnerships. Here is what our 
             clients say about our commitment to their success.
           </Text>
@@ -229,8 +240,8 @@ export default function Testimonials() {
                   
                   {/* Avatar Container */}
                   <div className="relative w-32 h-32 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-[3px] shadow-2xl">
-                    <div className="w-full h-full rounded-full bg-gradient-to-br from-[#0a0a1f] to-[#1a1a3f] border-4 border-[var(--color-darker-bg)] flex items-center justify-center backdrop-blur-xl">
-                      <span className="text-white text-3xl font-black bg-gradient-to-br from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-[#0a0a1f] to-[#1a1a3f] border-4 border-[var(--section-bg)] flex items-center justify-center backdrop-blur-xl">
+                      <span className="text-[var(--text-primary)] text-3xl font-black bg-gradient-to-br from-indigo-400 to-purple-400 bg-clip-text text-transparent">
                         {t.initials}
                       </span>
                     </div>
@@ -241,11 +252,15 @@ export default function Testimonials() {
               {/* Card with Enhanced Glassmorphism */}
               <motion.div
                 className="relative pt-20 pb-10 px-8 lg:px-10 rounded-[2.5rem] overflow-hidden group"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                }}
+                style={
+                  !isDark
+                    ? { backgroundColor: '#ffffff', border: '1px solid rgb(229, 231, 235)' }
+                    : {
+                        background: 'rgba(255, 255, 255, 0.03)',
+                        backdropFilter: 'blur(20px)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                      }
+                }
                 whileHover={{ 
                   scale: 1.02,
                   boxShadow: '0 20px 60px rgba(99, 102, 241, 0.15)',
@@ -314,7 +329,7 @@ export default function Testimonials() {
 
                   {/* Testimonial Content with Fade-in */}
                   <motion.p 
-                    className="text-base lg:text-lg text-white/90 font-medium leading-relaxed text-center mb-10 px-2"
+                    className="text-base lg:text-lg text-[var(--text-primary)]/90 font-medium leading-relaxed text-center mb-10 px-2"
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: i * 0.2 + 0.8, duration: 0.8 }}
@@ -324,12 +339,12 @@ export default function Testimonials() {
 
                   {/* Author Info with Border */}
                   <motion.div 
-                    className="text-center pt-6 border-t border-white/10"
+                    className="text-center pt-6 border-t border-gray-200 dark:border-white/10"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.2 + 1 }}
                   >
-                    <Heading level={4} className="font-black text-white text-xl lg:text-2xl tracking-tight mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-purple-400 transition-all duration-500">
+                    <Heading level={4} className="font-black text-[var(--text-primary)] text-xl lg:text-2xl tracking-tight mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-purple-400 transition-all duration-500">
                       {t.name}
                     </Heading>
                     <Text className="text-indigo-400/80 text-sm lg:text-base font-semibold tracking-wide">
@@ -348,16 +363,12 @@ export default function Testimonials() {
 
         {/* Enhanced CTA Card with Better Glassmorphism */}
         <motion.div 
-          className="mt-24 relative overflow-hidden rounded-[3rem]"
+          className="mt-24 relative overflow-hidden rounded-[3rem] dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 backdrop-blur-[20px] shadow-xl dark:shadow-none"
+          style={!isDark ? { backgroundColor: '#ffffff' } : undefined}
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          style={{
-            background: 'rgba(255, 255, 255, 0.03)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-          }}
         >
           {/* Animated Background Gradient */}
           <motion.div
@@ -392,9 +403,10 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              <Badge 
-                variant="glass" 
-                className="mb-8 px-5 py-2 uppercase tracking-[0.3em] text-[11px] font-black border-indigo-500/30 bg-indigo-500/10"
+              <Badge
+                variant="glass"
+                style={!isDark ? { color: '#1e3a8a', border: '1px solid #d1d5db' } : undefined}
+                className="mb-8 px-5 py-2 uppercase tracking-[0.3em] text-[11px] font-black bg-indigo-500/10 dark:text-indigo-300 dark:border-white/10"
               >
                 Client Feedback
               </Badge>
@@ -407,7 +419,7 @@ export default function Testimonials() {
             >
               <Heading 
                 level={3} 
-                className="!text-white text-3xl lg:text-5xl mb-6 tracking-tight font-black leading-tight"
+                className="!text-[var(--text-primary)] text-3xl lg:text-5xl mb-6 tracking-tight font-black leading-tight"
               >
                 We value your{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
@@ -421,7 +433,7 @@ export default function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
             >
-              <Text className="text-gray-400 max-w-2xl mx-auto text-base lg:text-lg leading-relaxed font-medium">
+              <Text className="text-[var(--text-secondary)] max-w-2xl mx-auto text-base lg:text-lg leading-relaxed font-medium">
                 Contact your designated account manager to share your project experience 
                 and be featured in our upcoming boutique-led showcase.
               </Text>

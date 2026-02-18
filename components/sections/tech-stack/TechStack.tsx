@@ -1,5 +1,6 @@
 'use client';
 
+import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Section, Container, Heading, Text, Badge, GradientText } from '@/components/ui';
@@ -71,10 +72,13 @@ const stacks = [
 ];
 
 export default function TechStack() {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+
   return (
-    <Section id="tech-stack" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--color-darker-bg)]">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 w-full h-full z-0">
+    <Section id="tech-stack" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--section-bg)]">
+      {/* Background - same image; gradient + black overlay only in dark; light: subtle black/20 */}
+      <div className="section-bg-wrapper absolute inset-0 w-full h-full z-0">
         <Image
           src="https://images.pexels.com/photos/254770/pexels-photo-254770.jpeg"
           alt="Tech Stack Background"
@@ -82,8 +86,15 @@ export default function TechStack() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-95" />
-        <div className="absolute inset-0 bg-black/85" />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[var(--section-bg)] via-transparent to-[var(--section-bg)] opacity-95"
+          style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
+        <div
+          className="absolute inset-0 bg-black/85"
+          style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
+        {!isDark && <div className="absolute inset-0 bg-black/60 pointer-events-none" />}
       </div>
 
       {/* Content with proper padding */}
@@ -96,13 +107,13 @@ export default function TechStack() {
               <Badge variant="glass" dot animated className="mb-6 px-4 py-1.5 text-indigo-300">
                 Our Tech Stack
               </Badge>
-              <Heading level={2} className="text-4xl lg:text-6xl font-black !text-white mb-6 leading-[1.05] tracking-tight">
+              <Heading level={2} className={`text-4xl lg:text-6xl font-black mb-6 leading-[1.05] tracking-tight ${isDark ? '!text-[var(--text-primary)]' : 'text-white'}`}>
                 Modern tools for{' '}
                 <GradientText variant="indigo-purple-pink">
                   modern problems
                 </GradientText>
               </Heading>
-              <Text variant="large" className="text-gray-400 max-w-xl leading-relaxed">
+              <Text variant="large" className={`max-w-xl leading-relaxed ${isDark ? 'text-[var(--text-secondary)]' : 'text-white/90'}`}>
                 We leverage the most stable and scalable technologies to ensure 
                 your application is performant today and future-proof tomorrow.
               </Text>
@@ -111,38 +122,40 @@ export default function TechStack() {
             {/* Featured Tech Cards */}
             <div className="grid grid-cols-2 gap-4">
               <motion.div 
-                className="relative p-8 rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden group hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500"
+                className="relative p-8 rounded-3xl border border-gray-200 dark:border-white/10 shadow-2xl backdrop-blur-md overflow-hidden group hover:bg-gray-50 dark:hover:bg-white/[0.1] hover:border-gray-300 dark:hover:border-white/20 transition-all duration-500 dark:bg-gradient-to-br dark:from-white/[0.08] dark:to-white/[0.02]"
+                style={!isDark ? { backgroundColor: '#ffffff' } : undefined}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
                 whileHover={{ scale: 1.05, y: -5 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 dark:opacity-0 dark:group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" aria-hidden />
                 <div className="relative z-10">
                   <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <Monitor className="w-7 h-7 text-indigo-400" />
                   </div>
                   <Text variant="caption" className="text-indigo-400/80 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">Primary Framework</Text>
-                  <h4 className="text-white font-black text-2xl tracking-tight">Next.js 15+</h4>
+                  <h4 className="text-[var(--text-primary)] font-black text-2xl tracking-tight">Next.js 15+</h4>
                 </div>
               </motion.div>
               
               <motion.div 
-                className="relative p-8 rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden group hover:bg-white/[0.1] hover:border-white/20 transition-all duration-500"
+                className="relative p-8 rounded-3xl border border-gray-200 dark:border-white/10 shadow-2xl backdrop-blur-md overflow-hidden group hover:bg-gray-50 dark:hover:bg-white/[0.1] hover:border-gray-300 dark:hover:border-white/20 transition-all duration-500 dark:bg-gradient-to-br dark:from-white/[0.08] dark:to-white/[0.02]"
+                style={!isDark ? { backgroundColor: '#ffffff' } : undefined}
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 whileHover={{ scale: 1.05, y: -5 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 dark:opacity-0 dark:group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" aria-hidden />
                 <div className="relative z-10">
                   <div className="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <ShieldCheck className="w-7 h-7 text-purple-400" />
                   </div>
                   <Text variant="caption" className="text-purple-400/80 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">Infrastructure</Text>
-                  <h4 className="text-white font-black text-2xl tracking-tight">AWS & Cloud</h4>
+                  <h4 className="text-[var(--text-primary)] font-black text-2xl tracking-tight">AWS & Cloud</h4>
                 </div>
               </motion.div>
             </div>
@@ -153,18 +166,19 @@ export default function TechStack() {
             {stacks.map((stack, idx) => (
               <motion.div
                 key={stack.category}
-                className="relative flex flex-col p-6 rounded-3xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden group hover:border-white/20 transition-all duration-500"
+                className="relative flex flex-col p-6 rounded-3xl dark:bg-white/[0.08] border-2 border-gray-200 dark:border-white/10 shadow-2xl dark:shadow-none backdrop-blur-0 dark:backdrop-blur-md overflow-hidden group hover:bg-gray-50 dark:hover:bg-white/[0.14] hover:border-gray-300 dark:hover:border-white/25 hover:shadow-2xl dark:hover:shadow-none transition-all duration-500"
+                style={!isDark ? { backgroundColor: '#ffffff' } : undefined}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.7, delay: idx * 0.1 }}
               >
-                {/* Enhanced Visual Decoration with Gradient on Hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${stack.color} opacity-0 group-hover:opacity-30 transition-opacity duration-700`} />
+                {/* Enhanced Visual Decoration with Gradient on Hover - dark mode only so light stays solid white */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${stack.color} opacity-0 dark:opacity-0 dark:group-hover:opacity-30 transition-opacity duration-700 pointer-events-none`} aria-hidden />
                 
-                {/* Shimmer Effect on Hover */}
+                {/* Shimmer Effect on Hover - dark mode only */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 dark:opacity-0 dark:group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                   animate={{ x: ["-100%", "200%"] }}
                   transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
                 />
@@ -175,7 +189,7 @@ export default function TechStack() {
                   <div className="flex items-center justify-between sm:contents">
                     {/* Icon Section */}
                     <div className="flex-shrink-0">
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${stack.color} border border-white/10 flex items-center justify-center transition-all duration-500 shadow-xl group-hover:shadow-2xl`}>
+                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${stack.color} flex items-center justify-center transition-all duration-500 shadow-xl group-hover:shadow-2xl`}>
                         <stack.icon className={`w-7 h-7 ${stack.iconColor} group-hover:scale-110 transition-transform duration-500`} />
                       </div>
                     </div>
@@ -185,7 +199,7 @@ export default function TechStack() {
                       {stack.logos.map((logo, logoIdx) => (
                         <motion.div
                           key={logo.name}
-                          className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/5 border border-white/10 p-2 group-hover:bg-white/10 group-hover:border-white/20 transition-all duration-300"
+                          className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#ffffff] dark:bg-white/5 border-2 border-gray-300 dark:border-gray-500 p-2 hover:bg-gray-100 dark:hover:bg-white/15 hover:border-gray-400 dark:hover:border-gray-400 group-hover:bg-gray-100 dark:group-hover:bg-white/15 group-hover:border-gray-400 dark:group-hover:border-gray-400 transition-all duration-300 shadow-sm dark:shadow-none"
                           initial={{ opacity: 0, scale: 0.8 }}
                           whileInView={{ opacity: 1, scale: 1 }}
                           transition={{ delay: idx * 0.1 + logoIdx * 0.1 }}
@@ -198,7 +212,7 @@ export default function TechStack() {
                             height={44}
                             className="w-full h-full object-contain filter brightness-90 group-hover:brightness-110 transition-all"
                           />
-                          <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${stack.color} opacity-0 group-hover:opacity-30 blur-md -z-10 transition-opacity`} />
+                          <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${stack.color} opacity-0 dark:opacity-0 dark:group-hover:opacity-30 blur-md -z-10 transition-opacity pointer-events-none`} aria-hidden />
                         </motion.div>
                       ))}
                     </div>
@@ -216,7 +230,7 @@ export default function TechStack() {
                       {stack.techs.map((tech, techIdx) => (
                         <motion.span
                           key={tech}
-                          className="px-2.5 py-1 bg-white/[0.05] text-gray-300 text-[10px] font-bold tracking-wide rounded-lg border border-white/5 group-hover:bg-white/10 group-hover:text-white group-hover:border-white/10 transition-all shadow-sm"
+                          className="px-2.5 py-1 bg-[#ffffff] dark:bg-white/[0.05] text-gray-700 dark:text-[var(--text-secondary)] text-[10px] font-bold tracking-wide rounded-lg border-2 border-gray-300 dark:border-gray-500 hover:bg-gray-100 dark:hover:bg-white/15 hover:text-gray-900 dark:hover:text-[var(--text-primary)] hover:border-gray-400 dark:hover:border-gray-400 group-hover:bg-gray-100 dark:group-hover:bg-white/15 group-hover:text-gray-900 dark:group-hover:text-[var(--text-primary)] group-hover:border-gray-400 dark:group-hover:border-gray-400 transition-all shadow-sm dark:shadow-none cursor-default"
                           initial={{ opacity: 0, scale: 0.8 }}
                           whileInView={{ opacity: 1, scale: 1 }}
                           transition={{ delay: idx * 0.1 + techIdx * 0.05 }}

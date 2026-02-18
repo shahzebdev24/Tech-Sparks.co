@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { Globe, Code2, Palette, ShoppingCart, Server, Smartphone } from 'lucide-react';
 import { Container, Section, Card, Heading, Text, Badge, GradientText } from '@/components/ui';
 
@@ -77,19 +78,28 @@ const services = [
 ];
 
 export default function Services() {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+
   return (
-    <Section id="services" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--color-darker-bg)] text-white">
-      {/* Background Image - Absolute inset-0 to cover entire section area */}
-      <div className="absolute inset-0 w-full h-full">
+    <Section id="services" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--section-bg)] text-[var(--text-primary)]">
+      {/* Background Image - light: Pexels image, no overlay; dark: /services.jpg with overlays */}
+      <div className="section-bg-wrapper absolute inset-0 w-full h-full">
         <Image
-          src="/services.jpg"
+          src={isDark ? '/services.jpg' : '/serviceslight.jpg'}
           alt="Services Background"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-95" />
-        <div className="absolute inset-0 bg-black/70" />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[var(--section-bg)] via-transparent to-[var(--section-bg)]"
+          style={{ opacity: isDark ? 0.95 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
+        <div
+          className="absolute inset-0 bg-black/70"
+          style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
       </div>
 
       {/* Content with proper padding */}
@@ -106,13 +116,13 @@ export default function Services() {
             <Badge variant="dark" className="mb-4">
               What We Build
             </Badge>
-            <Heading level={2} className="!text-white mb-6">
+            <Heading level={2} className="!text-[var(--text-primary)] mb-6">
               Custom-built digital solutions{' '}
               <GradientText variant="indigo-purple">
                 designed around your goals
               </GradientText>
             </Heading>
-            <Text className="text-gray-300 text-lg max-w-2xl mx-auto font-medium leading-relaxed">
+            <Text className="text-[var(--text-secondary)] text-lg max-w-2xl mx-auto font-medium leading-relaxed">
               From web applications to SaaS platforms — every solution is engineered 
               to solve real business problems and drive measurable growth.
             </Text>
@@ -138,10 +148,10 @@ export default function Services() {
                       <service.icon className="w-8 h-8" />
                     </div>
                     <div className="space-y-4">
-                      <Heading level={2} className="text-white text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                      <Heading level={2} className="text-[var(--text-primary)] text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
                         {service.title}
                       </Heading>
-                      <p className="text-gray-400 text-xl leading-relaxed max-w-xl font-medium">
+                      <p className="text-[var(--text-secondary)] text-xl leading-relaxed max-w-xl font-medium">
                         {service.description}
                       </p>
                     </div>
@@ -152,7 +162,7 @@ export default function Services() {
                     {service.tags.map((tag) => (
                       <span 
                         key={tag} 
-                        className="px-5 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-sm font-semibold italic backdrop-blur-md"
+                        className="px-5 py-2 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[var(--text-secondary)] text-sm font-semibold italic shadow-sm dark:shadow-none backdrop-blur-md"
                       >
                         {tag}
                       </span>
@@ -163,7 +173,7 @@ export default function Services() {
                 {/* Image Side */}
                 <div className="flex-1 w-full relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-purple-500/10 blur-3xl opacity-30" />
-                  <div className="relative border border-white/10 bg-white/[0.03] backdrop-blur-sm shadow-2xl rounded-2xl overflow-hidden">
+                  <div className="relative border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.03] backdrop-blur-sm shadow-xl dark:shadow-2xl rounded-2xl overflow-hidden">
                     {/* Actual Image - Subtle rounding */}
                     <Image
                       src={service.image}
@@ -174,8 +184,8 @@ export default function Services() {
                       priority={index < 2}
                     />
                     
-                    {/* Subtle overlay to maintain dark theme */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+                    {/* Subtle overlay - dark mode only so light mode shows original image */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none opacity-0 dark:opacity-100" />
                   </div>
                 </div>
               </motion.div>

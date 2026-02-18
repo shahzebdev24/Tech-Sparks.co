@@ -9,6 +9,7 @@ interface CardProps {
   rounded?: 'md' | 'lg' | 'xl' | '2xl' | '3xl';
   overflowHidden?: boolean;
   className?: string;
+  style?: React.CSSProperties;
   children: React.ReactNode;
 }
 
@@ -19,15 +20,16 @@ export default function Card({
   rounded = '3xl',
   overflowHidden = true,
   className = '',
+  style,
   children,
 }: CardProps) {
   const baseStyles = `relative ${overflowHidden ? 'overflow-hidden' : 'overflow-visible'} transition-all duration-500`;
 
   const variants: Record<string, string> = {
-    default: 'bg-white border border-gray-100',
-    elevated: 'bg-white border border-gray-100 shadow-lg',
-    glass: 'bg-white/12 backdrop-blur-md border border-white/15 text-white',
-    dark: 'bg-[var(--color-midnight)] border border-white/5 text-white',
+    default: 'bg-[var(--surface)] border border-[var(--border)]',
+    elevated: 'bg-[var(--surface)] border border-[var(--border)] shadow-lg',
+    glass: 'bg-black/5 dark:bg-white/12 backdrop-blur-md border border-black/10 dark:border-white/15 text-[var(--text-primary)]',
+    dark: 'bg-[var(--surface-elevated)] border border-[var(--border)] text-[var(--text-primary)]',
     gradient: 'bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-100/50',
     glossy: 'glossy-card',
   };
@@ -54,6 +56,7 @@ export default function Card({
   return (
     <div
       className={`${baseStyles} ${variants[variant]} ${hoverStyles} ${paddings[padding]} ${roundedSizes[rounded]} ${className}`}
+      style={style}
     >
       {children}
     </div>

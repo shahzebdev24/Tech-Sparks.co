@@ -7,7 +7,7 @@ interface DarkPageLayoutProps {
 
 export function DarkPageLayout({ children, className = '' }: DarkPageLayoutProps) {
   return (
-    <div className={`bg-[var(--color-darker-bg)] min-h-screen ${className}`}>
+    <div className={`bg-[var(--page-bg)] min-h-screen ${className}`}>
       {children}
     </div>
   );

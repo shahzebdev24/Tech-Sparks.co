@@ -38,7 +38,7 @@ export function Select({
       {label && (
         <label
           htmlFor={selectId}
-          className={`block text-sm font-semibold text-gray-300 mb-2 ${labelClassName}`}
+          className={`block text-sm font-semibold text-[var(--text-secondary)] mb-2 ${labelClassName}`}
         >
           {label}
           {props.required && <span className="text-red-500 ml-1" aria-hidden="true">*</span>}
@@ -47,7 +47,7 @@ export function Select({
       <div className="relative">
         <select
           id={selectId}
-          className={`w-full bg-white/[0.03] border rounded-2xl py-4 pl-5 pr-12 text-[15px] font-medium transition-all duration-300 focus:outline-none focus:ring-4 appearance-none cursor-pointer ${stateStyles} ${className} text-white`}
+          className={`w-full bg-black/5 dark:bg-white/[0.03] border border-black/10 dark:border-white/10 rounded-2xl py-4 pl-5 pr-12 text-[15px] font-medium transition-all duration-300 focus:outline-none focus:ring-4 appearance-none cursor-pointer ${stateStyles} ${className} text-[var(--text-primary)]`}
           aria-invalid={error ? 'true' : undefined}
           aria-describedby={
             error ? `${selectId}-error` : helperText ? `${selectId}-helper` : undefined
@@ -55,12 +55,12 @@ export function Select({
           {...props}
         >
           {options.map((option) => (
-            <option key={option.value} value={option.value} className="bg-gray-900 text-white">
+            <option key={option.value} value={option.value} className="bg-[var(--surface-elevated)] text-[var(--text-primary)]">
               {option.label}
             </option>
           ))}
         </select>
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[var(--text-tertiary)]">
           <ChevronDown className="w-5 h-5" />
         </div>
       </div>
@@ -70,7 +70,7 @@ export function Select({
         </p>
       )}
       {helperText && !error && (
-        <p id={`${selectId}-helper`} className="mt-2 text-sm text-gray-500">
+        <p id={`${selectId}-helper`} className="mt-2 text-sm text-[var(--text-tertiary)]">
           {helperText}
         </p>
       )}

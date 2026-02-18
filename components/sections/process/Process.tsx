@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Section, Container, Heading, Text, Badge, GradientText } from '@/components/ui';
@@ -40,11 +41,13 @@ const steps = [
 
 export default function Process() {
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   return (
-    <Section id="process" bg="none" spacing="none" className="relative overflow-hidden bg-[#050510]">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 w-full h-full z-0">
+    <Section id="process" bg="none" spacing="none" className={`relative overflow-hidden ${isDark ? 'bg-[#050510]' : 'bg-[var(--section-bg)]'}`}>
+      {/* Background Image - same image both themes; overlays only in dark */}
+      <div className="section-bg-wrapper absolute inset-0 w-full h-full z-0">
         <Image
           src="/digitalexcellence.jpg"
           alt="Process Background"
@@ -52,15 +55,25 @@ export default function Process() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#050510] via-transparent to-[#050510] opacity-95" />
-        <div className="absolute inset-0 bg-black/85" />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[#050510] via-transparent to-[#050510] opacity-95"
+          style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
+        <div
+          className="absolute inset-0 bg-black/85"
+          style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
+        />
+        {/* Light theme: subtle dark overlay */}
+        {!isDark && <div className="absolute inset-0 bg-black/20 pointer-events-none" />}
       </div>
 
-      {/* Background Ambience */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[120px]" />
-      </div>
+      {/* Background Ambience - dark only */}
+      {isDark && (
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[120px]" />
+          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[120px]" />
+        </div>
+      )}
 
       {/* Content with proper padding */}
       <div className="relative py-32 lg:py-48 z-10">
@@ -75,13 +88,13 @@ export default function Process() {
           <Badge variant="glass" dot animated className="mb-6 px-4 py-1.5 text-indigo-300">
             Our Methodology
           </Badge>
-          <Heading level={2} className="text-5xl lg:text-7xl font-black !text-white mb-6 leading-tight tracking-tighter">
+          <Heading level={2} className="text-5xl lg:text-7xl font-black !text-[var(--text-primary)] mb-6 leading-tight tracking-tighter">
             Architecting{' '}
             <GradientText variant="indigo-purple-pink" className="block lg:inline">
               Digital Excellence
             </GradientText>
           </Heading>
-          <Text className="text-white/50 text-xl max-w-2xl mx-auto leading-relaxed">
+          <Text className="text-[var(--text-primary)]/50 text-xl max-w-2xl mx-auto leading-relaxed">
             A precision-engineered workflow designed to transform high-level 
             concepts into market-ready assets.
           </Text>
@@ -121,9 +134,12 @@ export default function Process() {
                   )}
                 </div>
 
-                <div className={`p-8 rounded-[2.5rem] bg-white/[0.03] backdrop-blur-3xl border border-white/10 group transition-all duration-500 hover:bg-white/[0.05] hover:border-white/20 ${hoveredStep === index ? '-translate-y-2' : ''}`}>
+                <div
+                  className={`p-8 rounded-[2.5rem] dark:bg-white/[0.03] backdrop-blur-3xl border border-gray-200 dark:border-white/10 group transition-all duration-500 hover:bg-gray-50 dark:hover:bg-white/[0.08] hover:border-gray-300 dark:hover:border-white/25 hover:shadow-2xl dark:hover:shadow-none ${hoveredStep === index ? '-translate-y-2' : ''}`}
+                  style={!isDark ? { backgroundColor: '#ffffff' } : undefined}
+                >
                   {/* Watermark Number */}
-                  <span className="absolute top-4 right-8 font-serif italic text-6xl text-white/[0.05] select-none pointer-events-none">
+                  <span className="absolute top-4 right-8 font-serif italic text-6xl text-[var(--text-primary)]/[0.05] select-none pointer-events-none">
                     {step.number}
                   </span>
 
@@ -131,11 +147,11 @@ export default function Process() {
                     Phase {step.number}
                   </span>
                   
-                  <Heading level={4} className={`text-white text-xl font-bold mb-4 tracking-tight transition-colors duration-500 ${hoveredStep === index ? 'text-indigo-300' : ''}`}>
+                  <Heading level={4} className={`text-[var(--text-primary)] text-xl font-bold mb-4 tracking-tight transition-colors duration-500 ${hoveredStep === index ? 'text-indigo-300' : ''}`}>
                     {step.title}
                   </Heading>
                   
-                  <p className="text-white/40 text-sm leading-relaxed font-medium">
+                  <p className="text-[var(--text-secondary)] text-sm leading-relaxed font-medium">
                     {step.description}
                   </p>
                 </div>
@@ -153,19 +169,20 @@ export default function Process() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="relative p-8 rounded-[2rem] bg-white/[0.03] backdrop-blur-2xl border border-white/10"
+              className="relative p-8 rounded-[2rem] dark:bg-white/[0.03] backdrop-blur-2xl border border-gray-200 dark:border-white/10 shadow-xl dark:shadow-none hover:bg-gray-50 dark:hover:bg-white/[0.06] hover:border-gray-300 dark:hover:border-white/20 hover:shadow-2xl dark:hover:shadow-none transition-all duration-300"
+              style={!isDark ? { backgroundColor: '#ffffff' } : undefined}
             >
               <div className="flex items-center gap-4 mb-4">
                 <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${step.color} p-[1px]`}>
-                  <div className="w-full h-full rounded-[0.65rem] bg-[#050510] flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">{step.number}</span>
+                  <div className="w-full h-full rounded-[0.65rem] bg-gray-100 dark:bg-[#050510] flex items-center justify-center">
+                    <span className="text-[var(--text-primary)] text-xs font-bold">{step.number}</span>
                   </div>
                 </div>
-                <Heading level={4} className="text-white text-xl font-bold">
+                <Heading level={4} className="text-[var(--text-primary)] text-xl font-bold">
                   {step.title}
                 </Heading>
               </div>
-              <p className="text-white/40 text-base leading-relaxed">
+              <p className="text-[var(--text-secondary)] text-base leading-relaxed">
                 {step.description}
               </p>
             </motion.div>

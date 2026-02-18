@@ -9,6 +9,7 @@ interface BadgeProps {
   animated?: boolean;
   icon?: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   children: React.ReactNode;
 }
 
@@ -19,6 +20,7 @@ export default function Badge({
   animated = false,
   icon,
   className = '',
+  style,
   children,
 }: BadgeProps) {
   const baseStyles =
@@ -31,8 +33,8 @@ export default function Badge({
     warning: 'bg-amber-50 text-amber-600 border border-amber-100',
     error: 'bg-red-50 text-red-600 border border-red-100',
     info: 'bg-blue-50 text-blue-600 border border-blue-100',
-    dark: 'bg-gray-900 text-gray-300 border border-gray-700',
-    glass: 'bg-white/5 text-indigo-300 border border-white/10 backdrop-blur-md metallic-shine',
+    dark: 'bg-[var(--surface-elevated)] text-[var(--text-secondary)] border border-[var(--border)]',
+    glass: 'bg-black/5 dark:bg-white/5 text-indigo-600 dark:text-indigo-300 border border-black/10 dark:border-white/10 backdrop-blur-md metallic-shine',
   };
 
   const sizes: Record<string, string> = {
@@ -41,7 +43,7 @@ export default function Badge({
   };
 
   return (
-    <span className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}>
+    <span className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`} style={style}>
       {dot && (
         <span className="relative flex h-2 w-2">
           {animated && (

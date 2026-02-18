@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'dark' | 'ghost' | 'outline' | 'glossy' | 'glass';
@@ -10,6 +11,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   iconPosition?: 'left' | 'right';
   fullWidth?: boolean;
   href?: string;
+}
+
+function isInternalHref(href: string) {
+  return href.startsWith('/') && !href.startsWith('//');
 }
 
 export default function Button({
@@ -32,14 +37,14 @@ export default function Button({
     primary:
       'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30 hover:scale-[1.03] glossy-button',
     secondary:
-      'bg-white text-gray-900 border border-gray-200 hover:border-indigo-300 hover:bg-gray-50 shadow-sm',
-    dark: 'bg-[var(--color-midnight)] text-white shadow-xl hover:shadow-2xl hover:scale-[1.03] metallic-shine',
+      'bg-white dark:bg-white/5 text-gray-700 dark:text-[var(--text-primary)] border border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20 hover:bg-gray-50 dark:hover:bg-white/10 shadow-lg dark:shadow-none',
+    dark: 'bg-white dark:bg-[var(--surface-elevated)] text-gray-900 dark:text-[var(--text-primary)] shadow-xl hover:shadow-2xl hover:scale-[1.03] metallic-shine',
     ghost:
-      'bg-transparent text-indigo-400 hover:bg-white/5 hover:text-white',
+      'bg-transparent text-indigo-500 hover:bg-black/5 dark:hover:bg-white/5 hover:text-[var(--text-primary)]',
     outline:
-      'bg-transparent text-gray-300 border-2 border-white/10 hover:border-indigo-500 hover:text-white',
+      'bg-white dark:bg-transparent text-gray-700 dark:text-[var(--text-primary)] border-2 border-gray-200 dark:border-[var(--border)] hover:border-indigo-500 hover:bg-gray-50 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-[var(--text-primary)]',
     glossy: 'glossy-button bg-indigo-600 text-white',
-    glass: 'bg-white/5 backdrop-blur-md border border-white/10 text-white hover:bg-white/10 metallic-shine',
+    glass: 'bg-white/80 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-[var(--border)] text-gray-700 dark:text-[var(--text-primary)] hover:bg-white dark:hover:bg-white/10 metallic-shine',
   };
 
   const sizes: Record<string, string> = {
@@ -81,8 +86,15 @@ export default function Button({
   );
 
   if (href) {
+    if (isInternalHref(href)) {
+      return (
+        <Link href={href} className={classes} {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}>
+          {content}
+        </Link>
+      );
+    }
     return (
-      <a href={href} className={classes}>
+      <a href={href} className={classes} target="_blank" rel="noopener noreferrer" {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}>
         {content}
       </a>
     );

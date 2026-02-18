@@ -45,13 +45,13 @@ export function SectionHeader({
       </Badge>
       <Heading
         level={headingLevel}
-        className={`!text-white ${headingLevel === 1 ? 'mb-8 tracking-tighter' : 'mb-6'} ${align === 'center' ? '' : ''}`}
+        className={`!text-[var(--text-primary)] ${headingLevel === 1 ? 'mb-8 tracking-tighter' : 'mb-6'} ${align === 'center' ? '' : ''}`}
       >
         {title}
       </Heading>
       {description && (
         <Text
-          className={`text-gray-400 text-lg font-medium leading-relaxed ${align === 'center' ? 'max-w-2xl mx-auto' : ''} ${headingLevel === 1 ? '!text-gray-300 !mb-12' : '!mb-0'}`}
+          className={`text-[var(--text-secondary)] text-lg font-medium leading-relaxed ${align === 'center' ? 'max-w-2xl mx-auto' : ''} ${headingLevel === 1 ? '!mb-12' : '!mb-0'}`}
         >
           {description}
         </Text>

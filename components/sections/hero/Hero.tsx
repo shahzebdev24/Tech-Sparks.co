@@ -1,33 +1,49 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
+import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, Code2, Palette, Zap } from 'lucide-react';
 import { Heading, GradientText } from '@/components/ui';
 
 export default function Hero() {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+  const heroCardStyle = isDark
+    ? {
+        backgroundColor: 'var(--hero-card-bg)',
+        borderColor: 'var(--hero-card-border)',
+        boxShadow: 'var(--hero-card-shadow)',
+        backdropFilter: 'var(--hero-card-backdrop)',
+        WebkitBackdropFilter: 'var(--hero-card-backdrop)',
+      }
+    : {
+        backgroundColor: '#ffffff',
+        borderColor: 'rgba(0,0,0,0.1)',
+        boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)',
+        backdropFilter: 'none',
+        WebkitBackdropFilter: 'none',
+      };
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[var(--color-darker-bg)]">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0 bg-black">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[var(--section-bg)]">
+      {/* Background Image with Overlay — theme-aware: light = less black, dark = current */}
+      <div className="section-bg-wrapper absolute inset-0 z-0 dark:bg-black">
         <video
           autoPlay
           loop
           muted
           playsInline
           poster="https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg"
-          className="w-full h-full object-cover opacity-80 object-center sm:object-left"
+          className="w-full h-full object-cover opacity-100 dark:opacity-80 object-center sm:object-left"
         >
           <source 
             src="/hero.mp4" 
             type="video/mp4" 
           />
         </video>
-        {/* Subtle light black overlay */}
-        <div className="absolute inset-0 bg-black/40" />
-        {/* Professional gradients for depth and readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20" />
+        {/* Theme-aware overlay only: light = less black (no tint), dark = current */}
+        <div className="absolute inset-0" style={{ backgroundColor: 'var(--overlay-hero)' }} />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-32 lg:py-40 w-full z-20">
@@ -38,7 +54,7 @@ export default function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-indigo-300 font-bold text-sm backdrop-blur-md mb-8 metallic-shine">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full text-indigo-600 dark:text-indigo-300 font-bold text-sm backdrop-blur-md mb-8 metallic-shine">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-400" />
@@ -55,7 +71,7 @@ export default function Hero() {
           >
             <Heading
               level={1}
-              className="text-4xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold leading-[1.1] tracking-tight !text-white mb-8"
+              className="text-4xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold leading-[1.1] tracking-tight text-[var(--text-primary)] mb-8"
             >
               Software development,{' '}
               <GradientText variant="indigo-via-purple-indigo">engineered</GradientText>{' '}
@@ -65,7 +81,7 @@ export default function Hero() {
 
           {/* Description text */}
           <motion.p
-            className="text-lg sm:text-xl text-gray-400 max-w-xl mb-12 leading-relaxed font-medium"
+            className="text-lg sm:text-xl text-[var(--text-secondary)] max-w-xl mb-12 leading-relaxed font-medium"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
@@ -82,19 +98,24 @@ export default function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
           >
-            <a
+            <Link
               href="/contact"
               className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-bold text-lg shadow-lg shadow-indigo-500/25 hover:shadow-xl transition-all duration-300 active:scale-[0.97] glossy-button"
             >
               Start Your Project
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a
+            </Link>
+            <Link
               href="/portfolio"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-gray-300 rounded-2xl font-bold text-lg backdrop-blur-md hover:bg-white/10 hover:text-white hover:border-white/20 transition-all duration-300 metallic-shine"
+              style={
+                !isDark
+                  ? { backgroundColor: '#ffffff', color: '#000000' }
+                  : undefined
+              }
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 border-2 rounded-2xl font-bold text-lg transition-all duration-300 bg-white dark:bg-white/5 border-gray-300 dark:border-white/10 text-black dark:text-white shadow-xl dark:shadow-none hover:border-gray-400 dark:hover:border-white/20 hover:bg-gray-100 dark:hover:bg-white/10 hover:text-black dark:hover:text-white"
             >
               See Our Work
-            </a>
+            </Link>
           </motion.div>
 
           {/* Feature cards row */}
@@ -123,7 +144,12 @@ export default function Hero() {
             ].map((feature, i) => (
               <motion.div
                 key={feature.title}
-                className="relative flex flex-col items-start p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl"
+                className="relative flex flex-col items-start p-6 rounded-3xl border border-gray-200 dark:border-white/10 shadow-xl dark:shadow-none"
+                style={{
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  ...heroCardStyle,
+                }}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
@@ -135,11 +161,11 @@ export default function Hero() {
                 <div className="relative">
                   <Heading 
                     level={6} 
-                    className="text-white font-bold mb-2 text-base sm:text-lg"
+                    className="text-[var(--text-primary)] font-bold mb-2 text-base sm:text-lg"
                   >
                     {feature.title}
                   </Heading>
-                  <p className="text-gray-400 text-sm sm:text-xs leading-relaxed font-medium">
+                  <p className="text-[var(--text-secondary)] text-sm sm:text-xs leading-relaxed font-medium">
                     {feature.desc}
                   </p>
                 </div>
@@ -165,8 +191,8 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Bottom gradient fade to maintain dark theme flow */}
-      <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[var(--color-darker-bg)] to-transparent pointer-events-none" />
+      {/* Bottom fade: dark only (light mode uses transparent so no white bar) */}
+      <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[var(--section-fade)] to-transparent pointer-events-none" />
     </section>
   );
 }
