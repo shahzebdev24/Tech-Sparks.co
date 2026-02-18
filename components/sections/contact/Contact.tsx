@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Mail, MapPin, Send, ArrowRight, Phone } from 'lucide-react';
 import { Section, Container, Heading, Text, Badge, Button, Input, Textarea, Card, Select, GradientText } from '@/components/ui';
 import { contactInfo, contactSubjects } from '@/content/contact';
@@ -64,9 +65,24 @@ export default function Contact({
   };
 
   return (
-    <Section id={id} bg={bg} spacing="lg" className={className}>
-      <Container>
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-32 relative z-10 items-start">
+    <Section id={id} bg="none" spacing="none" className={`relative overflow-hidden bg-[var(--color-darker-bg)] ${className}`}>
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <Image
+          src="/contact.jpeg"
+          alt="Contact Background"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-95" />
+        <div className="absolute inset-0 bg-black/85" />
+      </div>
+
+      {/* Content with proper padding */}
+      <div className="relative py-24 lg:py-32 z-10">
+        <Container>
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-32 relative z-10 items-start">
           {/* Left Side: Info */}
           <div className="lg:w-5/12 sticky top-32">
             <motion.div
@@ -306,7 +322,8 @@ export default function Contact({
             </div>
         )}
 
-      </Container>
+        </Container>
+      </div>
     </Section>
   );
 }

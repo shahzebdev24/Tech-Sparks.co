@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Section, Container, Heading, Text, Badge, ProjectCard, Button, GradientText, SectionHeader } from '@/components/ui';
+import Image from 'next/image';
+import { Section, Container, ProjectCard, Button, GradientText, SectionHeader } from '@/components/ui';
 import { projects } from '@/content/projects';
 
 export default function Projects() {
@@ -9,8 +10,23 @@ export default function Projects() {
   const featuredProjects = projects.slice(0, 3);
 
   return (
-    <Section id="projects" bg="dark-hex">
-      <Container>
+    <Section id="projects" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--color-darker-bg)]">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <Image
+          src="/portfolio.jpg"
+          alt="Projects Background"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-95" />
+        <div className="absolute inset-0 bg-black/75" />
+      </div>
+
+      {/* Content with proper padding */}
+      <div className="relative py-24 lg:py-32 z-10">
+        <Container>
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-20">
           <SectionHeader
             badge="Our Portfolio"
@@ -47,7 +63,8 @@ export default function Projects() {
         <div className="mt-12 text-center md:hidden">
           <Button variant="outline" href="/portfolio" fullWidth className="border-white/20 text-white">View All Projects</Button>
         </div>
-      </Container>
+        </Container>
+      </div>
     </Section>
   );
 }
