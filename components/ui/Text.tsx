@@ -18,9 +18,9 @@ export default function Text({
   const Tag = as;
 
   const styles: Record<string, string> = {
-    large: 'text-lg sm:text-xl text-gray-500 font-medium leading-relaxed',
-    body: 'text-base text-gray-500 font-medium leading-relaxed',
-    small: 'text-sm text-gray-500 font-medium leading-relaxed',
+    large: 'text-lg sm:text-xl text-[var(--text-secondary)] font-medium leading-relaxed',
+    body: 'text-base text-[var(--text-secondary)] font-medium leading-relaxed',
+    small: 'text-sm text-[var(--text-secondary)] font-medium leading-relaxed',
     caption: 'text-xs font-black tracking-[0.2em] uppercase text-indigo-600',
   };
 

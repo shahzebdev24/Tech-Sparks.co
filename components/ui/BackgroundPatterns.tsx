@@ -202,7 +202,7 @@ export function HexagonPattern() {
           backgroundSize: '56px 100px'
         }}
       />
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-60" />
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[var(--section-bg)] via-transparent to-[var(--section-bg)] opacity-60" />
     </div>
   );
 }
@@ -248,7 +248,7 @@ export function TopographicPattern() {
         }}
       />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-indigo-600/5 rounded-full blur-[150px]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[var(--section-bg)] via-transparent to-[var(--section-bg)]" />
     </div>
   );
 }
@@ -282,7 +282,7 @@ export function IsometricPattern() {
           backgroundSize: '80px 140px'
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-darker-bg)] via-transparent to-transparent opacity-90" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--section-bg)] via-transparent to-transparent opacity-90" />
     </div>
   );
 }
@@ -304,7 +304,7 @@ export function ArchitecturalPulse() {
           backgroundPosition: 'center'
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[var(--section-bg)] via-transparent to-[var(--section-bg)]" />
     </div>
   );
 }
@@ -337,7 +337,7 @@ export function DotPattern() {
           backgroundSize: '32px 32px'
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-40" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[var(--section-bg)] via-transparent to-[var(--section-bg)] opacity-40" />
     </div>
   );
 }
@@ -379,7 +379,7 @@ export function PerspectivePattern() {
         </g>
       </svg>
       
-      <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-50" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[var(--section-bg)] via-transparent to-[var(--section-bg)] opacity-50" />
     </div>
   );
 }
@@ -424,7 +424,7 @@ export function CircuitPattern() {
           }}
         />
       </div>
-      <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-darker-bg)] via-transparent to-[var(--color-darker-bg)] opacity-30" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-[var(--section-bg)] via-transparent to-[var(--section-bg)] opacity-30" />
     </div>
   );
 }
@@ -510,7 +510,7 @@ export function RadialGradientCenter() {
 
 export function DigitalWavePattern() {
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden bg-[var(--color-darker-bg)]">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden bg-[var(--section-bg)]">
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-indigo-900/10 rounded-full blur-[120px] opacity-60" />
       <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-purple-900/10 rounded-full blur-[120px] opacity-60" />
       <div className="absolute inset-0 opacity-20">
@@ -557,7 +557,7 @@ export function DigitalWavePattern() {
 
 export function LuminescentFluidPattern() {
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden bg-[var(--color-darker-bg)]">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden bg-[var(--section-bg)]">
       <motion.div
         className="absolute top-[-20%] left-[-10%] w-[80vw] h-[80vw] bg-indigo-800/30 rounded-full blur-[180px] opacity-60"
         initial={{ scale: 1, x: 0, y: 0 }}
@@ -596,7 +596,7 @@ export function ConstellationPattern() {
     []
   );
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden bg-[var(--color-darker-bg)]">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden bg-[var(--section-bg)]">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-900/30 rounded-full blur-[120px]" />
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="none" className="absolute inset-0 w-full h-full opacity-20">
         {CONSTELLATION_CONNECTIONS.map((d, i) => (
@@ -658,9 +658,9 @@ export function ImmersiveSpacePattern() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.1)_0%,transparent_70%)]" />
       <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px]" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[140px]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--color-darker-bg)_100%)] opacity-80" />
-      <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-[var(--color-darker-bg)] to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[var(--color-darker-bg)] to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--section-bg)_100%)] opacity-80" />
+      <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-[var(--section-bg)] to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-[var(--section-bg)] to-transparent" />
     </div>
   );
 }

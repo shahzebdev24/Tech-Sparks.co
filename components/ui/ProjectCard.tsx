@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
@@ -18,7 +19,9 @@ export function ProjectCard({ project, variant = 'preview', className = '', dela
   const isFull = variant === 'full';
   const [isExpanded, setIsExpanded] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
-  
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+
   return (
     <motion.div
       className={`group relative ${className}`}
@@ -27,11 +30,14 @@ export function ProjectCard({ project, variant = 'preview', className = '', dela
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
     >
-      <div className="relative p-6 rounded-[2.5rem] bg-white/[0.05] border border-white/10 shadow-2xl backdrop-blur-md overflow-hidden flex flex-col hover:bg-white/[0.08] hover:border-white/20 transition-all duration-500">
+      <div
+        className="relative p-6 rounded-[2.5rem] dark:bg-white/[0.05] border border-gray-200 dark:border-transparent shadow-2xl backdrop-blur-md overflow-hidden flex flex-col hover:bg-gray-50 dark:hover:bg-white/[0.08] hover:border-gray-300 dark:hover:border-transparent transition-all duration-500"
+        style={!isDark ? { backgroundColor: '#ffffff' } : undefined}
+      >
         {/* Image Container */}
-        <div className="relative aspect-[16/10] rounded-[1.75rem] overflow-hidden mb-8 border border-white/5 bg-white/5">
+        <div className="relative aspect-[16/10] rounded-[1.75rem] overflow-hidden mb-8 border border-gray-200 dark:border-transparent bg-gray-100 dark:bg-white/5">
           {isLoading && (
-            <div className="absolute inset-0 bg-white/5 animate-pulse flex items-center justify-center">
+            <div className="absolute inset-0 bg-gray-200 dark:bg-white/5 animate-pulse flex items-center justify-center">
               <div className="w-8 h-8 rounded-full border-2 border-indigo-500/20 border-t-indigo-500 animate-spin" />
             </div>
           )}
@@ -43,9 +49,9 @@ export function ProjectCard({ project, variant = 'preview', className = '', dela
             onLoadingComplete={() => setIsLoading(false)}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A1B]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--section-bg)]/60 to-transparent" />
           <div className="absolute top-4 left-4">
-            <Badge variant="glass" size="sm" className="bg-[#0A0A1B]/60 backdrop-blur-xl border-white/10 text-white font-bold tracking-widest px-3 py-1">
+            <Badge variant="glass" size="sm" className="bg-[var(--section-bg)]/60 backdrop-blur-xl border-[var(--border)] text-[var(--text-primary)] font-bold tracking-widest px-3 py-1">
               {isFull && project.impact ? project.impact : 'Case Study'}
             </Badge>
           </div>
@@ -57,17 +63,17 @@ export function ProjectCard({ project, variant = 'preview', className = '', dela
             <span className="text-xs font-black tracking-[0.25em] uppercase text-indigo-400">
               {project.category}
             </span>
-            <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-indigo-600 group-hover:border-indigo-600 transition-all duration-500">
-              <ArrowUpRight className="w-5 h-5 text-white group-hover:rotate-45 transition-transform" />
+            <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 border border-[var(--border)] flex items-center justify-center group-hover:bg-indigo-600 group-hover:border-indigo-600 transition-all duration-500">
+              <ArrowUpRight className="w-5 h-5 text-[var(--text-primary)] group-hover:rotate-45 transition-transform" />
             </div>
           </div>
 
-          <Heading level={4} className="text-2xl font-bold text-white mb-4 leading-tight group-hover:text-indigo-300 transition-colors">
+          <Heading level={4} className="text-2xl font-bold text-[var(--text-primary)] mb-4 leading-tight group-hover:text-indigo-500 transition-colors">
             {project.title}
           </Heading>
           
           <div className="relative flex-1 mb-6">
-            <p className={`text-gray-400 text-sm lg:text-base font-medium leading-relaxed transition-all duration-300 ${!isExpanded ? 'line-clamp-3' : ''}`}>
+            <p className={`text-[var(--text-secondary)] text-sm lg:text-base font-medium leading-relaxed transition-all duration-300 ${!isExpanded ? 'line-clamp-3' : ''}`}>
               {project.description}
             </p>
             {project.description.length > 120 && (
@@ -84,7 +90,7 @@ export function ProjectCard({ project, variant = 'preview', className = '', dela
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 bg-white/[0.03] text-gray-300 text-[10px] font-bold tracking-widest uppercase rounded-lg border border-white/10 group-hover:border-white/20 transition-colors"
+                className="px-3 py-1 bg-gray-100 dark:bg-white/10 text-[var(--text-secondary)] text-[10px] font-bold tracking-widest uppercase rounded-lg border border-gray-200 dark:border-[var(--border)] hover:bg-gray-200 dark:hover:bg-white/20 hover:border-gray-300 dark:hover:border-white/20 transition-colors"
               >
                 {tag}
               </span>
@@ -97,7 +103,7 @@ export function ProjectCard({ project, variant = 'preview', className = '', dela
               <a
                 href={project.link || '/portfolio'}
                 {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                className="w-full inline-flex items-center justify-center gap-2 font-bold transition-all duration-300 transform active:scale-[0.97] cursor-pointer select-none bg-transparent text-gray-300 border-2 border-white/10 hover:border-indigo-500 hover:text-white px-6 py-3 text-base rounded-xl metallic-shine hover:bg-white/10"
+                className="w-full inline-flex items-center justify-center gap-2 font-bold transition-all duration-300 transform active:scale-[0.97] cursor-pointer select-none bg-white dark:bg-transparent text-gray-700 dark:text-[var(--text-primary)] border-2 border-gray-200 dark:border-[var(--border)] hover:border-indigo-500 px-6 py-3 text-base rounded-xl metallic-shine hover:bg-gray-50 dark:hover:bg-white/10 shadow-lg dark:shadow-none"
               >
                 {isExternal ? 'Visit Live Project' : 'View on portfolio'} <ArrowUpRight className="ml-2 w-4 h-4" />
               </a>

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTheme } from 'next-themes';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -35,12 +36,13 @@ export function Input({
   ...props
 }: InputProps) {
   const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
-
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
   const stateStyles = error
-    ? 'border-red-500 focus:ring-red-500/10 focus:border-red-500'
+    ? 'border-red-500 focus:ring-0 focus:border-red-500'
     : success
-      ? 'border-emerald-500 focus:ring-emerald-500/10 focus:border-emerald-500'
-      : 'border-white/30 focus:ring-indigo-500/10 focus:border-indigo-400';
+      ? 'border-emerald-500 focus:ring-0 focus:border-emerald-500'
+      : 'focus:ring-0 focus:border-indigo-400';
 
   return (
     <div className={`${fullWidth ? 'w-full' : ''}`}>
@@ -55,17 +57,25 @@ export function Input({
           </label>
         )}
       </div>
-      <div className="relative">
+      <div
+        className="relative rounded-2xl"
+        style={!isDark && !error && !success ? { border: '1px solid #000000', boxSizing: 'border-box' } : undefined}
+      >
         {icon && (
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)]">
             {icon}
           </span>
         )}
         <input
           id={inputId}
-          className={`w-full bg-white/[0.08] backdrop-blur-sm border rounded-2xl py-4 ${
+          className={`w-full bg-black/5 dark:bg-white/[0.08] backdrop-blur-sm border-0 dark:border dark:border-white/30 rounded-2xl py-4 ${
             icon ? 'pl-11 pr-5' : 'px-5'
-          } text-[15px] font-medium transition-all duration-300 focus:outline-none focus:ring-4 dark-scrollbar ${stateStyles} ${className}`}
+          } text-[15px] font-medium text-[var(--text-primary)] transition-all duration-300 focus:outline-none focus:ring-0 dark-scrollbar ${stateStyles} ${className}`}
+          style={
+            !isDark && !error && !success
+              ? { ...props.style, border: 'none', outline: 'none' }
+              : { ...props.style }
+          }
           aria-invalid={error ? 'true' : undefined}
           aria-describedby={
             error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined
@@ -79,7 +89,7 @@ export function Input({
         </p>
       )}
       {helperText && !error && (
-        <p id={`${inputId}-helper`} className="mt-2 text-sm text-gray-500">
+        <p id={`${inputId}-helper`} className="mt-2 text-sm text-[var(--text-tertiary)]">
           {helperText}
         </p>
       )}
@@ -101,6 +111,8 @@ export function Textarea({
 }: TextareaProps) {
   const [charCount, setCharCount] = React.useState(0);
   const inputId = id || (label && typeof label === 'string' ? label.toLowerCase().replace(/\s+/g, '-') : 'textarea');
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCharCount(e.target.value.length);
@@ -116,10 +128,10 @@ export function Textarea({
   }, [props.value, props.defaultValue]);
 
   const stateStyles = error
-    ? 'border-red-500 focus:ring-red-500/10 focus:border-red-500'
+    ? 'border-red-500 focus:ring-0 focus:border-red-500'
     : success
-      ? 'border-emerald-500 focus:ring-emerald-500/10 focus:border-emerald-500'
-      : 'border-white/30 focus:ring-indigo-500/10 focus:border-indigo-400';
+      ? 'border-emerald-500 focus:ring-0 focus:border-emerald-500'
+      : 'focus:ring-0 focus:border-indigo-400';
 
   return (
     <div className={`${fullWidth ? 'w-full' : ''}`}>
@@ -136,17 +148,25 @@ export function Textarea({
         {showCharacterCount && props.maxLength && (
           <div className="flex items-center">
             <span className={`text-[10px] font-bold uppercase tracking-wider ${
-              charCount >= (props.maxLength * 0.9) ? 'text-amber-500' : 'text-gray-500'
+              charCount >= (props.maxLength * 0.9) ? 'text-amber-500' : 'text-[var(--text-tertiary)]'
             }`}>
               {charCount} / {props.maxLength}
             </span>
           </div>
         )}
       </div>
-      <div className="relative">
+      <div
+        className="relative rounded-2xl"
+        style={!isDark && !error && !success ? { border: '1px solid #000000', boxSizing: 'border-box' } : undefined}
+      >
         <textarea
           id={inputId}
-          className={`w-full bg-white/[0.08] backdrop-blur-sm border rounded-2xl py-4 px-5 text-[15px] font-medium transition-all duration-300 focus:outline-none focus:ring-4 resize-none no-scrollbar ${stateStyles} ${className}`}
+          className={`w-full bg-black/5 dark:bg-white/[0.08] backdrop-blur-sm border-0 dark:border dark:border-white/30 rounded-2xl py-4 px-5 text-[15px] font-medium text-[var(--text-primary)] transition-all duration-300 focus:outline-none focus:ring-0 resize-none no-scrollbar ${stateStyles} ${className}`}
+          style={
+            !isDark && !error && !success
+              ? { ...props.style, border: 'none', outline: 'none' }
+              : { ...props.style }
+          }
           aria-invalid={error ? 'true' : undefined}
           aria-describedby={
             error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined
@@ -161,7 +181,7 @@ export function Textarea({
         </p>
       )}
       {helperText && !error && (
-        <p id={`${inputId}-helper`} className="mt-2 text-sm text-gray-500">
+        <p id={`${inputId}-helper`} className="mt-2 text-sm text-[var(--text-tertiary)]">
           {helperText}
         </p>
       )}
