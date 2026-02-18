@@ -43,8 +43,7 @@ export default function Testimonials() {
       </div>
 
       {/* Floating Circular Images - Highest z-index */}
-      <div className="absolute inset-0 z-50 pointer-events-none overflow-hidden">
-        {/* Top Left - Positioned away from text */}
+      {/* <div className="absolute inset-0 z-50 pointer-events-none overflow-hidden">
         <motion.div
           className="absolute top-10 left-[2%] w-20 h-20 lg:w-28 lg:h-28"
           animate={{ 
@@ -65,7 +64,6 @@ export default function Testimonials() {
           </div>
         </motion.div>
 
-        {/* Top Right - Positioned away from text */}
         <motion.div
           className="absolute top-10 right-[2%] w-24 h-24 lg:w-32 lg:h-32"
           animate={{ 
@@ -86,7 +84,6 @@ export default function Testimonials() {
           </div>
         </motion.div>
 
-        {/* Middle Left - Far from center */}
         <motion.div
           className="absolute top-[45%] left-[1%] w-18 h-18 lg:w-24 lg:h-24"
           animate={{ 
@@ -107,7 +104,6 @@ export default function Testimonials() {
           </div>
         </motion.div>
 
-        {/* Middle Right - Far from center */}
         <motion.div
           className="absolute top-[50%] right-[1%] w-20 h-20 lg:w-28 lg:h-28"
           animate={{ 
@@ -128,7 +124,6 @@ export default function Testimonials() {
           </div>
         </motion.div>
 
-        {/* Bottom Left - Positioned away from text */}
         <motion.div
           className="absolute bottom-10 left-[3%] w-22 h-22 lg:w-28 lg:h-28"
           animate={{ 
@@ -149,7 +144,6 @@ export default function Testimonials() {
           </div>
         </motion.div>
 
-        {/* Bottom Right - Positioned away from text */}
         <motion.div
           className="absolute bottom-10 right-[3%] w-24 h-24 lg:w-30 lg:h-30"
           animate={{ 
@@ -170,7 +164,6 @@ export default function Testimonials() {
           </div>
         </motion.div>
 
-        {/* Small Decorative Dots - Positioned in safe areas */}
         <motion.div
           className="absolute top-[25%] left-[12%] w-3 h-3 bg-indigo-400 rounded-full shadow-lg"
           animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
@@ -191,7 +184,7 @@ export default function Testimonials() {
           animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
           transition={{ duration: 3.8, repeat: Infinity, delay: 0.8 }}
         />
-      </div>
+      </div> */}
 
       {/* Content with proper padding */}
       <div className="relative py-24 lg:py-32 z-20">
