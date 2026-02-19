@@ -203,13 +203,13 @@ export default function Testimonials() {
           <Badge variant="glass" dot className="mb-6 px-4 py-1.5 text-indigo-300">
             Social Proof
           </Badge>
-          <Heading level={2} className="text-4xl lg:text-7xl font-bold !text-[var(--text-primary)] mb-8 leading-[1.05] tracking-tight">
+          <Heading level={2} className={`text-4xl lg:text-7xl font-bold mb-8 leading-[1.05] tracking-tight ${isDark ? '!text-[var(--text-primary)]' : '!text-white'}`}>
             Trusted by founders and{' '}
             <GradientText variant="indigo-purple-pink">
               product leaders
             </GradientText>
           </Heading>
-          <Text variant="large" className="text-[var(--text-secondary)] max-w-2xl mx-auto">
+          <Text variant="large" className={`max-w-2xl mx-auto ${isDark ? 'text-[var(--text-secondary)]' : 'text-white'}`}>
             We prioritize building long-term partnerships. Here is what our 
             clients say about our commitment to their success.
           </Text>

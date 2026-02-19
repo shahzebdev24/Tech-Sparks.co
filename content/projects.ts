@@ -2,7 +2,7 @@ import { Project } from '@/types';
 
 export const projects: Project[] = [
   {
-    title: 'Vonza — All-in-One Business Platform',
+    title: 'Vonza • All-in-One Business Platform',
     category: 'SaaS Platform',
     image: 'https://images.pexels.com/photos/572056/pexels-photo-572056.jpeg',
     description:
@@ -13,7 +13,7 @@ export const projects: Project[] = [
     slug: 'vonza-business-platform',
   },
   {
-    title: 'Tasdeeq Markaz — Attestation Services Portal',
+    title: 'Tasdeeq Markaz • Attestation Services Portal',
     category: 'Legal-Tech',
     image: 'https://images.pexels.com/photos/9858904/pexels-photo-9858904.jpeg',
     description:
@@ -24,7 +24,7 @@ export const projects: Project[] = [
     slug: 'tasdeeq-markaz',
   },
   {
-    title: 'Docs & More by Almeer — Attestation Platform',
+    title: 'Docs & More by Almeer • Attestation Platform',
     category: 'Legal-Tech',
     image: 'https://images.pexels.com/photos/32060712/pexels-photo-32060712.jpeg',
     description:
@@ -35,7 +35,7 @@ export const projects: Project[] = [
     slug: 'docs-and-more-by-almeer',
   },
   {
-    title: 'Student Hub — Learning Management System',
+    title: 'Student Hub • Learning Management System',
     category: 'Ed-Tech',
     image: 'https://images.pexels.com/photos/5306430/pexels-photo-5306430.jpeg',
     description:
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     slug: 'student-hub-lms',
   },
   {
-    title: 'NexusCare — Healthcare Appointment System',
+    title: 'NexusCare • Healthcare Appointment System',
     category: 'Healthcare',
     image: 'https://images.pexels.com/photos/5407212/pexels-photo-5407212.jpeg',
     description:
@@ -57,7 +57,7 @@ export const projects: Project[] = [
     slug: 'nexuscare-healthcare',
   },
   {
-    title: 'SOLÉA — Luxury E-Commerce Experience',
+    title: 'SOLÉA • Luxury E-Commerce Experience',
     category: 'Fashion & Retail',
     image: 'https://images.pexels.com/photos/135620/pexels-photo-135620.jpeg',
     description:
@@ -68,7 +68,7 @@ export const projects: Project[] = [
     slug: 'solea-luxury-ecommerce',
   },
   {
-    title: 'Freshly — Premium Grocery Delivery',
+    title: 'Freshly • Premium Grocery Delivery',
     category: 'Food & Groceries',
     image: 'https://images.pexels.com/photos/5656730/pexels-photo-5656730.jpeg',
     description:

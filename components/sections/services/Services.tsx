@@ -85,7 +85,7 @@ export default function Services() {
       {/* Background Image - light: Pexels image, no overlay; dark: /services.jpg with overlays */}
       <div className="section-bg-wrapper absolute inset-0 w-full h-full">
         <Image
-          src={isDark ? '/services.jpg' : '/serviceslight.jpg'}
+          src={isDark ? '/services.jpg' : '/serviceslight.jpeg'}
           alt="Services Background"
           fill
           className="object-cover"
@@ -99,6 +99,8 @@ export default function Services() {
           className="absolute inset-0 bg-black/70"
           style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
         />
+        {/* Light theme: subtle dark overlay */}
+        {!isDark && <div className="absolute inset-0 bg-black/20 pointer-events-none" />}
       </div>
 
       {/* Content with proper padding */}
@@ -121,7 +123,7 @@ export default function Services() {
                 designed around your goals
               </GradientText>
             </Heading>
-            <Text className="text-[var(--text-secondary)] text-lg max-w-2xl mx-auto font-medium leading-relaxed">
+            <Text className={`${isDark ? 'text-[var(--text-secondary)]' : 'text-black'} text-lg max-w-2xl mx-auto font-medium leading-relaxed`}>
               From web applications to SaaS platforms — every solution is engineered 
               to solve real business problems and drive measurable growth.
             </Text>
@@ -143,14 +145,14 @@ export default function Services() {
                 {/* Content Side */}
                 <div className="flex-1 space-y-8">
                   <div className="space-y-6">
-                    <div className={`inline-flex p-4 rounded-2xl ${service.iconBg} ${service.iconColor} border border-white/10 metallic-shine`}>
+                    <div className={`inline-flex p-4 rounded-2xl ${isDark ? service.iconBg : 'bg-white'} ${service.iconColor} border ${isDark ? 'border-white/10' : 'border-gray-200'} metallic-shine shadow-sm`}>
                       <service.icon className="w-8 h-8" />
                     </div>
                     <div className="space-y-4">
                       <Heading level={2} className="text-[var(--text-primary)] text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">
                         {service.title}
                       </Heading>
-                      <p className="text-[var(--text-secondary)] text-xl leading-relaxed max-w-xl font-medium">
+                      <p className={`${isDark ? 'text-[var(--text-secondary)]' : 'text-black'} text-xl leading-relaxed max-w-xl font-medium`}>
                         {service.description}
                       </p>
                     </div>

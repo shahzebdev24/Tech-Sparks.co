@@ -22,7 +22,7 @@ export default function AboutValuesBackground() {
         className="absolute inset-0 bg-black/65"
         style={{ opacity: isDark ? 1 : 0, pointerEvents: isDark ? undefined : 'none' }}
       />
-      {!isDark && <div className="absolute inset-0 bg-black/40 pointer-events-none" />}
+      {!isDark && <div className="absolute inset-0 bg-black/70 pointer-events-none" />}
     </div>
   );
 }

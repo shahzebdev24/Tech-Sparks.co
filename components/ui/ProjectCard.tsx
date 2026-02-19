@@ -50,7 +50,12 @@ export function ProjectCard({ project, variant = 'preview', className = '', dela
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--section-bg)]/60 to-transparent" />
           <div className="absolute top-4 left-4">
-            <Badge variant="glass" size="sm" className="bg-[var(--section-bg)]/60 backdrop-blur-xl border-[var(--border)] text-[var(--text-primary)] font-bold tracking-widest px-3 py-1">
+            <Badge 
+              variant="primary" 
+              size="sm" 
+              style={{ backgroundColor: '#4f46e5', color: '#ffffff', borderColor: '#4338ca' }}
+              className="font-bold tracking-widest px-3 py-1 shadow-lg"
+            >
               {isFull && project.impact ? project.impact : 'Case Study'}
             </Badge>
           </div>

@@ -93,7 +93,7 @@ export default function Process() {
               Digital Excellence
             </GradientText>
           </Heading>
-          <Text className="text-[var(--text-primary)]/50 text-xl max-w-2xl mx-auto leading-relaxed">
+          <Text className={`text-xl max-w-2xl mx-auto leading-relaxed ${isDark ? 'text-[var(--text-primary)]/50' : 'text-black'}`}>
             A precision-engineered workflow designed to transform high-level 
             concepts into market-ready assets.
           </Text>

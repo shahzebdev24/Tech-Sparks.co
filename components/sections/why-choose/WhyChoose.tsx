@@ -99,14 +99,14 @@ export default function WhyChoose() {
                 <span className="text-indigo-300 text-xs font-bold tracking-widest uppercase">Our Value Proposition</span>
               </div>
               
-              <Heading level={2} className="text-5xl lg:text-7xl font-extrabold !text-[var(--text-primary)] leading-[1.05] tracking-tight">
+              <Heading level={2} className={`text-5xl lg:text-7xl font-extrabold leading-[1.05] tracking-tight ${isDark ? '!text-[var(--text-primary)]' : '!text-white'}`}>
                 Why ambitious businesses{' '}
                 <span className="block mt-4 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
                   choose Tech Sparks
                 </span>
               </Heading>
               
-              <Text className={`text-xl max-w-2xl mx-auto leading-relaxed font-medium ${isDark ? 'text-[var(--text-primary)]/80' : 'text-gray-900'}`}>
+              <Text className={`text-xl max-w-2xl mx-auto leading-relaxed font-medium ${isDark ? 'text-[var(--text-primary)]/80' : 'text-white'}`}>
                 We bridge the gap between complex business challenges and elegant 
                 digital solutions. Our approach combines precision engineering 
                 with strategic design to deliver measurable competitive advantages.

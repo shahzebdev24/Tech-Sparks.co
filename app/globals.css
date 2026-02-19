@@ -432,12 +432,12 @@ html:not(.dark) #stats .group:hover .stats-card-label {
   color: #ffffff !important;
 }
 
-/* Force black borders on contact form inputs in light mode (default state) */
+/* Force dark gray borders on contact form inputs in light mode (default state) */
 html:not(.dark) .contact-form input,
 html:not(.dark) .contact-form textarea {
   border-width: 1px !important;
   border-style: solid !important;
-  border-color: #000000 !important;
+  border-color: #6b7280 !important;
 }
 /* Focus: blue border only, no ring/shadow */
 html:not(.dark) .contact-form input:focus,

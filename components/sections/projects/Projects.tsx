@@ -38,7 +38,7 @@ export default function Projects() {
       <div className="relative py-24 lg:py-32 z-10">
         <Container>
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-20">
-          <div className={!isDark ? '[&_.text-indigo-600]:!text-white [&_.text-indigo-300]:!text-white [&_h2]:!text-white [&_p]:!text-white/90' : ''}>
+          <div className={!isDark ? '[&_h2]:!text-white [&_p]:!text-white/90 [&_.text-indigo-600:not(span)]:!text-white [&_.text-indigo-300:not(span)]:!text-white' : ''}>
             <SectionHeader
               badge="Our Portfolio"
               title={<>Engineering solutions that <GradientText variant="indigo-purple">fuel growth</GradientText></>}

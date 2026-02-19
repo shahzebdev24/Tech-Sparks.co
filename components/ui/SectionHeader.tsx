@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { Badge, Heading, Text } from '@/components/ui';
 
 const maxWidthClasses: Record<string, string> = {
@@ -30,6 +31,7 @@ export function SectionHeader({
   maxWidth = 'full',
   className = '',
 }: SectionHeaderProps) {
+  const { isDark } = useSafeTheme();
   const wrapperClass = [
     maxWidthClasses[maxWidth],
     align === 'center' ? 'mx-auto text-center' : '',
@@ -40,12 +42,18 @@ export function SectionHeader({
 
   return (
     <div className={wrapperClass}>
-      <Badge variant="glass" className={align === 'center' ? 'mb-4' : 'mb-6'}>
-        {badge}
-      </Badge>
+      {badge && (
+        <Badge 
+          variant="glass" 
+          className={align === 'center' ? 'mb-4' : 'mb-6'}
+          style={!isDark ? { backgroundColor: '#ffffff', color: '#000000', borderColor: '#e2e8f0' } : undefined}
+        >
+          {badge}
+        </Badge>
+      )}
       <Heading
         level={headingLevel}
-        className={`!text-[var(--text-primary)] ${headingLevel === 1 ? 'mb-8 tracking-tighter' : 'mb-6'} ${align === 'center' ? '' : ''}`}
+        className={`${isDark ? '!text-[var(--text-primary)]' : '!text-white'} ${headingLevel === 1 ? 'mb-8 tracking-tighter' : 'mb-6'} ${align === 'center' ? '' : ''}`}
       >
         {title}
       </Heading>

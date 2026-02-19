@@ -261,7 +261,7 @@ export default function Contact({
                           placeholder="John Doe" 
                           required 
                           labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em]"
-                          className="!bg-white dark:!bg-white/[0.08] !border-black dark:!border-white/30 !text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:!border-indigo-500/50" 
+                          className="!bg-white dark:!bg-white/[0.08] !border-gray-500 dark:!border-white/30 !text-[var(--text-primary)] placeholder:!text-gray-400 dark:placeholder:text-[var(--text-tertiary)] focus:!border-indigo-500" 
                           error={errors.name}
                           onChange={handleChange}
                         />
@@ -272,7 +272,7 @@ export default function Contact({
                           placeholder="john@example.com" 
                           required 
                           labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em]"
-                          className="!bg-white dark:!bg-white/[0.08] !border-black dark:!border-white/30 !text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:!border-indigo-500/50" 
+                          className="!bg-white dark:!bg-white/[0.08] !border-gray-500 dark:!border-white/30 !text-[var(--text-primary)] placeholder:!text-gray-400 dark:placeholder:text-[var(--text-tertiary)] focus:!border-indigo-500" 
                           error={errors.email}
                           onChange={handleChange}
                         />
@@ -283,7 +283,7 @@ export default function Contact({
                         label="Company Name" 
                         placeholder="Your Business Ltd." 
                         labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em]"
-                        className="!bg-white dark:!bg-white/[0.08] !border-black dark:!border-white/30 !text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:!border-indigo-500/50" 
+                        className="!bg-white dark:!bg-white/[0.08] !border-gray-500 dark:!border-white/30 !text-[var(--text-primary)] placeholder:!text-gray-400 dark:placeholder:text-[var(--text-tertiary)] focus:!border-indigo-500" 
                         error={errors.company}
                         onChange={handleChange}
                       />
@@ -297,7 +297,7 @@ export default function Contact({
                         maxLength={2000}
                         showCharacterCount
                         labelClassName="text-indigo-400/80 text-[10px] font-black uppercase tracking-[0.25em]"
-                        className="!bg-white dark:!bg-white/[0.08] !border-black dark:!border-white/30 !text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)] focus:!border-indigo-500/50" 
+                        className="!bg-white dark:!bg-white/[0.08] !border-gray-500 dark:!border-white/30 !text-[var(--text-primary)] placeholder:!text-gray-400 dark:placeholder:text-[var(--text-tertiary)] focus:!border-indigo-500" 
                         error={errors.message}
                         onChange={handleChange}
                       />

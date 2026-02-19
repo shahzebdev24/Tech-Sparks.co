@@ -56,10 +56,7 @@ export function Input({
           </label>
         )}
       </div>
-      <div
-        className="relative rounded-2xl"
-        style={!isDark && !error && !success ? { border: '1px solid #000000', boxSizing: 'border-box' } : undefined}
-      >
+      <div className="relative rounded-2xl">
         {icon && (
           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-tertiary)]">
             {icon}
@@ -67,12 +64,12 @@ export function Input({
         )}
         <input
           id={inputId}
-          className={`w-full bg-black/5 dark:bg-white/[0.08] backdrop-blur-sm border-0 dark:border dark:border-white/30 rounded-2xl py-4 ${
+          className={`w-full bg-black/5 dark:bg-white/[0.08] backdrop-blur-sm border dark:border-white/30 rounded-2xl py-4 ${
             icon ? 'pl-11 pr-5' : 'px-5'
           } text-[15px] font-medium text-[var(--text-primary)] transition-all duration-300 focus:outline-none focus:ring-0 dark-scrollbar ${stateStyles} ${className}`}
           style={
             !isDark && !error && !success
-              ? { ...props.style, border: 'none', outline: 'none' }
+              ? { ...props.style, borderColor: '#6b7280', outline: 'none', boxShadow: 'none' }
               : { ...props.style }
           }
           aria-invalid={error ? 'true' : undefined}
@@ -153,16 +150,13 @@ export function Textarea({
           </div>
         )}
       </div>
-      <div
-        className="relative rounded-2xl"
-        style={!isDark && !error && !success ? { border: '1px solid #000000', boxSizing: 'border-box' } : undefined}
-      >
+      <div className="relative rounded-2xl">
         <textarea
           id={inputId}
-          className={`w-full bg-black/5 dark:bg-white/[0.08] backdrop-blur-sm border-0 dark:border dark:border-white/30 rounded-2xl py-4 px-5 text-[15px] font-medium text-[var(--text-primary)] transition-all duration-300 focus:outline-none focus:ring-0 resize-none no-scrollbar ${stateStyles} ${className}`}
+          className={`w-full bg-black/5 dark:bg-white/[0.08] backdrop-blur-sm border dark:border-white/30 rounded-2xl py-4 px-5 text-[15px] font-medium text-[var(--text-primary)] transition-all duration-300 focus:outline-none focus:ring-0 resize-none no-scrollbar ${stateStyles} ${className}`}
           style={
             !isDark && !error && !success
-              ? { ...props.style, border: 'none', outline: 'none' }
+              ? { ...props.style, borderColor: '#6b7280', outline: 'none', boxShadow: 'none' }
               : { ...props.style }
           }
           aria-invalid={error ? 'true' : undefined}
