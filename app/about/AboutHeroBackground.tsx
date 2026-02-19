@@ -1,11 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 
 export default function AboutHeroBackground() {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   return (
     <div className="absolute inset-0 w-full h-full z-0">

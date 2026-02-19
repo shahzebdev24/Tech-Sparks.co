@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -36,8 +36,7 @@ export function Input({
   ...props
 }: InputProps) {
   const inputId = id || label?.toLowerCase().replace(/\s+/g, '-');
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
   const stateStyles = error
     ? 'border-red-500 focus:ring-0 focus:border-red-500'
     : success
@@ -111,8 +110,7 @@ export function Textarea({
 }: TextareaProps) {
   const [charCount, setCharCount] = React.useState(0);
   const inputId = id || (label && typeof label === 'string' ? label.toLowerCase().replace(/\s+/g, '-') : 'textarea');
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setCharCount(e.target.value.length);

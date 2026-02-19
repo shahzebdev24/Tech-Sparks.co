@@ -1,6 +1,6 @@
 'use client';
 
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Section, Container, Heading, Text, Badge, GradientText } from '@/components/ui';
@@ -72,8 +72,7 @@ const stacks = [
 ];
 
 export default function TechStack() {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   return (
     <Section id="tech-stack" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--section-bg)]">

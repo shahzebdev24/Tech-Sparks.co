@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Tailwind v4: use class-based dark mode so .dark on <html> triggers dark: classes (fixes incognito/first-load hover and components staying light) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   /* ============================================
      TECH SPARKS BRAND COLOR SYSTEM

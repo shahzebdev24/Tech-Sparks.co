@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Section, Container, Heading, Text, Badge, GradientText } from '@/components/ui';
@@ -41,8 +41,7 @@ const steps = [
 
 export default function Process() {
   const [hoveredStep, setHoveredStep] = useState<number | null>(null);
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   return (
     <Section id="process" bg="none" spacing="none" className={`relative overflow-hidden ${isDark ? 'bg-[#050510]' : 'bg-[var(--section-bg)]'}`}>

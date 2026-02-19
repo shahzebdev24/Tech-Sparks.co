@@ -1,6 +1,6 @@
 'use client';
 
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { Star, Quote } from 'lucide-react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -28,8 +28,7 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   return (
     <Section id="testimonials" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--section-bg)]">

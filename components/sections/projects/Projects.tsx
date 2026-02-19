@@ -1,14 +1,13 @@
 'use client';
 
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Section, Container, ProjectCard, Button, GradientText, SectionHeader } from '@/components/ui';
 import { projects } from '@/content/projects';
 
 export default function Projects() {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
   // Only show the first 3 projects for the home section
   const featuredProjects = projects.slice(0, 3);
 

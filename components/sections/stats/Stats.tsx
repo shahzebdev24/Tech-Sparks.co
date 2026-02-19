@@ -1,6 +1,6 @@
 'use client';
 
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Section, Container, Heading, Text } from '@/components/ui';
@@ -33,8 +33,7 @@ const stats = [
 ];
 
 export default function Stats() {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   return (
     <Section id="stats" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--section-bg)]">

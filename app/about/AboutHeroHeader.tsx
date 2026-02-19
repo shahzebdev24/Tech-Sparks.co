@@ -1,11 +1,10 @@
 'use client';
 
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { SectionHeader, GradientText } from '@/components/ui';
 
 export default function AboutHeroHeader() {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   return (
     <div className={!isDark ? '[&_.text-indigo-600]:!text-white [&_.text-indigo-300]:!text-white [&_h1]:!text-white [&_p]:!text-white/90' : ''}>

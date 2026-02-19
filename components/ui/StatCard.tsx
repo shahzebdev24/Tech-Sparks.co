@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 
 interface StatCardProps {
   value: string | number;
@@ -10,8 +10,7 @@ interface StatCardProps {
 }
 
 export function StatCard({ value, label, className = '' }: StatCardProps) {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   return (
     <div

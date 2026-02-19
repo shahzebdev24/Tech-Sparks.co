@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { Globe, Code2, Palette, ShoppingCart, Server, Smartphone } from 'lucide-react';
 import { Container, Section, Card, Heading, Text, Badge, GradientText } from '@/components/ui';
 
@@ -78,8 +78,7 @@ const services = [
 ];
 
 export default function Services() {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   return (
     <Section id="services" bg="none" spacing="none" className="relative overflow-hidden bg-[var(--section-bg)] text-[var(--text-primary)]">

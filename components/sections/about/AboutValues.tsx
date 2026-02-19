@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-  import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Target, Heart, Award, Users } from 'lucide-react';
@@ -9,8 +9,7 @@ import { Card, Heading } from '@/components/ui';
 
 export default function AboutValues() {
   const [activeCard, setActiveCard] = useState<number | null>(null);
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   const values = [
     {

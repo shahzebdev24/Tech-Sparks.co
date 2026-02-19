@@ -2,14 +2,13 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, Code2, Palette, Zap } from 'lucide-react';
 import { Heading, GradientText } from '@/components/ui';
 
 export default function Hero() {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
   const heroCardStyle = isDark
     ? {
         backgroundColor: 'var(--hero-card-bg)',

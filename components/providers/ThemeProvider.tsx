@@ -8,7 +8,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       attribute="class"
       value={{ dark: 'dark', light: 'light' }}
       defaultTheme="dark"
-      enableSystem
+      enableSystem={false}
       storageKey="techsparks-theme"
     >
       {children}

@@ -1,11 +1,10 @@
 'use client';
 
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { Button } from '@/components/ui';
 
 export default function AboutCTAButtons() {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 pt-4">

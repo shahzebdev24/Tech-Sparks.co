@@ -1,11 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 
 export default function AboutTeamBackground() {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   return (
     <div className="section-bg-wrapper absolute inset-0 w-full h-full z-0">

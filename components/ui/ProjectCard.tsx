@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
@@ -19,8 +19,7 @@ export function ProjectCard({ project, variant = 'preview', className = '', dela
   const isFull = variant === 'full';
   const [isExpanded, setIsExpanded] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   return (
     <motion.div

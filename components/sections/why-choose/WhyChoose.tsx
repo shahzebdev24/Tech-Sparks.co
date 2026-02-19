@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Target, Users, ShieldCheck, Zap, BarChart3, Clock, ArrowUpRight } from 'lucide-react';
@@ -54,8 +54,7 @@ const reasons = [
 
 export default function WhyChoose() {
   const [activeCard, setActiveCard] = useState<number | null>(null);
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   return (
     <Section id="why-choose" bg="none" spacing="none" className={`relative overflow-hidden ${isDark ? 'bg-[#050510]' : 'bg-[var(--section-bg)]'}`}>

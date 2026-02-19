@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight, Sun, Moon } from 'lucide-react';
 import { Container, Button } from '@/components/ui';
@@ -19,8 +19,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState<string>('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { resolvedTheme, setTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { resolvedTheme, setTheme, isDark } = useSafeTheme();
 
   useEffect(() => {
     const handleScroll = () => {

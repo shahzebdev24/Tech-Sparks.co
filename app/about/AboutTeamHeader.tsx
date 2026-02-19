@@ -1,11 +1,10 @@
 'use client';
 
-import { useTheme } from 'next-themes';
+import { useSafeTheme } from '@/hooks/useSafeTheme';
 import { SectionHeader, Text, GradientText } from '@/components/ui';
 
 export default function AboutTeamHeader() {
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
+  const { isDark } = useSafeTheme();
 
   return (
     <div className={!isDark ? '[&_.text-indigo-600]:!text-gray-900 [&_.text-indigo-300]:!text-gray-900 [&_h2]:!text-gray-900 [&_p]:!text-gray-800' : ''}>
