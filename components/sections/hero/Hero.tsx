@@ -73,7 +73,9 @@ export default function Hero() {
               className="text-4xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold leading-[1.1] tracking-tight text-[var(--text-primary)] mb-8"
             >
               Software development,{' '}
-              <GradientText variant="indigo-via-purple-indigo">engineered</GradientText>{' '}
+              <span className="bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
+                engineered
+              </span>{' '}
               to grow your business
             </Heading>
           </motion.div>
